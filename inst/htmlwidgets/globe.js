@@ -65,6 +65,38 @@ HTMLWidgets.widget({
           globe.onPointRightClick(x.onPointRightClick);  
         if(x.hasOwnProperty("onPointHover"))
           globe.onPointHover(x.onPointHover);  
+
+        // arcs
+        if(x.hasOwnProperty("arcsData"))
+          globe.arcsData(x.arcsData);
+        if(x.hasOwnProperty("arcColor"))
+          globe.arcColor(x.arcColor);
+        if(x.hasOwnProperty("arcAltitude"))
+          globe.arcAltitude(x.arcAltitude);
+        if(x.hasOwnProperty("arcAltitudeAutoScale"))
+          globe.arcAltitudeAutoScale(x.arcAltitudeAutoScale);
+        if(x.hasOwnProperty("arcStroke"))
+          globe.arcStroke(x.arcStroke);
+        if(x.hasOwnProperty("arcCurveResolution"))
+          globe.arcCurveResolution(x.arcCurveResolution);
+        if(x.hasOwnProperty("arcCircularResolution"))
+          globe.arcCircularResolution(x.arcCircularResolution);
+        if(x.hasOwnProperty("arcDashLength"))
+          globe.arcDashLength(x.arcDashLength);
+        if(x.hasOwnProperty("arcDashGap"))
+          globe.arcDashGap(x.arcDashGap);
+        if(x.hasOwnProperty("arcDashInitialGap"))
+          globe.arcDashInitialGap(x.arcDashInitialGap);
+        if(x.hasOwnProperty("arcDashAnimateTime"))
+          globe.arcDashAnimateTime(x.arcDashAnimateTime);  
+        if(x.hasOwnProperty("arcsTransitionDuration"))
+          globe.arcsTransitionDuration(x.arcsTransitionDuration);  
+        if(x.hasOwnProperty("onArcClick"))
+          globe.onArcClick(x.onArcClick); 
+        if(x.hasOwnProperty("onArcRightClick"))
+          globe.onArcRightClick(x.onArcRightClick); 
+        if(x.hasOwnProperty("onArcHover"))
+          globe.onArcHover(x.onArcHover); 
       },
 
       getGlobe: function(){
@@ -182,6 +214,43 @@ if (HTMLWidgets.shinyMode) {
           globe.onPointRightClick(data.onPointRightClick);  
         if(data.hasOwnProperty("onPointHover"))
           globe.onPointHover(data.onPointHover); 
+      }
+  });
+
+  Shiny.addCustomMessageHandler('globe_arcs',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        if(data.hasOwnProperty("arcsData"))
+          globe.arcsData(data.arcsData);
+        if(data.hasOwnProperty("arcColor"))
+          globe.arcColor(data.arcColor);
+        if(data.hasOwnProperty("arcAltitude"))
+          globe.arcAltitude(data.arcAltitude);
+        if(data.hasOwnProperty("arcAltitudeAutoScale"))
+          globe.arcAltitudeAutoScale(data.arcAltitudeAutoScale);
+        if(data.hasOwnProperty("arcStroke"))
+          globe.arcStroke(data.arcStroke);
+        if(data.hasOwnProperty("arcCurveResolution"))
+          globe.arcCurveResolution(data.arcCurveResolution);
+        if(data.hasOwnProperty("arcCircularResolution"))
+          globe.arcCircularResolution(data.arcCircularResolution);
+        if(data.hasOwnProperty("arcDashLength"))
+          globe.arcDashLength(data.arcDashLength);
+        if(data.hasOwnProperty("arcDashGap"))
+          globe.arcDashGap(data.arcDashGap);
+        if(data.hasOwnProperty("arcDashInitialGap"))
+          globe.arcDashInitialGap(data.arcDashInitialGap);
+        if(data.hasOwnProperty("arcDashAnimateTime"))
+          globe.arcDashAnimateTime(data.arcDashAnimateTime);  
+        if(data.hasOwnProperty("arcsTransitionDuration"))
+          globe.arcsTransitionDuration(data.arcsTransitionDuration);  
+        if(data.hasOwnProperty("onArcClick"))
+          globe.onArcClick(data.onArcClick); 
+        if(data.hasOwnProperty("onArcRightClick"))
+          globe.onArcRightClick(data.onArcRightClick); 
+        if(data.hasOwnProperty("onArcHover"))
+          globe.onArcHover(data.onArcHover); 
       }
   });
 

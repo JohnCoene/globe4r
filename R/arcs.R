@@ -45,6 +45,33 @@
 #' to their final position. New arcs are animated by rising them from the ground up.
 #' @param on_click,on_right_click,on_hover JavaScript functions as strings.
 #' 
+#' @examples
+#' # basic
+#' create_globe() %>% 
+#'   globe_img_url() %>% 
+#'   globe_arcs(usflights, start_lat, start_lon, end_lat, end_lon)
+#' 
+#' # in shiny
+#' library(shiny)
+#' 
+#' ui <- fluidPage(
+#'   actionButton("add", "Add arcs"),
+#'   globeOutput("globe")
+#' )
+#' 
+#' server <- function(input, output){
+#'   output$globe <- renderGlobe({
+#'     create_globe() %>% 
+#'       globe_img_url()
+#'   })
+#' 
+#'   observeEvent(input$add, {
+#'     globeProxy("globe") %>% 
+#'       globe_arcs(usflights, start_lat, start_lon, end_lat, end_lon)
+#'   })
+#' }
+#' 
+#' \dontrun{shinyApp(ui, server)}
 #' @export
 globe_arcs <- function(globe, data, start_lat, start_lon, end_lat, end_lon,
   label = NULL, color = NULL, altitude = NULL, altitude_scale = NULL, stroke = NULL,
@@ -82,13 +109,13 @@ globe_arcs.globe <- function(globe, data, start_lat, start_lon, end_lat, end_lon
   globe$x$arcsData <- data %>% 
     dplyr::select(
       startLat = !!start_lat_enquo,
-      startLng = !!start_lon,
+      startLng = !!start_lon_enquo,
       endLat = !!end_lat_enquo,
-      engLng = !!end_lon_enquo,
+      endLng = !!end_lon_enquo,
       name = !!label_enquo,
       color = !!color_enquo,
       altitude = !!altitude_enquo,
-      altitude_scale = !!altitude_scale,
+      altitude_scale = !!altitude_scale_enquo,
       stroke = !!stroke_enquo
     )
 
@@ -106,6 +133,68 @@ globe_arcs.globe <- function(globe, data, start_lat, start_lon, end_lat, end_lon
   globe$x$onArcClick <- if(!is.null(on_click)) htmlwidgets::JS(on_click)
   globe$x$onArcRightClick <- if(!is.null(on_right_click)) htmlwidgets::JS(on_right_click)
   globe$x$onArcHover <- if(!is.null(on_hover)) htmlwidgets::JS(on_hover)
+
+  return(globe)
+}
+
+#' @export
+#' @method globe_arcs globeProxy
+globe_arcs.globeProxy <- function(globe, data, start_lat, start_lon, end_lat, end_lon,
+  label = NULL, color = NULL, altitude = NULL, altitude_scale = NULL, stroke = NULL,
+  curve_resolution = 64L, circular_resolution = 6L, dash_length = 1L, dash_gap = 0L,
+  dash_initial_gap = 0L, dash_animate_time = 0L, transition = 1000L,
+  on_click = NULL, on_right_click = NULL, on_hover = NULL){
+
+  # check inputs
+  assert_that(not_missing(data))
+  assert_that(not_missing(start_lat))
+  assert_that(not_missing(start_lon))
+  assert_that(not_missing(end_lat))
+  assert_that(not_missing(end_lon))
+
+  # enquo all things
+  start_lat_enquo <- rlang::enquo(start_lat)
+  start_lon_enquo <- rlang::enquo(start_lon)
+  end_lat_enquo <- rlang::enquo(end_lat)
+  end_lon_enquo <- rlang::enquo(end_lon)
+  label_enquo <- rlang::enquo(label)
+  color_enquo <- rlang::enquo(color)
+  altitude_enquo <- rlang::enquo(altitude)
+  altitude_scale_enquo <- rlang::enquo(altitude_scale)
+  stroke_enquo <- rlang::enquo(stroke)
+
+  msg <- list(id = globe$id)
+
+  msg$arcsData <- data %>% 
+    dplyr::select(
+      startLat = !!start_lat_enquo,
+      startLng = !!start_lon_enquo,
+      endLat = !!end_lat_enquo,
+      endLng = !!end_lon_enquo,
+      name = !!label_enquo,
+      color = !!color_enquo,
+      altitude = !!altitude_enquo,
+      altitude_scale = !!altitude_scale_enquo,
+      stroke = !!stroke_enquo
+    ) %>% 
+    apply(1, as.list)
+
+  msg$arcColor <- if(!rlang::quo_is_null(color_enquo)) "color"
+  msg$arcAltitude <- if(!rlang::quo_is_null(altitude_enquo)) "altitude"
+  msg$arcAltitudeAutoScale <- if(!rlang::quo_is_null(altitude_scale_enquo)) "altitude_scale"
+  msg$arcStroke <- if(!rlang::quo_is_null(stroke_enquo)) "stroke"
+  msg$arcCurveResolution <- curve_resolution
+  msg$arcCircularResolution <- circular_resolution
+  msg$arcDashLength <- dash_length
+  msg$arcDashGap <- dash_gap
+  msg$arcDashInitialGap <- dash_initial_gap
+  msg$arcDashAnimateTime <- dash_animate_time
+  msg$arcsTransitionDuration <- transition
+  msg$onArcClick <- if(!is.null(on_click)) htmlwidgets::JS(on_click)
+  msg$onArcRightClick <- if(!is.null(on_right_click)) htmlwidgets::JS(on_right_click)
+  msg$onArcHover <- if(!is.null(on_hover)) htmlwidgets::JS(on_hover)
+
+  globe$session$sendCustomMessage("globe_arcs", msg)
 
   return(globe)
 }

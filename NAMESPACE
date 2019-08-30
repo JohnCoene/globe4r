@@ -3,6 +3,7 @@
 S3method(bump_img_url,globe)
 S3method(bump_img_url,globeProxy)
 S3method(globe_arcs,globe)
+S3method(globe_arcs,globeProxy)
 S3method(globe_background,globe)
 S3method(globe_background,globeProxy)
 S3method(globe_dimensions,globe)

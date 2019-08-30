@@ -76,3 +76,31 @@ to their final position. New arcs are animated by rising them from the ground up
 \description{
 Add arcs
 }
+\examples{
+# basic
+create_globe() \%>\% 
+  globe_img_url() \%>\% 
+  globe_arcs(usflights, start_lat, start_lon, end_lat, end_lon)
+
+# in shiny
+library(shiny)
+
+ui <- fluidPage(
+  actionButton("add", "Add arcs"),
+  globeOutput("globe")
+)
+
+server <- function(input, output){
+  output$globe <- renderGlobe({
+    create_globe() \%>\% 
+      globe_img_url()
+  })
+
+  observeEvent(input$add, {
+    globeProxy("globe") \%>\% 
+      globe_arcs(usflights, start_lat, start_lon, end_lat, end_lon)
+  })
+}
+
+\dontrun{shinyApp(ui, server)}
+}
