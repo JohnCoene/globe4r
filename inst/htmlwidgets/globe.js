@@ -22,6 +22,12 @@ HTMLWidgets.widget({
         if(x.hasOwnProperty("bumpImageUrl"))
           globe.bumpImageUrl(x.bumpImageUrl);
 
+        if(x.hasOwnProperty("showAtmosphere"))
+          globe.showAtmosphere(x.showAtmosphere);
+
+        if(x.hasOwnProperty("showGraticules"))
+          globe.showGraticules(x.showGraticules);
+
       },
 
       getGlobe: function(){
@@ -30,7 +36,11 @@ HTMLWidgets.widget({
 
       resize: function(width, height) {
 
-        // TODO: code to re-render the widget with a new size
+        if(globe){
+          globe
+            .width(width)
+            .height(height)
+        }
 
       }
 
@@ -66,6 +76,22 @@ if (HTMLWidgets.shinyMode) {
       var globe = get_globe(data.id);
       if (typeof globe != 'undefined') {
         globe.bumpImageUrl(data.url);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('showAtmosphere',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.showAtmosphere(data.show);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('showGraticules',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.showGraticules(data.show);
       }
   });
 

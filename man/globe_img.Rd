@@ -20,7 +20,8 @@ as returned by \code{\link{globeProxy}}.}
 \description{
 Getter/setter for the URL of the image used in the material 
 that wraps the globe. If no image is provided, the globe is 
-represented as a black sphere.
+represented as a black sphere. Also provides API to create a 
+bump map in the material, to represent the globe's terrain.
 }
 \examples{
 # basic

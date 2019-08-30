@@ -2,7 +2,8 @@
 #' 
 #' Getter/setter for the URL of the image used in the material 
 #' that wraps the globe. If no image is provided, the globe is 
-#' represented as a black sphere.
+#' represented as a black sphere. Also provides API to create a 
+#' bump map in the material, to represent the globe's terrain.
 #' 
 #' @param globe An object of class \code{globe} as returned by
 #' \code{\link{create_globe}}, or an object of class \code{globeProxy}
@@ -70,4 +71,56 @@ bump_img_url.globe <- function(globe, url = image_url("earth-topology")){
 bump_img_url.globeProxy <- function(globe, url = image_url("earth-topology")){
   data <- list(id = globe$id, url = url)
   globe$session$sendCustomMessage("bumpImageUrl", data)
+}
+
+#' Atmosphere & Grid
+#' 
+#' Customise atmosphere (bright halo surrounding the globe) 
+#' and graticules grid demarking latitude and longitude lines 
+#' at every 10 degrees.
+#' 
+#' @inheritParams globe_img
+#' @param show Whether to show the atmosphere or graticules.
+#' 
+#' @examples
+#' img <- image_url("earth-blue-marble")
+#' create_globe() %>% 
+#'   globe_img_url(img) %>% 
+#'   show_atmosphere(FALSE) %>% 
+#'   show_graticules(TRUE)
+#' 
+#' @name atmosphere
+#' @export
+show_atmosphere <- function(globe, show = TRUE) UseMethod("show_atmosphere")
+
+#' @export
+#' @method show_atmosphere globe
+show_atmosphere.globe <- function(globe, show = TRUE){
+  globe$x$showAtmosphere <- show
+  return(globe)
+}
+
+#' @export
+#' @method show_atmosphere globeProxy
+show_atmosphere.globeProxy <- function(globe, show = TRUE){
+  data <- list(id = globe$id, show = show)
+  globe$session$sendCustomMessage("showAtmosphere", data)
+}
+
+#' @name atmosphere
+#' @export
+show_graticules <- function(globe, show = TRUE) UseMethod("show_graticules")
+
+#' @export
+#' @method show_graticules globe
+show_graticules.globe <- function(globe, show = TRUE){
+  globe$x$showGraticules <- show
+  return(globe)
+}
+
+#' @export
+#' @method show_graticules globeProxy
+show_graticules.globeProxy <- function(globe, show = TRUE){
+  data <- list(id = globe$id, show = show)
+  globe$session$sendCustomMessage("showGraticules", data)
 }

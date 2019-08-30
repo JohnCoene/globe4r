@@ -35,7 +35,11 @@ create_globe <- function(antialias = TRUE, alpha = TRUE, animate_in = TRUE,
     width = width,
     height = height,
     package = 'globe4r',
-    elementId = elementId
+    elementId = elementId,
+    sizingPolicy = htmlwidgets::sizingPolicy(
+      padding = 0,
+      browser.fill = TRUE
+    )
   )
 }
 
