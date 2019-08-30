@@ -11,8 +11,9 @@
 #' @param animate_in Whether to animate the globe initialization, by scaling 
 #' and rotating the globe into its inital position.
 #' 
-#' @import htmlwidgets
+#' @import dplyr
 #' @import assertthat
+#' @import htmlwidgets
 #'
 #' @export
 create_globe <- function(antialias = TRUE, alpha = TRUE, animate_in = TRUE, 
@@ -36,11 +37,18 @@ create_globe <- function(antialias = TRUE, alpha = TRUE, animate_in = TRUE,
     height = height,
     package = 'globe4r',
     elementId = elementId,
+    preRenderHook = build_globe,
     sizingPolicy = htmlwidgets::sizingPolicy(
       padding = 0,
       browser.fill = TRUE
     )
   )
+}
+
+build_globe <- function(globe){
+  if(length(globe$x$pointsData))
+    globe$x$pointsData <- apply(globe$x$pointsData, 1, as.list)
+  return(globe)
 }
 
 #' Shiny bindings for globe

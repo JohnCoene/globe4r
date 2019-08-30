@@ -16,6 +16,7 @@ HTMLWidgets.widget({
         dom = document.getElementById(el.id);
         globe = Globe(x.init)(dom);
 
+        // general options
         if(x.hasOwnProperty("globeImageUrl"))
           globe.globeImageUrl(x.globeImageUrl);
 
@@ -34,9 +35,36 @@ HTMLWidgets.widget({
         if(x.hasOwnProperty("height"))
           globe.height(x.height);
 
-
         if(x.hasOwnProperty("backgroundColor"))
           globe.backgroundColor(x.backgroundColor);
+
+        // points
+        if(x.hasOwnProperty("pointsData"))
+          globe.pointsData(x.pointsData);
+        if(x.hasOwnProperty("pointLabel"))
+          globe.pointLabel(x.pointLabel);
+        if(x.hasOwnProperty("pointLat"))
+          globe.pointLat(x.pointLat);
+        if(x.hasOwnProperty("pointLng"))
+          globe.pointLng(x.pointLng);
+        if(x.hasOwnProperty("pointColor"))
+          globe.pointColor(x.pointColor);
+        if(x.hasOwnProperty("pointAltitude"))
+          globe.pointAltitude(x.pointAltitude);
+        if(x.hasOwnProperty("pointResolution"))
+          globe.pointResolution(x.pointResolution);
+        if(x.hasOwnProperty("pointRadius"))
+          globe.pointRadius(x.pointRadius);
+        if(x.hasOwnProperty("pointsMerge"))
+          globe.pointsMerge(x.pointsMerge);
+        if(x.hasOwnProperty("pointsTransitionDuration"))
+          globe.pointsTransitionDuration(x.pointsTransitionDuration);
+        if(x.hasOwnProperty("onPointClick"))
+          globe.onPointClick(x.onPointClick);  
+        if(x.hasOwnProperty("onPointRightClick"))
+          globe.onPointRightClick(x.onPointRightClick);  
+        if(x.hasOwnProperty("onPointHover"))
+          globe.onPointHover(x.onPointHover);  
       },
 
       getGlobe: function(){
