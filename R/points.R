@@ -83,17 +83,14 @@ globe_points.globe <- function(globe, data, lat, lon, color = NULL,
   globe$x$pointsData <- data %>% 
     dplyr::select(
       lat = !!lat_enquo,
-      lon = !!lon_enquo,
-      label = !!label_enquo,
+      lng = !!lon_enquo,
+      name = !!label_enquo,
       color = !!color_enquo,
       altitude = !!altitude_enquo,
       radius = !!radius_enquo
     )
-
-  globe$x$pointLat <- if(!rlang::quo_is_null(lat_enquo)) "lat"
-  globe$x$pointLng <- if(!rlang::quo_is_null(lon_enquo)) "lon"
+  
   globe$x$pointColor <- if(!rlang::quo_is_null(color_enquo)) "color"
-  globe$x$pointLabel <- if(!rlang::quo_is_null(label_enquo)) "label"
   globe$x$pointAltitude <- if(!rlang::quo_is_null(altitude_enquo)) "altitude"
   globe$x$pointRadius <- if(!rlang::quo_is_null(radius_enquo)) "radius"
   globe$x$pointResolution <- resolution

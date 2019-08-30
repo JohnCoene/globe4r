@@ -48,6 +48,8 @@ create_globe <- function(antialias = TRUE, alpha = TRUE, animate_in = TRUE,
 build_globe <- function(globe){
   if(length(globe$x$pointsData))
     globe$x$pointsData <- apply(globe$x$pointsData, 1, as.list)
+  if(length(globe$x$arcsData))
+    globe$x$arcsData <- apply(globe$x$arcsData, 1, as.list)
   return(globe)
 }
 
