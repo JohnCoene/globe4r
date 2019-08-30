@@ -1,0 +1,5 @@
+dependencies:
+ - name: globe
+   version: 1.5.11
+   src: htmlwidgets/lib/globe
+   script: globe.gl.min.js

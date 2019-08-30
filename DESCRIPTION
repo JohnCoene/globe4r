@@ -1,0 +1,16 @@
+Package: globe4r
+Title: Interactive Globes
+Version: 0.0.0.9000
+Authors@R: person("John", "Coene", email = "jcoenep@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6637-4107"))
+Description: Create interactive globes for 'R markdown' and 'Shiny'.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Suggests: shiny
+Imports:
+    cli,
+    crayon,
+    magrittr,
+    assertthat,
+    htmlwidgets
+RoxygenNote: 6.1.1
