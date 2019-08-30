@@ -1,6 +1,6 @@
 #' Arcs
 #' 
-#' Add arcs
+#' Add arcs to a globe.
 #' 
 #' @inheritParams globe_points
 #' @param start_lat,start_lon,end_lat,end_lon Bare column names 

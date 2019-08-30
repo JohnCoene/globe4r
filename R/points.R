@@ -1,6 +1,6 @@
 #' Points
 #' 
-#' Add points on a globe.
+#' Add points to a globe.
 #' 
 #' @inheritParams globe_img
 #' @param data A data.frame of points to draw.

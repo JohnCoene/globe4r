@@ -48,7 +48,7 @@ if \code{merge} is disabled.}
 \item{on_click, on_right_click, on_hover}{JavaScript functions as strings.}
 }
 \description{
-Add points on a globe.
+Add points to a globe.
 }
 \examples{
 # basic

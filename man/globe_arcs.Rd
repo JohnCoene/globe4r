@@ -74,7 +74,7 @@ to their final position. New arcs are animated by rising them from the ground up
 \item{on_click, on_right_click, on_hover}{JavaScript functions as strings.}
 }
 \description{
-Add arcs
+Add arcs to a globe.
 }
 \examples{
 # basic
