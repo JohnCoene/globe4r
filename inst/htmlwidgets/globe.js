@@ -28,6 +28,15 @@ HTMLWidgets.widget({
         if(x.hasOwnProperty("showGraticules"))
           globe.showGraticules(x.showGraticules);
 
+        if(x.hasOwnProperty("width"))
+          globe.width(x.width);
+
+        if(x.hasOwnProperty("height"))
+          globe.height(x.height);
+
+
+        if(x.hasOwnProperty("backgroundColor"))
+          globe.backgroundColor(x.backgroundColor);
       },
 
       getGlobe: function(){
@@ -92,6 +101,26 @@ if (HTMLWidgets.shinyMode) {
       var globe = get_globe(data.id);
       if (typeof globe != 'undefined') {
         globe.showGraticules(data.show);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('backgroundColor',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.backgroundColor(data.color);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('dimensions',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        if(data.hasOwnProperty("width"))
+          globe.width(data.width);
+
+        if(data.hasOwnProperty("height"))
+          globe.height(data.height);
       }
   });
 

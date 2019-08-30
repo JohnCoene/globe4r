@@ -83,11 +83,34 @@ bump_img_url.globeProxy <- function(globe, url = image_url("earth-topology")){
 #' @param show Whether to show the atmosphere or graticules.
 #' 
 #' @examples
+#' # basic use case
 #' img <- image_url("earth-blue-marble")
 #' create_globe() %>% 
 #'   globe_img_url(img) %>% 
 #'   show_atmosphere(FALSE) %>% 
 #'   show_graticules(TRUE)
+#' 
+#' # use in shiny
+#' library(shiny)
+#' 
+#' ui <- fluidPage(
+#'   radioButtons("show", "Atmosphere", choices = c(TRUE, FALSE)),
+#'   globeOutput("globe")
+#' )
+#' 
+#' server <- function(input, output){
+#'   output$globe <- renderGlobe({
+#'     create_globe() %>% 
+#'       globe_img_url()
+#'   })
+#' 
+#'   observeEvent(input$show, {
+#'     globeProxy("globe") %>% 
+#'       show_atmosphere(input$show)
+#'   })
+#' }
+#' 
+#' \dontrun{shinyApp(ui, server)}
 #' 
 #' @name atmosphere
 #' @export
@@ -123,4 +146,89 @@ show_graticules.globe <- function(globe, show = TRUE){
 show_graticules.globeProxy <- function(globe, show = TRUE){
   data <- list(id = globe$id, show = show)
   globe$session$sendCustomMessage("showGraticules", data)
+}
+
+#' Dimensions & Background
+#' 
+#' Customise the dimensions and background color of the visualisation.
+#' 
+#' @inheritParams globe_img
+#' @param width,height An integer defining the number of pixels.
+#' @param color A valid hex code or color name.
+#' 
+#' @examples
+#' # basic
+#' create_globe() %>% 
+#'   globe_img_url() %>% 
+#'   globe_dimensions(250, 250) %>% 
+#'   globe_background("#000")
+#' 
+#' # use in shiny
+#' library(shiny)
+#' 
+#' ui <- fluidPage(
+#'   sliderInput(
+#'     "width", 
+#'     "Change width", 
+#'     min = 300, 
+#'     max = 900, 
+#'     step = 50, 
+#'     value = 250
+#'   ), 
+#'   globeOutput("globe")
+#' )
+#' 
+#' server <- function(input, output){
+#'   output$globe <- renderGlobe({
+#'     create_globe() %>% 
+#'       globe_img_url()
+#'   })
+#' 
+#'   observeEvent(input$width, {
+#'     globeProxy("globe") %>% 
+#'       globe_dimensions(width = input$width)
+#'   })
+#' }
+#' 
+#' \dontrun{shinyApp(ui, server)}
+#' 
+#' @name container
+#' @export
+globe_dimensions <- function(globe, width = NULL, height = NULL) UseMethod("globe_dimensions")
+
+#' @export
+#' @method globe_dimensions globe
+globe_dimensions.globe <- function(globe, width = NULL, height = NULL){
+  # force integer conversion
+  globe$x$width <- if(!is.null(width)) as.integer(width)
+  globe$x$height <- if(!is.null(height)) as.integer(height)
+  return(globe)
+}
+
+#' @export
+#' @method globe_dimensions globeProxy
+globe_dimensions.globeProxy <- function(globe, width = NULL, height = NULL){
+  data <- list(id = globe$id)
+  # force integer conversion
+  if(!is.null(width)) data$width <- as.integer(width)
+  if(!is.null(height)) data$height <- as.integer(height)
+  globe$session$sendCustomMessage("dimensions", data)
+}
+
+#' @name container
+#' @export
+globe_background <- function(globe, color = "#000011") UseMethod("globe_background")
+
+#' @export
+#' @method globe_background globe
+globe_background.globe <- function(globe, color = "#000011"){
+  globe$x$backgroundColor <- color
+  return(globe)
+}
+
+#' @export
+#' @method globe_background globeProxy
+globe_background.globeProxy <- function(globe, color = "#000011"){
+  data <- list(id = globe$id, color = color)
+  globe$session$sendCustomMessage("backgroundColor", data)
 }

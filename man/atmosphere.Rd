@@ -23,10 +23,33 @@ and graticules grid demarking latitude and longitude lines
 at every 10 degrees.
 }
 \examples{
+# basic use case
 img <- image_url("earth-blue-marble")
 create_globe() \%>\% 
   globe_img_url(img) \%>\% 
   show_atmosphere(FALSE) \%>\% 
   show_graticules(TRUE)
+
+# use in shiny
+library(shiny)
+
+ui <- fluidPage(
+  radioButtons("show", "Atmosphere", choices = c(TRUE, FALSE)),
+  globeOutput("globe")
+)
+
+server <- function(input, output){
+  output$globe <- renderGlobe({
+    create_globe() \%>\% 
+      globe_img_url()
+  })
+
+  observeEvent(input$show, {
+    globeProxy("globe") \%>\% 
+      show_atmosphere(input$show)
+  })
+}
+
+\dontrun{shinyApp(ui, server)}
 
 }
