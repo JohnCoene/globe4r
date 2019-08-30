@@ -33,6 +33,26 @@
 #'   globe_img_url() %>% 
 #'   globe_points(quakes, lat, long, label = stations)
 #' 
+#' # use in shiny
+#' library(shiny)
+#' 
+#' ui <- fluidPage(
+#'   actionButton("add", "Add points"),
+#'   globeOutput("globe")
+#' )
+#' 
+#' server <- function(input, output){
+#'   output$globe <- renderGlobe({
+#'     create_globe() %>% globe_img_url()
+#'   })
+#' 
+#'   observeEvent(input$add, {
+#'     globeProxy("globe") %>% 
+#'       globe_points(quakes, lat, long)
+#'   })
+#' }
+#' 
+#' \dontrun{shinyApp(ui, server)}
 #' @export
 globe_points <- function(globe, data, lat, lon, color = NULL, 
   label = NULL, altitude = NULL, radius = NULL, resolution = 12L, merge = FALSE, 
@@ -83,5 +103,56 @@ globe_points.globe <- function(globe, data, lat, lon, color = NULL,
   globe$x$onPointRightClick <- if(!is.null(on_right_click)) htmlwidgets::JS(on_right_click)
   globe$x$onPointHover <- if(!is.null(on_hover)) htmlwidgets::JS(on_hover)
   
+  return(globe)
+}
+
+
+#' @export
+#' @method globe_points globeProxy
+globe_points.globeProxy <- function(globe, data, lat, lon, color = NULL, 
+  label = NULL, altitude = NULL, radius = NULL, resolution = 12L, merge = FALSE, 
+  transition = 1000L, on_click = NULL, on_right_click = NULL, 
+  on_hover = NULL){
+
+  # check inputs
+  assert_that(not_missing(data))
+  assert_that(not_missing(lat))
+  assert_that(not_missing(lon))
+
+  # enquo all things
+  lat_enquo <- enquo(lat)
+  lon_enquo <- enquo(lon)
+  label_enquo <- enquo(label)
+  color_enquo <- enquo(color)
+  altitude_enquo <- enquo(altitude)
+  radius_enquo <- enquo(radius)
+
+  # create points array
+  msg <- list(id = globe$id)
+  msg$pointsData <- data %>% 
+    select(
+      lat = !!lat_enquo,
+      lon = !!lon_enquo,
+      label = !!label_enquo,
+      color = !!color_enquo,
+      altitude = !!altitude_enquo,
+      radius = !!radius_enquo
+    ) %>% 
+    apply(1, as.list)
+
+  msg$pointLat <- if(!rlang::quo_is_null(lat_enquo)) "lat"
+  msg$pointLng <- if(!rlang::quo_is_null(lon_enquo)) "lon"
+  msg$pointColor <- if(!rlang::quo_is_null(color_enquo)) "color"
+  msg$pointLabel <- if(!rlang::quo_is_null(label_enquo)) "label"
+  msg$pointAltitude <- if(!rlang::quo_is_null(altitude_enquo)) "altitude"
+  msg$pointRadius <- if(!rlang::quo_is_null(radius_enquo)) "radius"
+  msg$pointResolution <- resolution
+  msg$pointsMerge <- merge
+  msg$pointsTransitionDuration <- transition
+  msg$onPointClick <- if(!is.null(on_click)) htmlwidgets::JS(on_click)
+  msg$onPointRightClick <- if(!is.null(on_right_click)) htmlwidgets::JS(on_right_click)
+  msg$onPointHover <- if(!is.null(on_hover)) htmlwidgets::JS(on_hover)
+  globe$session$sendCustomMessage("globe_points", msg)
+
   return(globe)
 }

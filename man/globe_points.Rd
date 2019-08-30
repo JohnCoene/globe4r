@@ -56,4 +56,24 @@ create_globe() \%>\%
   globe_img_url() \%>\% 
   globe_points(quakes, lat, long, label = stations)
 
+# use in shiny
+library(shiny)
+
+ui <- fluidPage(
+  actionButton("add", "Add points"),
+  globeOutput("globe")
+)
+
+server <- function(input, output){
+  output$globe <- renderGlobe({
+    create_globe() \%>\% globe_img_url()
+  })
+
+  observeEvent(input$add, {
+    globeProxy("globe") \%>\% 
+      globe_points(quakes, lat, long)
+  })
+}
+
+\dontrun{shinyApp(ui, server)}
 }

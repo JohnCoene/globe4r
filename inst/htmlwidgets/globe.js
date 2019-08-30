@@ -152,4 +152,37 @@ if (HTMLWidgets.shinyMode) {
       }
   });
 
+  Shiny.addCustomMessageHandler('globe_points',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        if(data.hasOwnProperty("pointsData"))
+          globe.pointsData(data.pointsData);
+        if(data.hasOwnProperty("pointLabel"))
+          globe.pointLabel(data.pointLabel);
+        if(data.hasOwnProperty("pointLat"))
+          globe.pointLat(data.pointLat);
+        if(data.hasOwnProperty("pointLng"))
+          globe.pointLng(data.pointLng);
+        if(data.hasOwnProperty("pointColor"))
+          globe.pointColor(data.pointColor);
+        if(data.hasOwnProperty("pointAltitude"))
+          globe.pointAltitude(data.pointAltitude);
+        if(data.hasOwnProperty("pointResolution"))
+          globe.pointResolution(data.pointResolution);
+        if(data.hasOwnProperty("pointRadius"))
+          globe.pointRadius(data.pointRadius);
+        if(data.hasOwnProperty("pointsMerge"))
+          globe.pointsMerge(data.pointsMerge);
+        if(data.hasOwnProperty("pointsTransitionDuration"))
+          globe.pointsTransitionDuration(data.pointsTransitionDuration);
+        if(data.hasOwnProperty("onPointClick"))
+          globe.onPointClick(data.onPointClick);  
+        if(data.hasOwnProperty("onPointRightClick"))
+          globe.onPointRightClick(data.onPointRightClick);  
+        if(data.hasOwnProperty("onPointHover"))
+          globe.onPointHover(data.onPointHover); 
+      }
+  });
+
 }
