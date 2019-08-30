@@ -14,5 +14,11 @@ image_url(name = c("earth-night", "earth-blue-marble", "earth-dark",
 URL to \url{https://jsdelivr.net} image.
 }
 \description{
-Convenience function to fetch URLs for \code{\link{globe_img_url}}.
+Convenience function to fetch URLs for \code{\link{globe_img_url}}, 
+and \code{\link{bump_img_url}}.
+}
+\examples{
+create_globe() \%>\% 
+  globe_img_url(image_url("earth-dark"))
+
 }

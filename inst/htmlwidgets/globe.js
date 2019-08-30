@@ -19,6 +19,9 @@ HTMLWidgets.widget({
         if(x.hasOwnProperty("globeImageUrl"))
           globe.globeImageUrl(x.globeImageUrl);
 
+        if(x.hasOwnProperty("bumpImageUrl"))
+          globe.bumpImageUrl(x.bumpImageUrl);
+
       },
 
       getGlobe: function(){
@@ -50,12 +53,19 @@ function get_globe(id){
 
 if (HTMLWidgets.shinyMode) {
   
-  // DRAW
   Shiny.addCustomMessageHandler('globeImageUrl',
     function(data) {
       var globe = get_globe(data.id);
       if (typeof globe != 'undefined') {
         globe.globeImageUrl(data.url);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('bumpImageUrl',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.bumpImageUrl(data.url);
       }
   });
 

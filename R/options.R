@@ -12,13 +12,14 @@
 #' @examples
 #' # basic
 #' create_globe() %>% 
-#'   globe_img_url()
+#'   globe_img_url() %>% 
+#'   bump_img_url()
 #' 
 #' # use in shiny
 #' library(shiny)
 #' 
 #' ui <- fluidPage(
-#'   actionButton("btn", "Add Image"),
+#'   actionButton("btn", "Add img"),
 #'   globeOutput("globe")
 #' )
 #' 
@@ -35,6 +36,7 @@
 #' 
 #' \dontrun{shinyApp(ui, server)}
 #' 
+#' @name globe_img
 #' @export
 globe_img_url <- function(globe, url = image_url()) UseMethod("globe_img_url")
 
@@ -50,4 +52,22 @@ globe_img_url.globe <- function(globe, url = image_url()){
 globe_img_url.globeProxy <- function(globe, url = image_url()){
   data <- list(id = globe$id, url = url)
   globe$session$sendCustomMessage("globeImageUrl", data)
+}
+
+#' @rdname globe_img
+#' @export
+bump_img_url <- function(globe, url = image_url("earth-topology")) UseMethod("bump_img_url")
+
+#' @export
+#' @method bump_img_url globe
+bump_img_url.globe <- function(globe, url = image_url("earth-topology")){
+  globe$x$bumpImageUrl <- url
+  return(globe)
+}
+
+#' @export
+#' @method bump_img_url globeProxy
+bump_img_url.globeProxy <- function(globe, url = image_url("earth-topology")){
+  data <- list(id = globe$id, url = url)
+  globe$session$sendCustomMessage("bumpImageUrl", data)
 }
