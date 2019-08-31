@@ -54,22 +54,20 @@
 #' 
 #' \dontrun{shinyApp(ui, server)}
 #' @export
-globe_points <- function(globe, data, lat, lon, color = NULL, 
+globe_points <- function(globe, data, lat = NULL, lon = NULL, color = NULL, 
   label = NULL, altitude = NULL, radius = NULL, resolution = 12L, merge = FALSE, 
   transition = 1000L, on_click = NULL, on_right_click = NULL, 
   on_hover = NULL) UseMethod("globe_points")
 
 #' @export
 #' @method globe_points globe
-globe_points.globe <- function(globe, data, lat, lon, color = NULL, 
+globe_points.globe <- function(globe, data, lat = NULL, lon = NULL, color = NULL, 
   label = NULL, altitude = NULL, radius = NULL, resolution = 12L, merge = FALSE, 
   transition = 1000L, on_click = NULL, on_right_click = NULL, 
   on_hover = NULL){
 
   # check inputs
   assert_that(not_missing(data))
-  assert_that(not_missing(lat))
-  assert_that(not_missing(lon))
 
   # enquo all things
   lat_enquo <- rlang::enquo(lat)
@@ -106,15 +104,13 @@ globe_points.globe <- function(globe, data, lat, lon, color = NULL,
 
 #' @export
 #' @method globe_points globeProxy
-globe_points.globeProxy <- function(globe, data, lat, lon, color = NULL, 
+globe_points.globeProxy <- function(globe, data, lat = NULL, lon = NULL, color = NULL, 
   label = NULL, altitude = NULL, radius = NULL, resolution = 12L, merge = FALSE, 
   transition = 1000L, on_click = NULL, on_right_click = NULL, 
   on_hover = NULL){
 
   # check inputs
   assert_that(not_missing(data))
-  assert_that(not_missing(lat))
-  assert_that(not_missing(lon))
 
   # enquo all things
   lat_enquo <- enquo(lat)

@@ -97,6 +97,28 @@ HTMLWidgets.widget({
           globe.onArcRightClick(x.onArcRightClick); 
         if(x.hasOwnProperty("onArcHover"))
           globe.onArcHover(x.onArcHover); 
+
+        // polygon
+        if(x.hasOwnProperty("polygonsData"))
+          globe.polygonsData(x.polygonsData); 
+        if(x.hasOwnProperty("polygonLabel"))
+          globe.polygonLabel(x.polygonLabel); 
+        if(x.hasOwnProperty("polygonGeoJsonGeometry"))
+          globe.polygonGeoJsonGeometry(x.polygonGeoJsonGeometry); 
+        if(x.hasOwnProperty("polygonCapColor"))
+          globe.polygonCapColor(x.polygonCapColor);
+        if(x.hasOwnProperty("polygonSideColor"))
+          globe.polygonSideColor(x.polygonSideColor);  
+        if(x.hasOwnProperty("polygonAltitude"))
+          globe.polygonAltitude(x.polygonAltitude); 
+        if(x.hasOwnProperty("polygonsTransitionDuration"))
+          globe.polygonsTransitionDuration(x.polygonsTransitionDuration); 
+        if(x.hasOwnProperty("onPolygonClick"))
+          globe.onPolygonClick(x.onPolygonClick); 
+        if(x.hasOwnProperty("onPolygonRightClick"))
+          globe.onPolygonRightClick(x.onPolygonRightClick); 
+        if(x.hasOwnProperty("onPolygonHover"))
+          globe.onPolygonHover(x.onPolygonHover); 
       },
 
       getGlobe: function(){
@@ -251,6 +273,33 @@ if (HTMLWidgets.shinyMode) {
           globe.onArcRightClick(data.onArcRightClick); 
         if(data.hasOwnProperty("onArcHover"))
           globe.onArcHover(data.onArcHover); 
+      }
+  });
+
+  Shiny.addCustomMessageHandler('globe_choropleth',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        if(data.hasOwnProperty("polygonsData"))
+          globe.polygonsData(data.polygonsData); 
+        if(data.hasOwnProperty("polygonLabel"))
+          globe.polygonLabel(data.polygonLabel); 
+        if(data.hasOwnProperty("polygonGeoJsonGeometry"))
+          globe.polygonGeoJsonGeometry(data.polygonGeoJsonGeometry); 
+        if(data.hasOwnProperty("polygonCapColor"))
+          globe.polygonCapColor(data.polygonCapColor);
+        if(data.hasOwnProperty("polygonSideColor"))
+          globe.polygonSideColor(data.polygonSideColor);  
+        if(data.hasOwnProperty("polygonAltitude"))
+          globe.polygonAltitude(data.polygonAltitude); 
+        if(data.hasOwnProperty("polygonsTransitionDuration"))
+          globe.polygonsTransitionDuration(data.polygonsTransitionDuration); 
+        if(data.hasOwnProperty("onPolygonClick"))
+          globe.onPolygonClick(data.onPolygonClick); 
+        if(data.hasOwnProperty("onPolygonRightClick"))
+          globe.onPolygonRightClick(data.onPolygonRightClick); 
+        if(data.hasOwnProperty("onPolygonHover"))
+          globe.onPolygonHover(data.onPolygonHover);
       }
   });
 

@@ -4,12 +4,13 @@
 \alias{globe_arcs}
 \title{Arcs}
 \usage{
-globe_arcs(globe, data, start_lat, start_lon, end_lat, end_lon,
-  label = NULL, color = NULL, altitude = NULL,
-  altitude_scale = NULL, stroke = NULL, curve_resolution = 64L,
-  circular_resolution = 6L, dash_length = 1L, dash_gap = 0L,
-  dash_initial_gap = 0L, dash_animate_time = 0L, transition = 1000L,
-  on_click = NULL, on_right_click = NULL, on_hover = NULL)
+globe_arcs(globe, data, start_lat = NULL, start_lon = NULL,
+  end_lat = NULL, end_lon = NULL, label = NULL, color = NULL,
+  altitude = NULL, altitude_scale = NULL, stroke = NULL,
+  curve_resolution = 64L, circular_resolution = 6L, dash_length = 1L,
+  dash_gap = 0L, dash_initial_gap = 0L, dash_animate_time = 0L,
+  transition = 1000L, on_click = NULL, on_right_click = NULL,
+  on_hover = NULL)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by

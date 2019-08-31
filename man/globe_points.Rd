@@ -4,10 +4,10 @@
 \alias{globe_points}
 \title{Points}
 \usage{
-globe_points(globe, data, lat, lon, color = NULL, label = NULL,
-  altitude = NULL, radius = NULL, resolution = 12L, merge = FALSE,
-  transition = 1000L, on_click = NULL, on_right_click = NULL,
-  on_hover = NULL)
+globe_points(globe, data, lat = NULL, lon = NULL, color = NULL,
+  label = NULL, altitude = NULL, radius = NULL, resolution = 12L,
+  merge = FALSE, transition = 1000L, on_click = NULL,
+  on_right_click = NULL, on_hover = NULL)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by

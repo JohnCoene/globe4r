@@ -10,7 +10,8 @@
 #' \href{https://threejs.org/docs/#api/en/renderers/WebGLRenderer}{ThreeJS WebGLRenderer} constructor.
 #' @param animate_in Whether to animate the globe initialization, by scaling 
 #' and rotating the globe into its inital position.
-#' 
+#'
+#' @import purrr 
 #' @import dplyr
 #' @import assertthat
 #' @import htmlwidgets

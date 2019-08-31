@@ -73,26 +73,22 @@
 #' 
 #' \dontrun{shinyApp(ui, server)}
 #' @export
-globe_arcs <- function(globe, data, start_lat, start_lon, end_lat, end_lon,
-  label = NULL, color = NULL, altitude = NULL, altitude_scale = NULL, stroke = NULL,
-  curve_resolution = 64L, circular_resolution = 6L, dash_length = 1L, dash_gap = 0L,
-  dash_initial_gap = 0L, dash_animate_time = 0L, transition = 1000L,
+globe_arcs <- function(globe, data, start_lat = NULL, start_lon = NULL, end_lat = NULL, 
+  end_lon = NULL, label = NULL, color = NULL, altitude = NULL, altitude_scale = NULL, 
+  stroke = NULL, curve_resolution = 64L, circular_resolution = 6L, dash_length = 1L, 
+  dash_gap = 0L, dash_initial_gap = 0L, dash_animate_time = 0L, transition = 1000L,
   on_click = NULL, on_right_click = NULL, on_hover = NULL) UseMethod("globe_arcs")
 
 #' @export
 #' @method globe_arcs globe
-globe_arcs.globe <- function(globe, data, start_lat, start_lon, end_lat, end_lon,
-  label = NULL, color = NULL, altitude = NULL, altitude_scale = NULL, stroke = NULL,
-  curve_resolution = 64L, circular_resolution = 6L, dash_length = 1L, dash_gap = 0L,
-  dash_initial_gap = 0L, dash_animate_time = 0L, transition = 1000L,
+globe_arcs.globe <- function(globe, data, start_lat = NULL, start_lon = NULL, end_lat = NULL, 
+  end_lon = NULL, label = NULL, color = NULL, altitude = NULL, altitude_scale = NULL, 
+  stroke = NULL, curve_resolution = 64L, circular_resolution = 6L, dash_length = 1L, 
+  dash_gap = 0L, dash_initial_gap = 0L, dash_animate_time = 0L, transition = 1000L,
   on_click = NULL, on_right_click = NULL, on_hover = NULL){
 
   # check inputs
   assert_that(not_missing(data))
-  assert_that(not_missing(start_lat))
-  assert_that(not_missing(start_lon))
-  assert_that(not_missing(end_lat))
-  assert_that(not_missing(end_lon))
 
   # enquo all things
   start_lat_enquo <- rlang::enquo(start_lat)
@@ -139,18 +135,14 @@ globe_arcs.globe <- function(globe, data, start_lat, start_lon, end_lat, end_lon
 
 #' @export
 #' @method globe_arcs globeProxy
-globe_arcs.globeProxy <- function(globe, data, start_lat, start_lon, end_lat, end_lon,
-  label = NULL, color = NULL, altitude = NULL, altitude_scale = NULL, stroke = NULL,
-  curve_resolution = 64L, circular_resolution = 6L, dash_length = 1L, dash_gap = 0L,
-  dash_initial_gap = 0L, dash_animate_time = 0L, transition = 1000L,
+globe_arcs.globeProxy <- function(globe, data, start_lat = NULL, start_lon = NULL, end_lat = NULL, 
+  end_lon = NULL, label = NULL, color = NULL, altitude = NULL, altitude_scale = NULL, 
+  stroke = NULL, curve_resolution = 64L, circular_resolution = 6L, dash_length = 1L, 
+  dash_gap = 0L, dash_initial_gap = 0L, dash_animate_time = 0L, transition = 1000L,
   on_click = NULL, on_right_click = NULL, on_hover = NULL){
 
   # check inputs
   assert_that(not_missing(data))
-  assert_that(not_missing(start_lat))
-  assert_that(not_missing(start_lon))
-  assert_that(not_missing(end_lat))
-  assert_that(not_missing(end_lon))
 
   # enquo all things
   start_lat_enquo <- rlang::enquo(start_lat)
