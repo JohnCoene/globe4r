@@ -145,6 +145,7 @@ globe_points.globeProxy <- function(globe, data, lat = NULL, lon = NULL, color =
   msg$onPointClick <- if(!is.null(on_click)) htmlwidgets::JS(on_click)
   msg$onPointRightClick <- if(!is.null(on_right_click)) htmlwidgets::JS(on_right_click)
   msg$onPointHover <- if(!is.null(on_hover)) htmlwidgets::JS(on_hover)
+  
   globe$session$sendCustomMessage("globe_points", msg)
 
   return(globe)

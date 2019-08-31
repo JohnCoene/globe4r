@@ -119,6 +119,41 @@ HTMLWidgets.widget({
           globe.onPolygonRightClick(x.onPolygonRightClick); 
         if(x.hasOwnProperty("onPolygonHover"))
           globe.onPolygonHover(x.onPolygonHover); 
+
+        // label
+        if(x.hasOwnProperty("labelsData"))
+          globe.labelsData(x.labelsData); 
+        if(x.hasOwnProperty("labelText"))
+          globe.labelText(x.labelText); 
+        if(x.hasOwnProperty("labelLabel"))
+          globe.labelLabel(x.labelLabel); 
+        if(x.hasOwnProperty("labelColor"))
+          globe.labelColor(x.labelColor); 
+        if(x.hasOwnProperty("labelAltitude"))
+          globe.labelAltitude(x.labelAltitude); 
+        if(x.hasOwnProperty("labelSize"))
+          globe.labelSize(x.labelSize); 
+        if(x.hasOwnProperty("labelTypeFace"))
+          globe.labelTypeFace(x.labelTypeFace); 
+        if(x.hasOwnProperty("labelRotation"))
+          globe.labelRotation(x.labelRotation); 
+        if(x.hasOwnProperty("labelResolution"))
+          globe.labelResolution(x.labelResolution); 
+        if(x.hasOwnProperty("labelIncludeDot"))
+          globe.labelIncludeDot(x.labelIncludeDot); 
+        if(x.hasOwnProperty("labelDotRadius"))
+          globe.labelDotRadius(x.labelDotRadius); 
+        if(x.hasOwnProperty("labelDotOrientation"))
+          globe.labelDotOrientation(x.labelDotOrientation); 
+        if(x.hasOwnProperty("labelsTransitionDuration"))
+          globe.labelsTransitionDuration(x.labelsTransitionDuration); 
+        if(x.hasOwnProperty("onLabelClick"))
+          globe.onLabelClick(x.onLabelClick); 
+        if(x.hasOwnProperty("onLabelRightClick"))
+          globe.onLabelRightClick(x.onLabelRightClick); 
+        if(x.hasOwnProperty("onLabelHover"))
+          globe.onLabelHover(x.onLabelHover); 
+
       },
 
       getGlobe: function(){
@@ -301,6 +336,44 @@ if (HTMLWidgets.shinyMode) {
         if(data.hasOwnProperty("onPolygonHover"))
           globe.onPolygonHover(data.onPolygonHover);
       }
+  });
+
+
+  Shiny.addCustomMessageHandler('globe_labels',
+    function(data) {
+      var globe = get_globe(data.id);
+      if(data.hasOwnProperty("labelsData"))
+        globe.labelsData(data.labelsData); 
+      if(data.hasOwnProperty("labelTedatat"))
+        globe.labelTedatat(data.labelTedatat); 
+      if(data.hasOwnProperty("labelLabel"))
+        globe.labelLabel(data.labelLabel); 
+      if(data.hasOwnProperty("labelColor"))
+        globe.labelColor(data.labelColor); 
+      if(data.hasOwnProperty("labelAltitude"))
+        globe.labelAltitude(data.labelAltitude); 
+      if(data.hasOwnProperty("labelSize"))
+        globe.labelSize(data.labelSize); 
+      if(data.hasOwnProperty("labelTypeFace"))
+        globe.labelTypeFace(data.labelTypeFace); 
+      if(data.hasOwnProperty("labelRotation"))
+        globe.labelRotation(data.labelRotation); 
+      if(data.hasOwnProperty("labelResolution"))
+        globe.labelResolution(data.labelResolution); 
+      if(data.hasOwnProperty("labelIncludeDot"))
+        globe.labelIncludeDot(data.labelIncludeDot); 
+      if(data.hasOwnProperty("labelDotRadius"))
+        globe.labelDotRadius(data.labelDotRadius); 
+      if(data.hasOwnProperty("labelDotOrientation"))
+        globe.labelDotOrientation(data.labelDotOrientation); 
+      if(data.hasOwnProperty("labelsTransitionDuration"))
+        globe.labelsTransitionDuration(data.labelsTransitionDuration); 
+      if(data.hasOwnProperty("onLabelClick"))
+        globe.onLabelClick(data.onLabelClick); 
+      if(data.hasOwnProperty("onLabelRightClick"))
+        globe.onLabelRightClick(data.onLabelRightClick); 
+      if(data.hasOwnProperty("onLabelHover"))
+        globe.onLabelHover(data.onLabelHover); 
   });
 
 }
