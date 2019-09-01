@@ -256,3 +256,25 @@ points_lon.globeProxy <- function(globe, lon){
   globe$session$sendCustomMessage("points_lon", msg)
   return(globe)
 } 
+
+#' @rdname points_data
+#' @export
+points_color <- function(globe, color) UseMethod("points_color")
+
+#' @export
+#' @method points_color globe
+points_color.globe <- function(globe, color){
+  assert_that(not_missing(color))
+  globe$x$pointColor <- color
+  return(globe)
+}
+
+#' @export
+#' @method points_color globeProxy
+points_color.globeProxy <- function(globe, color){
+  assert_that(not_missing(color))
+  msg <- list(id = globe$id)
+  msg$pointColor <- color
+  globe$session$sendCustomMessage("points_color", msg)
+  return(globe)
+} 

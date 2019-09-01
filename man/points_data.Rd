@@ -4,6 +4,7 @@
 \alias{points_data}
 \alias{points_lat}
 \alias{points_lon}
+\alias{points_color}
 \title{Points Data}
 \usage{
 points_data(globe, data)
@@ -11,6 +12,8 @@ points_data(globe, data)
 points_lat(globe, lat)
 
 points_lon(globe, lon)
+
+points_color(globe, color)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
@@ -20,6 +23,8 @@ as returned by \code{\link{globeProxy}}.}
 \item{data}{A data.frame of points to draw.}
 
 \item{lat, lon}{Column names or numeric value indicating coordinates.}
+
+\item{color}{Bare column name of points color.}
 }
 \description{
 Add points data.
