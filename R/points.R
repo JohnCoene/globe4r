@@ -159,7 +159,10 @@ globe_points.globeProxy <- function(globe, data, lat = NULL, lon = NULL, color =
 #' @inheritParams globe_points
 #' @param lat,lon Column names or numeric value indicating coordinates.
 #' @param color Column name or character vector indicating color of points.
-#' @param altitude Column name or character vector indicating altitude of points.
+#' @param altitude Column name or character vector indicating altitude of points 
+#' in terms of globe radius units (0 = 0 altitude (flat circle), 1 = globe radius).
+#' @param radius Column name of radius a numeric constant for the cylinder's 
+#' radius, in angular degrees.
 #' 
 #' @examples
 #' # use data
@@ -301,5 +304,27 @@ points_altitude.globeProxy <- function(globe, altitude){
   msg <- list(id = globe$id)
   msg$pointAltitude <- altitude
   globe$session$sendCustomMessage("points_altitude", msg)
+  return(globe)
+} 
+
+#' @rdname points_data
+#' @export
+points_radius <- function(globe, radius) UseMethod("points_radius")
+
+#' @export
+#' @method points_radius globe
+points_radius.globe <- function(globe, radius){
+  assert_that(not_missing(radius))
+  globe$x$pointRadius <- radius
+  return(globe)
+}
+
+#' @export
+#' @method points_radius globeProxy
+points_radius.globeProxy <- function(globe, radius){
+  assert_that(not_missing(radius))
+  msg <- list(id = globe$id)
+  msg$pointRadius <- radius
+  globe$session$sendCustomMessage("points_radius", msg)
   return(globe)
 } 

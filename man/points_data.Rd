@@ -6,6 +6,7 @@
 \alias{points_lon}
 \alias{points_color}
 \alias{points_altitude}
+\alias{points_radius}
 \title{Points Data}
 \usage{
 points_data(globe, data)
@@ -17,6 +18,8 @@ points_lon(globe, lon)
 points_color(globe, color)
 
 points_altitude(globe, altitude)
+
+points_radius(globe, radius)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
@@ -29,7 +32,11 @@ as returned by \code{\link{globeProxy}}.}
 
 \item{color}{Column name or character vector indicating color of points.}
 
-\item{altitude}{Column name or character vector indicating altitude of points.}
+\item{altitude}{Column name or character vector indicating altitude of points 
+in terms of globe radius units (0 = 0 altitude (flat circle), 1 = globe radius).}
+
+\item{radius}{Column name of radius a numeric constant for the cylinder's 
+radius, in angular degrees.}
 }
 \description{
 Add points data.
