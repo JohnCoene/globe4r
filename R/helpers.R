@@ -211,3 +211,32 @@ scale_choropleth_altitude.globe <- function(globe, min = 0, max = .5){
 
   return(globe)
 }
+
+#' Scale Arc Stroke
+#' 
+#' Rescale arc stroke to a more appropriate pixel values.
+#' 
+#' @inheritParams globe_img
+#' @param min,max Target minimum and maximum values of pixels.
+#' 
+#' @examples
+#' # basic
+#' create_globe() %>% 
+#'   globe_img_url() %>% 
+#'   globe_arcs(
+#'     usflights, start_lat, start_lon, end_lat, end_lon,
+#'     stroke = cnt
+#'   ) %>% 
+#'   scale_arc_stroke()
+#' 
+#' @name scaling_stroke
+#' @export
+scale_arc_stroke <- function(globe, min = .1, max = 1) UseMethod("scale_arc_stroke")
+
+#' @export
+#' @method scale_arc_stroke globe 
+scale_arc_stroke.globe <- function(globe, min = .1, max = 1){
+  assert_that(length(globe$x$arcsData$stroke) >= 1, msg = "No altitude specified.")
+  globe$x$arcsData$stroke <- scales::rescale(globe$x$arcsData$stroke, to = c(min, max))
+  return(globe)
+}
