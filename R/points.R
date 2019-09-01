@@ -152,9 +152,9 @@ globe_points.globeProxy <- function(globe, data, lat = NULL, lon = NULL, color =
   return(globe)
 }
 
-#' Points Data
+#' Points Functional API
 #' 
-#' Add points data.
+#' Functional API to add and customise points on globe.
 #' 
 #' @inheritParams globe_points
 #' @param lat,lon Column names or numeric value indicating coordinates.
@@ -163,6 +163,9 @@ globe_points.globeProxy <- function(globe, data, lat = NULL, lon = NULL, color =
 #' in terms of globe radius units (0 = 0 altitude (flat circle), 1 = globe radius).
 #' @param radius Column name of radius a numeric constant for the cylinder's 
 #' radius, in angular degrees.
+#' @param resolution Numeric value defining the geometric resolution of each 
+#' cylinder, expressed in how many slice segments to divide the circumference. 
+#' Higher values yield smoother cylinders.
 #' 
 #' @examples
 #' # use data
@@ -326,5 +329,27 @@ points_radius.globeProxy <- function(globe, radius){
   msg <- list(id = globe$id)
   msg$pointRadius <- radius
   globe$session$sendCustomMessage("points_radius", msg)
+  return(globe)
+} 
+
+#' @rdname points_data
+#' @export
+points_resolution <- function(globe, resolution) UseMethod("points_resolution")
+
+#' @export
+#' @method points_resolution globe
+points_resolution.globe <- function(globe, resolution){
+  assert_that(not_missing(resolution))
+  globe$x$pointResolution <- resolution
+  return(globe)
+}
+
+#' @export
+#' @method points_resolution globeProxy
+points_resolution.globeProxy <- function(globe, resolution){
+  assert_that(not_missing(resolution))
+  msg <- list(id = globe$id)
+  msg$pointResolution <- resolution
+  globe$session$sendCustomMessage("points_resolution", msg)
   return(globe)
 } 

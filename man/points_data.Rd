@@ -7,7 +7,8 @@
 \alias{points_color}
 \alias{points_altitude}
 \alias{points_radius}
-\title{Points Data}
+\alias{points_resolution}
+\title{Points Functional API}
 \usage{
 points_data(globe, data)
 
@@ -20,6 +21,8 @@ points_color(globe, color)
 points_altitude(globe, altitude)
 
 points_radius(globe, radius)
+
+points_resolution(globe, resolution)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
@@ -37,9 +40,13 @@ in terms of globe radius units (0 = 0 altitude (flat circle), 1 = globe radius).
 
 \item{radius}{Column name of radius a numeric constant for the cylinder's 
 radius, in angular degrees.}
+
+\item{resolution}{Numeric value defining the geometric resolution of each 
+cylinder, expressed in how many slice segments to divide the circumference. 
+Higher values yield smoother cylinders.}
 }
 \description{
-Add points data.
+Functional API to add and customise points on globe.
 }
 \examples{
 # use data
