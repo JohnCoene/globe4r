@@ -5,6 +5,7 @@
 \alias{points_lat}
 \alias{points_lon}
 \alias{points_color}
+\alias{points_altitude}
 \title{Points Data}
 \usage{
 points_data(globe, data)
@@ -14,6 +15,8 @@ points_lat(globe, lat)
 points_lon(globe, lon)
 
 points_color(globe, color)
+
+points_altitude(globe, altitude)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
@@ -24,7 +27,9 @@ as returned by \code{\link{globeProxy}}.}
 
 \item{lat, lon}{Column names or numeric value indicating coordinates.}
 
-\item{color}{Bare column name of points color.}
+\item{color}{Column name or character vector indicating color of points.}
+
+\item{altitude}{Column name or character vector indicating altitude of points.}
 }
 \description{
 Add points data.
@@ -48,7 +53,8 @@ ui <- fluidPage(
 server <- function(input, output) {
   output$globe <- renderGlobe({
     create_globe() \%>\% 
-      globe_img_url()
+      globe_img_url() \%>\% 
+      points_color(htmlwidgets::JS("() => '#ffffff'")) 
   })
 
   observeEvent(input$draw, {

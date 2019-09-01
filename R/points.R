@@ -158,6 +158,8 @@ globe_points.globeProxy <- function(globe, data, lat = NULL, lon = NULL, color =
 #' 
 #' @inheritParams globe_points
 #' @param lat,lon Column names or numeric value indicating coordinates.
+#' @param color Column name or character vector indicating color of points.
+#' @param altitude Column name or character vector indicating altitude of points.
 #' 
 #' @examples
 #' # use data
@@ -178,7 +180,8 @@ globe_points.globeProxy <- function(globe, data, lat = NULL, lon = NULL, color =
 #' server <- function(input, output) {
 #'   output$globe <- renderGlobe({
 #'     create_globe() %>% 
-#'       globe_img_url()
+#'       globe_img_url() %>% 
+#'       points_color(htmlwidgets::JS("() => '#ffffff'")) 
 #'   })
 #' 
 #'   observeEvent(input$draw, {
