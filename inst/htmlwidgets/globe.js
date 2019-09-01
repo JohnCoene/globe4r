@@ -337,7 +337,31 @@ if (HTMLWidgets.shinyMode) {
     function(data) {
       var globe = get_globe(data.id);
       if (typeof globe != 'undefined') {
-        globe.pointTransition(data.pointTransition);
+        globe.pointsTransitionDuration(data.pointsTransitionDuration);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('points_on_click',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.onPointClick(data.onPointClick);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('points_on_right_click',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.onPointHover(data.onPointHover);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('points_on_hover',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.onPointRightClick(data.onPointRightClick);
       }
   });
 

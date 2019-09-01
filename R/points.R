@@ -176,6 +176,7 @@ globe_points.globeProxy <- function(globe, data, lat = NULL, lon = NULL, color =
 #' \code{0} will move the objects immediately to their final position. 
 #' New objects are animated by scaling them from the ground up. Only works 
 #' if \code{merge} is disabled.
+#' @param func JavaScript function as character vector.
 #' 
 #' @examples
 #' # use data
@@ -385,7 +386,7 @@ points_transition <- function(globe, transition = 1000L) UseMethod("points_trans
 #' @export
 #' @method points_transition globe
 points_transition.globe <- function(globe, transition = 1000L){
-  globe$x$pointTransition <- transition
+  globe$x$pointsTransitionDuration <- transition
   return(globe)
 }
 
@@ -393,7 +394,73 @@ points_transition.globe <- function(globe, transition = 1000L){
 #' @method points_transition globeProxy
 points_transition.globeProxy <- function(globe, transition = 1000L){
   msg <- list(id = globe$id)
-  msg$pointTransition <- transition
+  msg$pointsTransitionDuration <- transition
   globe$session$sendCustomMessage("points_transition", msg)
+  return(globe)
+} 
+
+#' @rdname points_data
+#' @export
+points_on_click <- function(globe, func) UseMethod("points_on_click")
+
+#' @export
+#' @method points_on_click globe
+points_on_click.globe <- function(globe, func){
+  assert_that(not_missing(func))
+  globe$x$onPointClick <- htmlwidgets::JS(func)
+  return(globe)
+}
+
+#' @export
+#' @method points_on_click globeProxy
+points_on_click.globeProxy <- function(globe, func){
+  assert_that(not_missing(func))
+  msg <- list(id = globe$id)
+  msg$onPointClick <- htmlwidgets::JS(func)
+  globe$session$sendCustomMessage("points_on_click", msg)
+  return(globe)
+} 
+
+#' @rdname points_data
+#' @export
+points_on_right_click <- function(globe, func) UseMethod("points_on_right_click")
+
+#' @export
+#' @method points_on_right_click globe
+points_on_right_click.globe <- function(globe, func){
+  assert_that(not_missing(func))
+  globe$x$onPointRightClick <- htmlwidgets::JS(func)
+  return(globe)
+}
+
+#' @export
+#' @method points_on_right_click globeProxy
+points_on_right_click.globeProxy <- function(globe, func){
+  assert_that(not_missing(func))
+  msg <- list(id = globe$id)
+  msg$onPointRightClick <- htmlwidgets::JS(func)
+  globe$session$sendCustomMessage("points_on_right_click", msg)
+  return(globe)
+} 
+
+#' @rdname points_data
+#' @export
+points_on_hover <- function(globe, func) UseMethod("points_on_hover")
+
+#' @export
+#' @method points_on_hover globe
+points_on_hover.globe <- function(globe, func){
+  assert_that(not_missing(func))
+  globe$x$onPointHover <- htmlwidgets::JS(func)
+  return(globe)
+}
+
+#' @export
+#' @method points_on_hover globeProxy
+points_on_hover.globeProxy <- function(globe, func){
+  assert_that(not_missing(func))
+  msg <- list(id = globe$id)
+  msg$onPointHover <- htmlwidgets::JS(func)
+  globe$session$sendCustomMessage("points_on_hover", msg)
   return(globe)
 } 

@@ -10,6 +10,9 @@
 \alias{points_resolution}
 \alias{points_merge}
 \alias{points_transition}
+\alias{points_on_click}
+\alias{points_on_right_click}
+\alias{points_on_hover}
 \title{Points Functional API}
 \usage{
 points_data(globe, data)
@@ -29,6 +32,12 @@ points_resolution(globe, resolution = 12L)
 points_merge(globe, merge = TRUE)
 
 points_transition(globe, transition = 1000L)
+
+points_on_click(globe, func)
+
+points_on_right_click(globe, func)
+
+points_on_hover(globe, func)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
@@ -61,6 +70,8 @@ to animate point changes involving geometry modifications. A value of
 \code{0} will move the objects immediately to their final position. 
 New objects are animated by scaling them from the ground up. Only works 
 if \code{merge} is disabled.}
+
+\item{func}{JavaScript function as character vector.}
 }
 \description{
 Functional API to add and customise points on globe.
