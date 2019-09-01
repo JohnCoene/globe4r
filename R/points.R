@@ -48,7 +48,8 @@
 #' 
 #'   observeEvent(input$add, {
 #'     globeProxy("globe") %>% 
-#'       globe_points(quakes, lat, long)
+#'       globe_points(quakes, lat, long) %>% 
+#'       globe_pov(-21, 179)
 #'   })
 #' }
 #' 
@@ -150,3 +151,108 @@ globe_points.globeProxy <- function(globe, data, lat = NULL, lon = NULL, color =
 
   return(globe)
 }
+
+#' Points Data
+#' 
+#' Add points data.
+#' 
+#' @inheritParams globe_points
+#' @param lat,lon Column names or numeric value indicating coordinates.
+#' 
+#' @examples
+#' # use data
+#' create_globe() %>% 
+#'   globe_img_url() %>% 
+#'   points_data(quakes) %>% 
+#'   points_lat("lat") %>% 
+#'   points_lon("long")
+#' 
+#' # use in shiny
+#' library(shiny)
+#' 
+#' ui <- fluidPage(
+#'   actionButton("draw", "draw points"),
+#'   globeOutput("globe")
+#' )
+#' 
+#' server <- function(input, output) {
+#'   output$globe <- renderGlobe({
+#'     create_globe() %>% 
+#'       globe_img_url()
+#'   })
+#' 
+#'   observeEvent(input$draw, {
+#'     globeProxy("globe") %>% 
+#'       points_data(quakes) %>% 
+#'       points_lon("long") %>% 
+#'       globe_pov(-21, 179)
+#'   })
+#' }
+#' 
+#' \dontrun{shinyApp(ui, server)}
+#' 
+#' @name points_data
+#' @export
+points_data <- function(globe, data) UseMethod("points_data")
+
+#' @export
+#' @method points_data globe
+points_data.globe <- function(globe, data){
+  assert_that(not_missing(data))
+  globe$x$pointsData <- data
+  return(globe)
+}
+
+#' @export
+#' @method points_data globeProxy
+points_data.globeProxy <- function(globe, data){
+  assert_that(not_missing(data))
+  msg <- list(id = globe$id)
+  msg$pointsData <- apply(data, 1, as.list)
+  globe$session$sendCustomMessage("points_data", msg)
+  return(globe)
+} 
+
+#' @rdname points_data
+#' @export
+points_lat <- function(globe, lat) UseMethod("points_lat")
+
+#' @export
+#' @method points_lat globe
+points_lat.globe <- function(globe, lat){
+  assert_that(not_missing(lat))
+  globe$x$pointLat <- lat
+  return(globe)
+}
+
+#' @export
+#' @method points_data globeProxy
+points_lat.globeProxy <- function(globe, lat){
+  assert_that(not_missing(lat))
+  msg <- list(id = globe$id)
+  msg$pointLat <- lat
+  globe$session$sendCustomMessage("points_lat", msg)
+  return(globe)
+} 
+
+#' @rdname points_data
+#' @export
+points_lon <- function(globe, lon) UseMethod("points_lon")
+
+#' @export
+#' @method points_lon globe
+points_lon.globe <- function(globe, lon){
+  assert_that(not_missing(lon))
+  globe$x$pointLng <- lon
+  return(globe)
+}
+
+#' @export
+#' @method points_lon globeProxy
+points_lon.globeProxy <- function(globe, lon){
+  assert_that(not_missing(lon))
+  msg <- list(id = globe$id)
+  msg$pointLng <- lon
+  globe$session$sendCustomMessage("points_lon", msg)
+  return(globe)
+} 

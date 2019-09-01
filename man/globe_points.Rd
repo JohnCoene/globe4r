@@ -71,7 +71,8 @@ server <- function(input, output){
 
   observeEvent(input$add, {
     globeProxy("globe") \%>\% 
-      globe_points(quakes, lat, long)
+      globe_points(quakes, lat, long) \%>\% 
+      globe_pov(-21, 179)
   })
 }
 

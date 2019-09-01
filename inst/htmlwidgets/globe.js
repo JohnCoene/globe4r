@@ -155,7 +155,7 @@ HTMLWidgets.widget({
           globe.onLabelHover(x.onLabelHover); 
 
         if(x.hasOwnProperty("pointOfView")){
-          globe.pointOfView(x.pointOfView);
+          globe.pointOfView(x.pointOfView, x.pointOfViewMs);
         }
 
       },
@@ -258,6 +258,38 @@ if (HTMLWidgets.shinyMode) {
 
         if(data.hasOwnProperty("height"))
           globe.height(data.height);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('globe_pov',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.pointOfView(data.pointOfView, data.ms);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('points_data',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.pointsData(data.pointsData);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('points_lon',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.pointLng(data.pointLng);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('points_lat',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.pointLat(data.pointLat);
       }
   });
 
