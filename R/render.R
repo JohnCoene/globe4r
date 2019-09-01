@@ -5,6 +5,7 @@
 #' @inheritParams globe_img
 #' @param lat,lon Coordinates of camera position.
 #' @param altitude Altitude of camera, defaults to \code{2.5} globe radii.
+#' @param ms Milliseconds to animate point of view switch.
 #' 
 #' @examples
 #' create_globe() %>% 
@@ -12,11 +13,11 @@
 #'   globe_pov(38, -77)
 #' 
 #' @export
-globe_pov <- function(globe, lat, lon, altitude = 2.5) UseMethod("globe_pov")
+globe_pov <- function(globe, lat, lon, altitude = 2.5, ms = 1500L) UseMethod("globe_pov")
 
 #' @export
 #' @method globe_pov globe
-globe_pov.globe <- function(globe, lat, lon, altitude = 2.5){
+globe_pov.globe <- function(globe, lat, lon, altitude = 2.5, ms = 1500L){
 
   assert_that(not_missing(lat))
   assert_that(not_missing(lon))
@@ -26,13 +27,14 @@ globe_pov.globe <- function(globe, lat, lon, altitude = 2.5){
     lng = lon,
     altitude = altitude
   )
+  globe$x$pointOfViewMs <- ms
 
   return(globe)
 }
 
 #' @export
 #' @method globe_pov globeProxy
-globe_pov.globeProxy <- function(globe, lat, lon, altitude = 2.5){
+globe_pov.globeProxy <- function(globe, lat, lon, altitude = 2.5, ms = 1500L){
 
   assert_that(not_missing(lat))
   assert_that(not_missing(lon))
@@ -43,7 +45,8 @@ globe_pov.globeProxy <- function(globe, lat, lon, altitude = 2.5){
       lat = lat,
       lng = lon,
       altitude = altitude
-    )
+    ),
+    ms = ms
   )
 
   globe$session$sendCustomMessage("globe_pov", msg)

@@ -4,7 +4,7 @@
 \alias{globe_pov}
 \title{Point of View}
 \usage{
-globe_pov(globe, lat, lon, altitude = 2.5)
+globe_pov(globe, lat, lon, altitude = 2.5, ms = 1500L)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
@@ -14,6 +14,8 @@ as returned by \code{\link{globeProxy}}.}
 \item{lat, lon}{Coordinates of camera position.}
 
 \item{altitude}{Altitude of camera, defaults to \code{2.5} globe radii.}
+
+\item{ms}{Milliseconds to animate point of view switch.}
 }
 \description{
 Change the camera point of view.
