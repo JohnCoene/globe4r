@@ -139,3 +139,61 @@ scale_label_color.globe <- function(globe, palette = c("#edf8b1", "#7fcdbb", "#2
 
   return(globe)
 }
+
+#' Scale Altitude
+#' 
+#' Rescale altitude to a more appropriate range, where 0 if flat
+#' and 1 is the globe radius.
+#' 
+#' @param min,max Target minimum and maximum values of altitude.
+#' 
+#' @examples
+#' # basic
+#' create_globe() %>% 
+#'   globe_img_url() %>% 
+#'   globe_pov(-21, 179) %>% 
+#'   globe_points(quakes, lat, long, altitude = mag) %>% 
+#'   scale_points_altitude()
+#' 
+#' @name scaling_altitude
+#' @export
+scale_points_altitude <- function(globe, min = 0, max = .5) UseMethod("scale_points_altitude")
+
+#' @export
+#' @method scale_points_altitude globe 
+scale_points_altitude.globe <- function(globe, min = 0, max = .5){
+  assert_that(length(globe$x$pointsData$altitude) >= 1, msg = "No color specified.")
+  globe$x$pointsData$altitude <- scales::rescale(globe$x$pointsData$altitude, to = c(min, max))
+  return(globe)
+}
+
+#' @rdname scaling_altitude
+#' @export
+scale_arcs_altitude <- function(globe, min = 0, max = .5) UseMethod("scale_arcs_altitude")
+
+#' @export
+#' @method scale_arcs_altitude globe 
+scale_arcs_altitude.globe <- function(globe, min = 0, max = .5){
+  assert_that(length(globe$x$arcsData$altitude) >= 1, msg = "No color specified.")
+  globe$x$arcsData$altitude <- scales::rescale(globe$x$arcsData$altitude, to = c(min, max))
+  return(globe)
+}
+
+#' @rdname scaling_color
+#' @export
+scale_choropleth_altitude <- function(globe, min = 0, max = .5) UseMethod("scale_choropleth_altitude") 
+
+#' @export
+#' @method scale_choropleth_altitude globe
+scale_choropleth_altitude.globe <- function(globe, min = 0, max = .5){
+  assert_that(length(globe$x$polygonsData[[1]]$altitude) >= 1, msg = "No color specified.")
+  altitude <- purrr::map(globe$x$polygonsData, "altitude") %>% unlist()
+
+  altitude <- scales::rescale(globe$x$arcsData$altitude, to = c(min, max))
+  globe$x$polygonsData <- purrr::map2(globe$x$polygonsData, altitude, function(x, y){
+    x$altitude <- y
+    return(x)
+  })
+
+  return(globe)
+}
