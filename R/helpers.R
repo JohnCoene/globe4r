@@ -145,6 +145,7 @@ scale_label_color.globe <- function(globe, palette = c("#edf8b1", "#7fcdbb", "#2
 #' Rescale altitude to a more appropriate range, where 0 if flat
 #' and 1 is the globe radius.
 #' 
+#' @inheritParams globe_img
 #' @param min,max Target minimum and maximum values of altitude.
 #' 
 #' @examples
@@ -162,7 +163,7 @@ scale_points_altitude <- function(globe, min = 0, max = .5) UseMethod("scale_poi
 #' @export
 #' @method scale_points_altitude globe 
 scale_points_altitude.globe <- function(globe, min = 0, max = .5){
-  assert_that(length(globe$x$pointsData$altitude) >= 1, msg = "No color specified.")
+  assert_that(length(globe$x$pointsData$altitude) >= 1, msg = "No altitude specified.")
   globe$x$pointsData$altitude <- scales::rescale(globe$x$pointsData$altitude, to = c(min, max))
   return(globe)
 }
@@ -174,19 +175,32 @@ scale_arcs_altitude <- function(globe, min = 0, max = .5) UseMethod("scale_arcs_
 #' @export
 #' @method scale_arcs_altitude globe 
 scale_arcs_altitude.globe <- function(globe, min = 0, max = .5){
-  assert_that(length(globe$x$arcsData$altitude) >= 1, msg = "No color specified.")
+  assert_that(length(globe$x$arcsData$altitude) >= 1, msg = "No altitude specified.")
   globe$x$arcsData$altitude <- scales::rescale(globe$x$arcsData$altitude, to = c(min, max))
   return(globe)
 }
 
-#' @rdname scaling_color
+#' @rdname scaling_altitude
+#' @export
+scale_labels_altitude <- function(globe, min = 0, max = .5) UseMethod("scale_labels_altitude")
+
+#' @export
+#' @method scale_labels_altitude globe 
+scale_labels_altitude.globe <- function(globe, min = 0, max = .5){
+  assert_that(length(globe$x$labelsData$altitude) >= 1, msg = "No altitude specified.")
+  globe$x$labelsData$altitude <- scales::rescale(globe$x$labelsData$altitude, to = c(min, max))
+  return(globe)
+}
+
+
+#' @rdname scaling_altitude
 #' @export
 scale_choropleth_altitude <- function(globe, min = 0, max = .5) UseMethod("scale_choropleth_altitude") 
 
 #' @export
 #' @method scale_choropleth_altitude globe
 scale_choropleth_altitude.globe <- function(globe, min = 0, max = .5){
-  assert_that(length(globe$x$polygonsData[[1]]$altitude) >= 1, msg = "No color specified.")
+  assert_that(length(globe$x$polygonsData[[1]]$altitude) >= 1, msg = "No altitude specified.")
   altitude <- purrr::map(globe$x$polygonsData, "altitude") %>% unlist()
 
   altitude <- scales::rescale(globe$x$arcsData$altitude, to = c(min, max))

@@ -3,14 +3,36 @@
 \name{scaling_altitude}
 \alias{scaling_altitude}
 \alias{scale_points_altitude}
+\alias{scale_arcs_altitude}
+\alias{scale_labels_altitude}
+\alias{scale_choropleth_altitude}
 \title{Scale Altitude}
 \usage{
-scale_points_altitude(globe, min = 0, max = 1)
+scale_points_altitude(globe, min = 0, max = 0.5)
+
+scale_arcs_altitude(globe, min = 0, max = 0.5)
+
+scale_labels_altitude(globe, min = 0, max = 0.5)
+
+scale_choropleth_altitude(globe, min = 0, max = 0.5)
 }
 \arguments{
+\item{globe}{An object of class \code{globe} as returned by
+\code{\link{create_globe}}, or an object of class \code{globeProxy}
+as returned by \code{\link{globeProxy}}.}
+
 \item{min, max}{Target minimum and maximum values of altitude.}
 }
 \description{
 Rescale altitude to a more appropriate range, where 0 if flat
 and 1 is the globe radius.
+}
+\examples{
+# basic
+create_globe() \%>\% 
+  globe_img_url() \%>\% 
+  globe_pov(-21, 179) \%>\% 
+  globe_points(quakes, lat, long, altitude = mag) \%>\% 
+  scale_points_altitude()
+
 }
