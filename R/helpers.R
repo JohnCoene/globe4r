@@ -236,7 +236,41 @@ scale_arc_stroke <- function(globe, min = .1, max = 1) UseMethod("scale_arc_stro
 #' @export
 #' @method scale_arc_stroke globe 
 scale_arc_stroke.globe <- function(globe, min = .1, max = 1){
-  assert_that(length(globe$x$arcsData$stroke) >= 1, msg = "No altitude specified.")
+  assert_that(length(globe$x$arcsData$stroke) >= 1, msg = "No arc stroke specified.")
   globe$x$arcsData$stroke <- scales::rescale(globe$x$arcsData$stroke, to = c(min, max))
+  return(globe)
+}
+
+#' Scale Arc Dash
+#' 
+#' Rescale various aspects of arcs dashes.
+#' 
+#' @inheritParams globe_img
+#' @param min,max Target minimum and maximum values of pixels.
+#' 
+#' @examples
+#' # basic
+#' create_globe() %>% 
+#'   globe_img_url() %>% 
+#'   globe_arcs(
+#'     usflights, start_lat, start_lon, end_lat, end_lon,
+#'     stroke = cnt
+#'   ) %>% 
+#'   scale_arc_stroke()
+#' 
+#' @section Scales:
+#' \itemize{
+#'   \item{Dash length: where \code{1} is the entire length of the arc.}
+#' }
+#' 
+#' @name scaling_dash
+#' @export
+scale_arc_dash_length <- function(globe, min = .1, max = 1) UseMethod("scale_arc_dash_length")
+
+#' @export
+#' @method scale_arc_dash_length globe 
+scale_arc_dash_length.globe <- function(globe, min = .1, max = 1){
+  assert_that(length(globe$x$arcsData$arcDashLength) >= 1, msg = "No arc dash length specified.")
+  globe$x$arcsData$arcDashLength <- scales::rescale(globe$x$arcsData$arcDashLength, to = c(min, max))
   return(globe)
 }
