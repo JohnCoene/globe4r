@@ -9,6 +9,7 @@
 \alias{points_radius}
 \alias{points_resolution}
 \alias{points_merge}
+\alias{points_transition}
 \title{Points Functional API}
 \usage{
 points_data(globe, data)
@@ -19,13 +20,15 @@ points_lon(globe, lon)
 
 points_color(globe, color)
 
-points_altitude(globe, altitude)
+points_altitude(globe, altitude = 0.1)
 
-points_radius(globe, radius)
+points_radius(globe, radius = 0.25)
 
-points_resolution(globe, resolution)
+points_resolution(globe, resolution = 12L)
 
 points_merge(globe, merge = TRUE)
+
+points_transition(globe, transition = 1000L)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
@@ -48,10 +51,16 @@ radius, in angular degrees.}
 cylinder, expressed in how many slice segments to divide the circumference. 
 Higher values yield smoother cylinders.}
 
-\item{merge}{Getter/setter for whether to merge all the point meshes 
+\item{merge}{Whether to merge all the point meshes 
 into a single ThreeJS object, for improved rendering performance. 
 Visually both options are equivalent, setting this option only affects 
 the internal organization of the ThreeJS objects.}
+
+\item{transition}{Duration (ms) of the transition 
+to animate point changes involving geometry modifications. A value of 
+\code{0} will move the objects immediately to their final position. 
+New objects are animated by scaling them from the ground up. Only works 
+if \code{merge} is disabled.}
 }
 \description{
 Functional API to add and customise points on globe.

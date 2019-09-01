@@ -34,12 +34,12 @@ in angular degrees.}
 of each cylinder, expressed in how many slice segments to divide the
  circumference. Higher values yield smoother cylinders.}
 
-\item{merge}{Getter/setter for whether to merge all the point meshes 
+\item{merge}{Whether to merge all the point meshes 
 into a single ThreeJS object, for improved rendering performance. 
 Visually both options are equivalent, setting this option only affects 
 the internal organization of the ThreeJS objects.}
 
-\item{transition}{Getter/setter for duration (ms) of the transition 
+\item{transition}{Duration (ms) of the transition 
 to animate point changes involving geometry modifications. A value of 
 \code{0} will move the objects immediately to their final position. 
 New objects are animated by scaling them from the ground up. Only works 
@@ -54,6 +54,7 @@ Add points to a globe.
 # basic
 create_globe() \%>\% 
   globe_img_url() \%>\% 
+  globe_pov(-21, 179) \%>\% 
   globe_points(quakes, lat, long, label = stations)
 
 # use in shiny

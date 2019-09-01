@@ -16,11 +16,11 @@
 #' @param resolution Getter/setter for the radial geometric resolution 
 #' of each cylinder, expressed in how many slice segments to divide the
 #'  circumference. Higher values yield smoother cylinders.
-#' @param merge Getter/setter for whether to merge all the point meshes 
+#' @param merge Whether to merge all the point meshes 
 #' into a single ThreeJS object, for improved rendering performance. 
 #' Visually both options are equivalent, setting this option only affects 
 #' the internal organization of the ThreeJS objects.
-#' @param transition Getter/setter for duration (ms) of the transition 
+#' @param transition Duration (ms) of the transition 
 #' to animate point changes involving geometry modifications. A value of 
 #' \code{0} will move the objects immediately to their final position. 
 #' New objects are animated by scaling them from the ground up. Only works 
@@ -31,6 +31,7 @@
 #' # basic
 #' create_globe() %>% 
 #'   globe_img_url() %>% 
+#'   globe_pov(-21, 179) %>% 
 #'   globe_points(quakes, lat, long, label = stations)
 #' 
 #' # use in shiny
@@ -166,6 +167,15 @@ globe_points.globeProxy <- function(globe, data, lat = NULL, lon = NULL, color =
 #' @param resolution Numeric value defining the geometric resolution of each 
 #' cylinder, expressed in how many slice segments to divide the circumference. 
 #' Higher values yield smoother cylinders.
+#' @param merge Whether to merge all the point meshes 
+#' into a single ThreeJS object, for improved rendering performance. 
+#' Visually both options are equivalent, setting this option only affects 
+#' the internal organization of the ThreeJS objects.
+#' @param transition Duration (ms) of the transition 
+#' to animate point changes involving geometry modifications. A value of 
+#' \code{0} will move the objects immediately to their final position. 
+#' New objects are animated by scaling them from the ground up. Only works 
+#' if \code{merge} is disabled.
 #' 
 #' @examples
 #' # use data
@@ -365,5 +375,25 @@ points_merge.globeProxy <- function(globe, merge = TRUE){
   msg <- list(id = globe$id)
   msg$pointMerge <- merge
   globe$session$sendCustomMessage("points_merge", msg)
+  return(globe)
+} 
+
+#' @rdname points_data
+#' @export
+points_transition <- function(globe, transition = 1000L) UseMethod("points_transition")
+
+#' @export
+#' @method points_transition globe
+points_transition.globe <- function(globe, transition = 1000L){
+  globe$x$pointTransition <- transition
+  return(globe)
+}
+
+#' @export
+#' @method points_transition globeProxy
+points_transition.globeProxy <- function(globe, transition = 1000L){
+  msg <- list(id = globe$id)
+  msg$pointTransition <- transition
+  globe$session$sendCustomMessage("points_transition", msg)
   return(globe)
 } 

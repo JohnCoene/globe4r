@@ -333,6 +333,14 @@ if (HTMLWidgets.shinyMode) {
       }
   });
 
+  Shiny.addCustomMessageHandler('points_transition',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.pointTransition(data.pointTransition);
+      }
+  });
+
   Shiny.addCustomMessageHandler('globe_points',
     function(data) {
       var globe = get_globe(data.id);
