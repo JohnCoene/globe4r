@@ -277,4 +277,26 @@ points_color.globeProxy <- function(globe, color){
   msg$pointColor <- color
   globe$session$sendCustomMessage("points_color", msg)
   return(globe)
+}
+
+#' @rdname points_data
+#' @export
+points_altitude <- function(globe, altitude) UseMethod("points_altitude")
+
+#' @export
+#' @method points_altitude globe
+points_altitude.globe <- function(globe, altitude){
+  assert_that(not_missing(altitude))
+  globe$x$pointAltitude <- altitude
+  return(globe)
+}
+
+#' @export
+#' @method points_altitude globeProxy
+points_altitude.globeProxy <- function(globe, altitude){
+  assert_that(not_missing(altitude))
+  msg <- list(id = globe$id)
+  msg$pointAltitude <- altitude
+  globe$session$sendCustomMessage("points_altitude", msg)
+  return(globe)
 } 
