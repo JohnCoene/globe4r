@@ -290,20 +290,18 @@ points_color.globeProxy <- function(globe, color){
 
 #' @rdname points_data
 #' @export
-points_altitude <- function(globe, altitude) UseMethod("points_altitude")
+points_altitude <- function(globe, altitude = .1) UseMethod("points_altitude")
 
 #' @export
 #' @method points_altitude globe
-points_altitude.globe <- function(globe, altitude){
-  assert_that(not_missing(altitude))
+points_altitude.globe <- function(globe, altitude = .1){
   globe$x$pointAltitude <- altitude
   return(globe)
 }
 
 #' @export
 #' @method points_altitude globeProxy
-points_altitude.globeProxy <- function(globe, altitude){
-  assert_that(not_missing(altitude))
+points_altitude.globeProxy <- function(globe, altitude = .1){
   msg <- list(id = globe$id)
   msg$pointAltitude <- altitude
   globe$session$sendCustomMessage("points_altitude", msg)
@@ -312,20 +310,18 @@ points_altitude.globeProxy <- function(globe, altitude){
 
 #' @rdname points_data
 #' @export
-points_radius <- function(globe, radius) UseMethod("points_radius")
+points_radius <- function(globe, radius = .25) UseMethod("points_radius")
 
 #' @export
 #' @method points_radius globe
-points_radius.globe <- function(globe, radius){
-  assert_that(not_missing(radius))
+points_radius.globe <- function(globe, radius = .25){
   globe$x$pointRadius <- radius
   return(globe)
 }
 
 #' @export
 #' @method points_radius globeProxy
-points_radius.globeProxy <- function(globe, radius){
-  assert_that(not_missing(radius))
+points_radius.globeProxy <- function(globe, radius = .25){
   msg <- list(id = globe$id)
   msg$pointRadius <- radius
   globe$session$sendCustomMessage("points_radius", msg)
@@ -334,20 +330,18 @@ points_radius.globeProxy <- function(globe, radius){
 
 #' @rdname points_data
 #' @export
-points_resolution <- function(globe, resolution) UseMethod("points_resolution")
+points_resolution <- function(globe, resolution = 12L) UseMethod("points_resolution")
 
 #' @export
 #' @method points_resolution globe
-points_resolution.globe <- function(globe, resolution){
-  assert_that(not_missing(resolution))
+points_resolution.globe <- function(globe, resolution = 12L){
   globe$x$pointResolution <- resolution
   return(globe)
 }
 
 #' @export
 #' @method points_resolution globeProxy
-points_resolution.globeProxy <- function(globe, resolution){
-  assert_that(not_missing(resolution))
+points_resolution.globeProxy <- function(globe, resolution = 12L){
   msg <- list(id = globe$id)
   msg$pointResolution <- resolution
   globe$session$sendCustomMessage("points_resolution", msg)
