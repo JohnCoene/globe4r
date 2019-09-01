@@ -353,3 +353,23 @@ points_resolution.globeProxy <- function(globe, resolution){
   globe$session$sendCustomMessage("points_resolution", msg)
   return(globe)
 } 
+
+#' @rdname points_data
+#' @export
+points_merge <- function(globe, merge = TRUE) UseMethod("points_merge")
+
+#' @export
+#' @method points_merge globe
+points_merge.globe <- function(globe, merge = TRUE){
+  globe$x$pointMerge <- merge
+  return(globe)
+}
+
+#' @export
+#' @method points_merge globeProxy
+points_merge.globeProxy <- function(globe, merge = TRUE){
+  msg <- list(id = globe$id)
+  msg$pointMerge <- merge
+  globe$session$sendCustomMessage("points_merge", msg)
+  return(globe)
+} 

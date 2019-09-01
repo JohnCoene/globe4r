@@ -8,6 +8,7 @@
 \alias{points_altitude}
 \alias{points_radius}
 \alias{points_resolution}
+\alias{points_merge}
 \title{Points Functional API}
 \usage{
 points_data(globe, data)
@@ -23,6 +24,8 @@ points_altitude(globe, altitude)
 points_radius(globe, radius)
 
 points_resolution(globe, resolution)
+
+points_merge(globe, merge = TRUE)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
@@ -44,6 +47,11 @@ radius, in angular degrees.}
 \item{resolution}{Numeric value defining the geometric resolution of each 
 cylinder, expressed in how many slice segments to divide the circumference. 
 Higher values yield smoother cylinders.}
+
+\item{merge}{Getter/setter for whether to merge all the point meshes 
+into a single ThreeJS object, for improved rendering performance. 
+Visually both options are equivalent, setting this option only affects 
+the internal organization of the ThreeJS objects.}
 }
 \description{
 Functional API to add and customise points on globe.
