@@ -1,0 +1,7 @@
+template:
+  params:
+    bootswatch: lumen
+
+authors:
+  John Coene:
+    href: http://john-coene.com

@@ -31,13 +31,9 @@ HTMLWidgets.widget({
 
         if(x.hasOwnProperty("width"))
           globe.width(x.width);
-        else 
-          globe.width(dom.offsetWidth);
 
         if(x.hasOwnProperty("height"))
           globe.height(x.height);
-        else
-          globe.height(dom.offsetHeight);
 
         if(x.hasOwnProperty("backgroundColor"))
           globe.backgroundColor(x.backgroundColor);

@@ -3,3 +3,5 @@
 test.html
 test.R
 ^README\.Rmd$
+^index\.Rmd$
+^_pkgdown\.yml$
