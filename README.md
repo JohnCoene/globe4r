@@ -1,28 +1,14 @@
----
-output: 
-  github_document:
-    html_preview: false
----
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
-```
-
 <!-- badges: start -->
 <!-- badges: end -->
-
-# globe4r
+globe4r
+=======
 
 Interactive globes for R via [globe-.gl](https://github.com/vasturiano/globe.gl).
 
-## Installation
+Installation
+------------
 
 You can install the globe4r from Github:
 
@@ -31,11 +17,12 @@ You can install the globe4r from Github:
 remotes::install_github("JohnCoene/globe4r")
 ```
 
-## Example
+Example
+-------
 
 This is a basic example which shows you how to solve a common problem:
 
-```r
+``` r
 library(globe4r)
 
 create_globe() %>% # initialise

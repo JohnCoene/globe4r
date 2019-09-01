@@ -13,6 +13,7 @@ Imports:
     dplyr,
     purrr,
     crayon,
+    scales,
     magrittr,
     assertthat,
     htmlwidgets

@@ -24,7 +24,7 @@
 #' @examples
 #' create_globe() %>% 
 #'   globe_img_url() %>% 
-#'   globe_choropleth(agriland, country_code, match = "iso3")
+#'   globe_choropleth(agriland, country_code, cap_color = percent)
 #' 
 #' @export
 globe_choropleth <- function(globe, data, country, cap_color = NULL, side_color = NULL,

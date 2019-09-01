@@ -46,6 +46,6 @@ Add points to a globe.
 \examples{
 create_globe() \%>\% 
   globe_img_url() \%>\% 
-  globe_choropleth(agriland, country_code, match = "iso3")
+  globe_choropleth(agriland, country_code, cap_color = percent)
 
 }
