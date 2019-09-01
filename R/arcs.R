@@ -190,3 +190,31 @@ globe_arcs.globeProxy <- function(globe, data, start_lat = NULL, start_lon = NUL
 
   return(globe)
 }
+
+#' Arcs Data
+#' 
+#' Add arcs data to a globe.
+#' 
+#' @inheritParams globe_img
+#' @param data A data.frame containing arcs data.
+#' 
+#' @export
+arcs_data <- function(globe, data) UseMethod("arcs_data")
+
+#' @export
+#' @method arcs_data globe
+arcs_data.globe <- function(globe, data){
+  assert_that(not_missing(data))
+  globe$x$arcsData <- data
+  return(globe)
+}
+
+#' @export
+#' @method arcs_data globeProxy
+arcs_data.globeProxy <- function(globe, data){
+  assert_that(not_missing(data))
+  msg <- list(id = globe$id)
+  msg$arcsData <- apply(data, 1, as.list)
+  globe$session$sendCustomMessage("arcs_data", msg)
+  return(globe)
+} 
