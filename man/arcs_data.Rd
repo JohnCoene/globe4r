@@ -11,6 +11,9 @@
 \alias{arcs_altitude}
 \alias{arcs_altitude_scale}
 \alias{arcs_stroke}
+\alias{arcs_curve_resolution}
+\alias{arcs_circular_resolution}
+\alias{arcs_dash_length}
 \title{Arcs Data}
 \usage{
 arcs_data(globe, data)
@@ -32,6 +35,12 @@ arcs_altitude(globe, altitude)
 arcs_altitude_scale(globe, scale = 0.5)
 
 arcs_stroke(globe, stroke)
+
+arcs_curve_resolution(globe, curve = 64L)
+
+arcs_circular_resolution(globe, circular = 6L)
+
+arcs_dash_length(globe, length = 1L)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
@@ -65,6 +74,17 @@ whose width is constant (1px) regardless of the camera distance.
 Otherwise, a 
 \href{https://threejs.org/docs/#api/en/geometries/TubeGeometry}{TubeGeometry}
 is used.}
+
+\item{curve}{Resolution, expressed in how many straight line 
+segments to divide the curve by. Higher values yield smoother curves.}
+
+\item{circular}{Radial geometric resolution of each line, 
+expressed in how many slice segments to divide the tube's circumference. 
+Only applicable when using Tube geometries (defined \code{stroke}).}
+
+\item{length}{Column name or numeric giving the length of the dashed 
+segments in the arc, in terms of relative length of the whole line 
+(\code{1} = full line length).}
 }
 \description{
 Add arcs data to a globe.

@@ -450,11 +450,35 @@ if (HTMLWidgets.shinyMode) {
       }
   });
 
+  Shiny.addCustomMessageHandler('arcs_curve_resolution',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcCurveResolution(data.arcCurveResolution);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_circular_resolution',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcCircularResolution(data.arcCircularResolution);
+      }
+  });
+
   Shiny.addCustomMessageHandler('arcs_altitude_scale',
     function(data) {
       var globe = get_globe(data.id);
       if (typeof globe != 'undefined') {
         globe.arcAltitudeAutoScale(data.arcAltitudeAutoScale);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_dash_length',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcDashLength(data.arcDashLength);
       }
   });
 

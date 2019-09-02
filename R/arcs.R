@@ -217,6 +217,14 @@ globe_arcs.globeProxy <- function(globe, data, start_lat = NULL, start_lon = NUL
 #' altitude, in terms of units of the great-arc distance between the two points. A 
 #' value of 1 indicates the arc should be as high as its length on the ground. 
 #' Only applicable if \code{arcs_altitude} is not set.
+#' @param curve Resolution, expressed in how many straight line 
+#' segments to divide the curve by. Higher values yield smoother curves.
+#' @param circular Radial geometric resolution of each line, 
+#' expressed in how many slice segments to divide the tube's circumference. 
+#' Only applicable when using Tube geometries (defined \code{stroke}).
+#' @param length Column name or numeric giving the length of the dashed 
+#' segments in the arc, in terms of relative length of the whole line 
+#' (\code{1} = full line length).
 #' 
 #' @examples
 #' create_globe() %>% 
@@ -440,5 +448,65 @@ arcs_stroke.globeProxy <- function(globe, stroke){
   msg <- list(id = globe$id)
   msg$arcStroke <- scale
   globe$session$sendCustomMessage("arcs_stroke", msg)
+  return(globe)
+}
+
+#' @rdname arcs_data
+#' @export
+arcs_curve_resolution <- function(globe, curve = 64L) UseMethod("arcs_curve_resolution")
+
+#' @export
+#' @method arcs_curve_resolution globe
+arcs_curve_resolution.globe <- function(globe, curve = 64L){
+  globe$x$arcCurveResolution <- curve
+  return(globe)
+}
+
+#' @export
+#' @method arcs_curve_resolution globeProxy
+arcs_curve_resolution.globeProxy <- function(globe, curve = 64L){
+  msg <- list(id = globe$id)
+  msg$arcCurveResolution <- curve
+  globe$session$sendCustomMessage("arcs_curve_resolution", msg)
+  return(globe)
+}
+
+#' @rdname arcs_data
+#' @export
+arcs_circular_resolution <- function(globe, circular = 6L) UseMethod("arcs_circular_resolution")
+
+#' @export
+#' @method arcs_circular_resolution globe
+arcs_circular_resolution.globe <- function(globe, circular = 6L){
+  globe$x$arcCircularResolution <- circular
+  return(globe)
+}
+
+#' @export
+#' @method arcs_circular_resolution globeProxy
+arcs_circular_resolution.globeProxy <- function(globe, circular = 6L){
+  msg <- list(id = globe$id)
+  msg$arcCircularResolution <- circular
+  globe$session$sendCustomMessage("arcs_circular_resolution", msg)
+  return(globe)
+}
+
+#' @rdname arcs_data
+#' @export
+arcs_dash_length <- function(globe, length = 1L) UseMethod("arcs_dash_length")
+
+#' @export
+#' @method arcs_dash_length globe
+arcs_dash_length.globe <- function(globe, length = 1L){
+  globe$x$arcDashLength <- length
+  return(globe)
+}
+
+#' @export
+#' @method arcs_dash_length globeProxy
+arcs_dash_length.globeProxy <- function(globe, length = 1L){
+  msg <- list(id = globe$id)
+  msg$arcDashLength <- length
+  globe$session$sendCustomMessage("arcs_dash_length", msg)
   return(globe)
 }
