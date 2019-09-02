@@ -362,3 +362,23 @@ arcs_color.globeProxy <- function(globe, color = constant("#ffffaa")){
   globe$session$sendCustomMessage("arcs_color", msg)
   return(globe)
 } 
+
+#' @rdname arcs_data
+#' @export
+arcs_altitude <- function(globe, altitude) UseMethod("arcs_altitude")
+
+#' @export
+#' @method arcs_altitude globe
+arcs_altitude.globe <- function(globe, altitude){
+  globe$x$arcAltitude <- altitude
+  return(globe)
+}
+
+#' @export
+#' @method arcs_altitude globeProxy
+arcs_altitude.globeProxy <- function(globe, altitude){
+  msg <- list(id = globe$id)
+  msg$arcAltitude <- altitude
+  globe$session$sendCustomMessage("arcs_altitude", msg)
+  return(globe)
+} 

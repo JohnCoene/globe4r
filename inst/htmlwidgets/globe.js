@@ -433,6 +433,15 @@ if (HTMLWidgets.shinyMode) {
       }
   });
 
+
+  Shiny.addCustomMessageHandler('arcs_altitude',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcAltitude(data.arcAltitude);
+      }
+  });
+
   Shiny.addCustomMessageHandler('globe_points',
     function(data) {
       var globe = get_globe(data.id);
