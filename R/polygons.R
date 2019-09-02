@@ -177,7 +177,12 @@ globe_choropleth.globeProxy <- function(globe, data, country, cap_color = NULL, 
 #' 
 #' @inheritParams globe_img
 #' @param data A data.frame containing arcs data.
-#' @param label Column name containing label.
+#' @param label Name containing label in \code{data} list
+#' or JavaScript function.
+#' @param geometry Name containing geometry in \code{data} list 
+#' or JavaScript function.
+#' @param color A JavaScript function or \code{\link{constant}}, or
+#' name containing color in \code{data} list.
 #' 
 #' @name polygons_data
 #' @export
@@ -242,5 +247,45 @@ polygons_geometry.globeProxy <- function(globe, geometry = "geometry"){
   msg <- list(id = globe$id)
   msg$polygonGeoJsonGeometry <- geometry
   globe$session$sendCustomMessage("polygons_geometry", msg)
+  return(globe)
+}
+
+#' @rdname polygons_data
+#' @export
+polygons_cap_color <- function(globe, color = constant("ffffaa")) UseMethod("polygons_cap_color")
+
+#' @export
+#' @method polygons_cap_color globe
+polygons_cap_color.globe <- function(globe, color = constant("ffffaa")){
+  globe$x$polygonCapColor <- color
+  return(globe)
+}
+
+#' @export
+#' @method polygons_cap_color globeProxy
+polygons_cap_color.globeProxy <- function(globe, color = constant("ffffaa")){
+  msg <- list(id = globe$id)
+  msg$polygonCapColor <- color
+  globe$session$sendCustomMessage("polygons_cap_color", msg)
+  return(globe)
+}
+
+#' @rdname polygons_data
+#' @export
+polygons_side_color <- function(globe, color = constant("ffffaa")) UseMethod("polygons_side_color")
+
+#' @export
+#' @method polygons_side_color globe
+polygons_side_color.globe <- function(globe, color = constant("ffffaa")){
+  globe$x$polygonCapColor <- color
+  return(globe)
+}
+
+#' @export
+#' @method polygons_side_color globeProxy
+polygons_side_color.globeProxy <- function(globe, color = constant("ffffaa")){
+  msg <- list(id = globe$id)
+  msg$polygonCapColor <- color
+  globe$session$sendCustomMessage("polygons_side_color", msg)
   return(globe)
 }

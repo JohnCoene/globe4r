@@ -3,11 +3,20 @@
 \name{polygons_data}
 \alias{polygons_data}
 \alias{polygons_label}
+\alias{polygons_geometry}
+\alias{polygons_cap_color}
+\alias{polygons_side_color}
 \title{Polygons Data}
 \usage{
 polygons_data(globe, data)
 
 polygons_label(globe, label = "name")
+
+polygons_geometry(globe, geometry = "geometry")
+
+polygons_cap_color(globe, color = constant("ffffaa"))
+
+polygons_side_color(globe, color = constant("ffffaa"))
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
@@ -16,7 +25,14 @@ as returned by \code{\link{globeProxy}}.}
 
 \item{data}{A data.frame containing arcs data.}
 
-\item{label}{Column name containing label.}
+\item{label}{Name containing label in \code{data} list
+or JavaScript function.}
+
+\item{geometry}{Name containing geometry in \code{data} list 
+or JavaScript function.}
+
+\item{color}{A JavaScript function or \code{\link{constant}}, or
+name containing color in \code{data} list.}
 }
 \description{
 Add polygons data to a globe.
