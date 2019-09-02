@@ -7,6 +7,8 @@ globe4r
 
 Interactive globes for R via [globe-.gl](https://github.com/vasturiano/globe.gl).
 
+<img src="./man/figures/logo.png" height="250" align="right" />
+
 Installation
 ------------
 
