@@ -198,6 +198,7 @@ globe_arcs.globeProxy <- function(globe, data, start_lat = NULL, start_lon = NUL
 #' @inheritParams globe_img
 #' @param data A data.frame containing arcs data.
 #' 
+#' @name arcs_data
 #' @export
 arcs_data <- function(globe, data) UseMethod("arcs_data")
 
@@ -216,5 +217,27 @@ arcs_data.globeProxy <- function(globe, data){
   msg <- list(id = globe$id)
   msg$arcsData <- apply(data, 1, as.list)
   globe$session$sendCustomMessage("arcs_data", msg)
+  return(globe)
+} 
+
+#' @rdname arcs_data
+#' @export
+arcs_label <- function(globe, label) UseMethod("arcs_label")
+
+#' @export
+#' @method arcs_label globe
+arcs_label.globe <- function(globe, label){
+  assert_that(not_missing(label))
+  globe$x$arcLabel <- label
+  return(globe)
+}
+
+#' @export
+#' @method arcs_label globeProxy
+arcs_label.globeProxy <- function(globe, label){
+  assert_that(not_missing(label))
+  msg <- list(id = globe$id)
+  msg$arcLabel <- label
+  globe$session$sendCustomMessage("arcs_label", msg)
   return(globe)
 } 
