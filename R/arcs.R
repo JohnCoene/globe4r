@@ -230,6 +230,7 @@ globe_arcs.globeProxy <- function(globe, data, start_lat = NULL, start_lon = NUL
 #' @param ms Colum name or numeric for the time duration (in ms) to animate 
 #' the motion of dash positions from the start to the end point for a full line 
 #' length. A value of 0 disables the animation.
+#' @param func JavaScript function as character vector.
 #' 
 #' @examples
 #' create_globe() %>% 
@@ -595,3 +596,69 @@ arcs_transition.globeProxy <- function(globe, ms = 0L){
   globe$session$sendCustomMessage("arcs_transition", msg)
   return(globe)
 }
+
+#' @rdname arcs_data
+#' @export
+arcs_on_click <- function(globe, func) UseMethod("arcs_on_click")
+
+#' @export
+#' @method arcs_on_click globe
+arcs_on_click.globe <- function(globe, func){
+  assert_that(not_missing(func))
+  globe$x$onPointClick <- htmlwidgets::JS(func)
+  return(globe)
+}
+
+#' @export
+#' @method arcs_on_click globeProxy
+arcs_on_click.globeProxy <- function(globe, func){
+  assert_that(not_missing(func))
+  msg <- list(id = globe$id)
+  msg$onPointClick <- htmlwidgets::JS(func)
+  globe$session$sendCustomMessage("arcs_on_click", msg)
+  return(globe)
+} 
+
+#' @rdname arcs_data
+#' @export
+arcs_on_right_click <- function(globe, func) UseMethod("arcs_on_right_click")
+
+#' @export
+#' @method arcs_on_right_click globe
+arcs_on_right_click.globe <- function(globe, func){
+  assert_that(not_missing(func))
+  globe$x$onPointRightClick <- htmlwidgets::JS(func)
+  return(globe)
+}
+
+#' @export
+#' @method arcs_on_right_click globeProxy
+arcs_on_right_click.globeProxy <- function(globe, func){
+  assert_that(not_missing(func))
+  msg <- list(id = globe$id)
+  msg$onPointRightClick <- htmlwidgets::JS(func)
+  globe$session$sendCustomMessage("arcs_on_right_click", msg)
+  return(globe)
+} 
+
+#' @rdname arcs_data
+#' @export
+arcs_on_hover <- function(globe, func) UseMethod("arcs_on_hover")
+
+#' @export
+#' @method arcs_on_hover globe
+arcs_on_hover.globe <- function(globe, func){
+  assert_that(not_missing(func))
+  globe$x$onPointHover <- htmlwidgets::JS(func)
+  return(globe)
+}
+
+#' @export
+#' @method arcs_on_hover globeProxy
+arcs_on_hover.globeProxy <- function(globe, func){
+  assert_that(not_missing(func))
+  msg <- list(id = globe$id)
+  msg$onPointHover <- htmlwidgets::JS(func)
+  globe$session$sendCustomMessage("arcs_on_hover", msg)
+  return(globe)
+} 

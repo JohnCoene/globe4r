@@ -18,6 +18,9 @@
 \alias{arcs_dash_initial_gap}
 \alias{arcs_dash_animate}
 \alias{arcs_transition}
+\alias{arcs_on_click}
+\alias{arcs_on_right_click}
+\alias{arcs_on_hover}
 \title{Arcs Data}
 \usage{
 arcs_data(globe, data)
@@ -53,6 +56,12 @@ arcs_dash_initial_gap(globe, gap = 0L)
 arcs_dash_animate(globe, ms = 0L)
 
 arcs_transition(globe, ms = 0L)
+
+arcs_on_click(globe, func)
+
+arcs_on_right_click(globe, func)
+
+arcs_on_hover(globe, func)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
@@ -104,6 +113,8 @@ dash segments, in terms of relative line length.}
 \item{ms}{Colum name or numeric for the time duration (in ms) to animate 
 the motion of dash positions from the start to the end point for a full line 
 length. A value of 0 disables the animation.}
+
+\item{func}{JavaScript function as character vector.}
 }
 \description{
 Add arcs data to a globe.
