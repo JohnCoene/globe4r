@@ -329,3 +329,25 @@ arcs_end_lon.globeProxy <- function(globe, lon){
   globe$session$sendCustomMessage("arcs_end_lon", msg)
   return(globe)
 } 
+
+#' @rdname arcs_data
+#' @export
+arcs_color <- function(globe, color) UseMethod("arcs_color")
+
+#' @export
+#' @method arcs_color globe
+arcs_color.globe <- function(globe, color){
+  assert_that(not_missing(color))
+  globe$x$arcColor <- label
+  return(globe)
+}
+
+#' @export
+#' @method arcs_color globeProxy
+arcs_color.globeProxy <- function(globe, color = constant("#ffffaa")){
+  assert_that(not_missing(color))
+  msg <- list(id = globe$id)
+  msg$arcColor <- color
+  globe$session$sendCustomMessage("arcs_color", msg)
+  return(globe)
+} 
