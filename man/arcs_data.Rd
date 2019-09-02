@@ -5,15 +5,24 @@
 \alias{arcs_label}
 \alias{arcs_start_lat}
 \alias{arcs_start_lon}
+\alias{arcs_end_lat}
+\alias{arcs_end_lon}
+\alias{arcs_color}
 \title{Arcs Data}
 \usage{
 arcs_data(globe, data)
 
 arcs_label(globe, label)
 
-arcs_start_lat(globe, lat)
+arcs_start_lat(globe, lat = "startLat")
 
-arcs_start_lon(globe, lon)
+arcs_start_lon(globe, lon = "startLng")
+
+arcs_end_lat(globe, lat = "endLat")
+
+arcs_end_lon(globe, lon = "endLng")
+
+arcs_color(globe, color = constant("#ffffaa"))
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
@@ -21,7 +30,24 @@ arcs_start_lon(globe, lon)
 as returned by \code{\link{globeProxy}}.}
 
 \item{data}{A data.frame containing arcs data.}
+
+\item{label}{Column name containing label or a charcater vector. Supports html.}
+
+\item{lat, lon}{Column names or numeric value indicating 
+starting and ending coordinates of arc(s).}
+
+\item{color}{Column name or character vector indicating color of points.}
 }
 \description{
 Add arcs data to a globe.
+}
+\examples{
+create_globe() \%>\% 
+  globe_img_url() \%>\% 
+  arcs_data(usflights) \%>\% 
+  arcs_start_lat("start_lat") \%>\% 
+  arcs_start_lon("start_lon") \%>\% 
+  arcs_end_lat("end_lat") \%>\% 
+  arcs_end_lon("end_lon")
+
 }

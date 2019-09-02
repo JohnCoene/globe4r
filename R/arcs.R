@@ -197,6 +197,19 @@ globe_arcs.globeProxy <- function(globe, data, start_lat = NULL, start_lon = NUL
 #' 
 #' @inheritParams globe_img
 #' @param data A data.frame containing arcs data.
+#' @param lat,lon Column names or numeric value indicating 
+#' starting and ending coordinates of arc(s).
+#' @param color Column name or character vector indicating color of points.
+#' @param label Column name containing label or a charcater vector. Supports html.
+#' 
+#' @examples
+#' create_globe() %>% 
+#'   globe_img_url() %>% 
+#'   arcs_data(usflights) %>% 
+#'   arcs_start_lat("start_lat") %>% 
+#'   arcs_start_lon("start_lon") %>% 
+#'   arcs_end_lat("end_lat") %>% 
+#'   arcs_end_lon("end_lon")
 #' 
 #' @name arcs_data
 #' @export
@@ -244,19 +257,19 @@ arcs_label.globeProxy <- function(globe, label){
 
 #' @rdname arcs_data
 #' @export
-arcs_start_lat <- function(globe, lat) UseMethod("arcs_start_lat")
+arcs_start_lat <- function(globe, lat = "startLat") UseMethod("arcs_start_lat")
 
 #' @export
 #' @method arcs_start_lat globe
-arcs_start_lat.globe <- function(globe, lat){
+arcs_start_lat.globe <- function(globe, lat = "startLat"){
   assert_that(not_missing(lat))
-  globe$x$arcStartLat <- label
+  globe$x$arcStartLat <- lat
   return(globe)
 }
 
 #' @export
 #' @method arcs_start_lat globeProxy
-arcs_start_lat.globeProxy <- function(globe, lat){
+arcs_start_lat.globeProxy <- function(globe, lat = "startLat"){
   assert_that(not_missing(lat))
   msg <- list(id = globe$id)
   msg$arcStartLat <- lat
@@ -266,19 +279,19 @@ arcs_start_lat.globeProxy <- function(globe, lat){
 
 #' @rdname arcs_data
 #' @export
-arcs_start_lon <- function(globe, lon) UseMethod("arcs_start_lon")
+arcs_start_lon <- function(globe, lon = "startLng") UseMethod("arcs_start_lon")
 
 #' @export
 #' @method arcs_start_lon globe
-arcs_start_lon.globe <- function(globe, lon){
+arcs_start_lon.globe <- function(globe, lon = "startLng"){
   assert_that(not_missing(lon))
-  globe$x$arcStartLng <- label
+  globe$x$arcStartLng <- lon
   return(globe)
 }
 
 #' @export
 #' @method arcs_start_lon globeProxy
-arcs_start_lon.globeProxy <- function(globe, lon){
+arcs_start_lon.globeProxy <- function(globe, lon = "startLng"){
   assert_that(not_missing(lon))
   msg <- list(id = globe$id)
   msg$arcStartLng <- lon
@@ -288,19 +301,19 @@ arcs_start_lon.globeProxy <- function(globe, lon){
 
 #' @rdname arcs_data
 #' @export
-arcs_end_lat <- function(globe, lat) UseMethod("arcs_end_lat")
+arcs_end_lat <- function(globe, lat = "endLat") UseMethod("arcs_end_lat")
 
 #' @export
 #' @method arcs_end_lat globe
-arcs_end_lat.globe <- function(globe, lat){
+arcs_end_lat.globe <- function(globe, lat = "endLat"){
   assert_that(not_missing(lat))
-  globe$x$arcEndLat <- label
+  globe$x$arcEndLat <- lat
   return(globe)
 }
 
 #' @export
 #' @method arcs_end_lat globeProxy
-arcs_end_lat.globeProxy <- function(globe, lat){
+arcs_end_lat.globeProxy <- function(globe, lat = "endLat"){
   assert_that(not_missing(lat))
   msg <- list(id = globe$id)
   msg$arcEndLat <- lat
@@ -310,19 +323,19 @@ arcs_end_lat.globeProxy <- function(globe, lat){
 
 #' @rdname arcs_data
 #' @export
-arcs_end_lon <- function(globe, lon) UseMethod("arcs_end_lon")
+arcs_end_lon <- function(globe, lon = "endLng") UseMethod("arcs_end_lon")
 
 #' @export
 #' @method arcs_end_lon globe
-arcs_end_lon.globe <- function(globe, lon){
+arcs_end_lon.globe <- function(globe, lon = "endLng"){
   assert_that(not_missing(lon))
-  globe$x$arcEndLng <- label
+  globe$x$arcEndLng <- lon
   return(globe)
 }
 
 #' @export
 #' @method arcs_end_lon globeProxy
-arcs_end_lon.globeProxy <- function(globe, lon){
+arcs_end_lon.globeProxy <- function(globe, lon = "endLng"){
   assert_that(not_missing(lon))
   msg <- list(id = globe$id)
   msg$arcEndLng <- lon
@@ -332,20 +345,18 @@ arcs_end_lon.globeProxy <- function(globe, lon){
 
 #' @rdname arcs_data
 #' @export
-arcs_color <- function(globe, color) UseMethod("arcs_color")
+arcs_color <- function(globe, color = constant("#ffffaa")) UseMethod("arcs_color")
 
 #' @export
 #' @method arcs_color globe
-arcs_color.globe <- function(globe, color){
-  assert_that(not_missing(color))
-  globe$x$arcColor <- label
+arcs_color.globe <- function(globe, color = constant("#ffffaa")){
+  globe$x$arcColor <- color
   return(globe)
 }
 
 #' @export
 #' @method arcs_color globeProxy
 arcs_color.globeProxy <- function(globe, color = constant("#ffffaa")){
-  assert_that(not_missing(color))
   msg <- list(id = globe$id)
   msg$arcColor <- color
   globe$session$sendCustomMessage("arcs_color", msg)

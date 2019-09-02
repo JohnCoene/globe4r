@@ -235,11 +235,11 @@ points_data.globeProxy <- function(globe, data){
 
 #' @rdname points_data
 #' @export
-points_lat <- function(globe, lat) UseMethod("points_lat")
+points_lat <- function(globe, lat = "lat") UseMethod("points_lat")
 
 #' @export
 #' @method points_lat globe
-points_lat.globe <- function(globe, lat){
+points_lat.globe <- function(globe, lat = "lat"){
   assert_that(not_missing(lat))
   globe$x$pointLat <- lat
   return(globe)
@@ -247,7 +247,7 @@ points_lat.globe <- function(globe, lat){
 
 #' @export
 #' @method points_data globeProxy
-points_lat.globeProxy <- function(globe, lat){
+points_lat.globeProxy <- function(globe, lat = "lat"){
   assert_that(not_missing(lat))
   msg <- list(id = globe$id)
   msg$pointLat <- lat
@@ -257,11 +257,11 @@ points_lat.globeProxy <- function(globe, lat){
 
 #' @rdname points_data
 #' @export
-points_lon <- function(globe, lon) UseMethod("points_lon")
+points_lon <- function(globe, lon = "lng") UseMethod("points_lon")
 
 #' @export
 #' @method points_lon globe
-points_lon.globe <- function(globe, lon){
+points_lon.globe <- function(globe, lon = "lng"){
   assert_that(not_missing(lon))
   globe$x$pointLng <- lon
   return(globe)
@@ -269,7 +269,7 @@ points_lon.globe <- function(globe, lon){
 
 #' @export
 #' @method points_lon globeProxy
-points_lon.globeProxy <- function(globe, lon){
+points_lon.globeProxy <- function(globe, lon = "lng"){
   assert_that(not_missing(lon))
   msg <- list(id = globe$id)
   msg$pointLng <- lon
@@ -279,11 +279,11 @@ points_lon.globeProxy <- function(globe, lon){
 
 #' @rdname points_data
 #' @export
-points_color <- function(globe, color) UseMethod("points_color")
+points_color <- function(globe, color = constant("ffffaa")) UseMethod("points_color")
 
 #' @export
 #' @method points_color globe
-points_color.globe <- function(globe, color){
+points_color.globe <- function(globe, color = constant("ffffaa")){
   assert_that(not_missing(color))
   globe$x$pointColor <- color
   return(globe)
@@ -291,7 +291,7 @@ points_color.globe <- function(globe, color){
 
 #' @export
 #' @method points_color globeProxy
-points_color.globeProxy <- function(globe, color){
+points_color.globeProxy <- function(globe, color = constant("ffffaa")){
   assert_that(not_missing(color))
   msg <- list(id = globe$id)
   msg$pointColor <- color

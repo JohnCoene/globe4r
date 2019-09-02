@@ -5,3 +5,4 @@ test.R
 ^README\.Rmd$
 ^index\.Rmd$
 ^_pkgdown\.yml$
+docs

@@ -17,11 +17,11 @@
 \usage{
 points_data(globe, data)
 
-points_lat(globe, lat)
+points_lat(globe, lat = "lat")
 
-points_lon(globe, lon)
+points_lon(globe, lon = "lng")
 
-points_color(globe, color)
+points_color(globe, color = constant("ffffaa"))
 
 points_altitude(globe, altitude = 0.1)
 
