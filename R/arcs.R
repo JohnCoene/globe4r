@@ -381,4 +381,24 @@ arcs_altitude.globeProxy <- function(globe, altitude){
   msg$arcAltitude <- altitude
   globe$session$sendCustomMessage("arcs_altitude", msg)
   return(globe)
-} 
+}
+
+#' @rdname arcs_data
+#' @export
+arcs_altitude_scale <- function(globe, scale = .5) UseMethod("arcs_altitude_scale")
+
+#' @export
+#' @method arcs_altitude_scale globe
+arcs_altitude_scale.globe <- function(globe, scale = .5){
+  globe$x$arcAltitudeAutoScale <- scale
+  return(globe)
+}
+
+#' @export
+#' @method arcs_altitude_scale globeProxy
+arcs_altitude_scale.globeProxy <- function(globe, scale = .5){
+  msg <- list(id = globe$id)
+  msg$arcAltitudeAutoScale <- scale
+  globe$session$sendCustomMessage("arcs_altitude_scale", msg)
+  return(globe)
+}
