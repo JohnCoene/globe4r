@@ -257,9 +257,31 @@ arcs_start_lat.globe <- function(globe, lat){
 #' @export
 #' @method arcs_start_lat globeProxy
 arcs_start_lat.globeProxy <- function(globe, lat){
-  assert_that(not_missing(label))
+  assert_that(not_missing(lat))
   msg <- list(id = globe$id)
   msg$arcStartLat <- lat
   globe$session$sendCustomMessage("arcs_start_lat", msg)
+  return(globe)
+} 
+
+#' @rdname arcs_data
+#' @export
+arcs_start_lon <- function(globe, lon) UseMethod("arcs_start_lon")
+
+#' @export
+#' @method arcs_start_lon globe
+arcs_start_lon.globe <- function(globe, lon){
+  assert_that(not_missing(lon))
+  globe$x$arcStartLng <- label
+  return(globe)
+}
+
+#' @export
+#' @method arcs_start_lon globeProxy
+arcs_start_lon.globeProxy <- function(globe, lon){
+  assert_that(not_missing(lon))
+  msg <- list(id = globe$id)
+  msg$arcStartLng <- lon
+  globe$session$sendCustomMessage("arcs_start_lon", msg)
   return(globe)
 } 

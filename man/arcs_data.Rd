@@ -2,9 +2,18 @@
 % Please edit documentation in R/arcs.R
 \name{arcs_data}
 \alias{arcs_data}
+\alias{arcs_label}
+\alias{arcs_start_lat}
+\alias{arcs_start_lon}
 \title{Arcs Data}
 \usage{
 arcs_data(globe, data)
+
+arcs_label(globe, label)
+
+arcs_start_lat(globe, lat)
+
+arcs_start_lon(globe, lon)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by

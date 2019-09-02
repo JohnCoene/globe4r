@@ -101,6 +101,14 @@ HTMLWidgets.widget({
           globe.onArcRightClick(x.onArcRightClick); 
         if(x.hasOwnProperty("onArcHover"))
           globe.onArcHover(x.onArcHover); 
+        if(x.hasOwnProperty("arcStartLng"))
+          globe.arcStartLng(x.arcStartLng);
+        if(x.hasOwnProperty("arcStartLat"))
+          globe.arcStartLat(x.arcStartLat);
+        if(x.hasOwnProperty("arcEndLat"))
+          globe.arcEndLat(x.arcEndLat);
+        if(x.hasOwnProperty("arcEndLng"))
+          globe.arcEndLng(x.arcEndLng);
 
         // polygon
         if(x.hasOwnProperty("polygonsData"))
@@ -390,6 +398,14 @@ if (HTMLWidgets.shinyMode) {
       var globe = get_globe(data.id);
       if (typeof globe != 'undefined') {
         globe.arcStartLat(data.arcStartLat);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_start_lon',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcStartLng(data.arcStartLng);
       }
   });
 
