@@ -240,4 +240,26 @@ arcs_label.globeProxy <- function(globe, label){
   msg$arcLabel <- label
   globe$session$sendCustomMessage("arcs_label", msg)
   return(globe)
+}
+
+#' @rdname arcs_data
+#' @export
+arcs_start_lat <- function(globe, lat) UseMethod("arcs_start_lat")
+
+#' @export
+#' @method arcs_start_lat globe
+arcs_start_lat.globe <- function(globe, lat){
+  assert_that(not_missing(lat))
+  globe$x$arcStartLat <- label
+  return(globe)
+}
+
+#' @export
+#' @method arcs_start_lat globeProxy
+arcs_start_lat.globeProxy <- function(globe, lat){
+  assert_that(not_missing(label))
+  msg <- list(id = globe$id)
+  msg$arcStartLat <- lat
+  globe$session$sendCustomMessage("arcs_start_lat", msg)
+  return(globe)
 } 
