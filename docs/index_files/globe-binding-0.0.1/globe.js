@@ -101,6 +101,14 @@ HTMLWidgets.widget({
           globe.onArcRightClick(x.onArcRightClick); 
         if(x.hasOwnProperty("onArcHover"))
           globe.onArcHover(x.onArcHover); 
+        if(x.hasOwnProperty("arcStartLng"))
+          globe.arcStartLng(x.arcStartLng);
+        if(x.hasOwnProperty("arcStartLat"))
+          globe.arcStartLat(x.arcStartLat);
+        if(x.hasOwnProperty("arcEndLat"))
+          globe.arcEndLat(x.arcEndLat);
+        if(x.hasOwnProperty("arcEndLng"))
+          globe.arcEndLng(x.arcEndLng);
 
         // polygon
         if(x.hasOwnProperty("polygonsData"))
@@ -374,6 +382,159 @@ if (HTMLWidgets.shinyMode) {
       var globe = get_globe(data.id);
       if (typeof globe != 'undefined') {
         globe.arcsData(data.arcsData);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_label',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcLabel(data.arcLabel);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_start_lat',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcStartLat(data.arcStartLat);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_start_lon',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcStartLng(data.arcStartLng);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_end_lat',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcEndLat(data.arcEndLat);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_end_lon',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcEndLng(data.arcEndLng);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_color',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcColor(data.arcColor);
+      }
+  });
+
+
+  Shiny.addCustomMessageHandler('arcs_altitude',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcAltitude(data.arcAltitude);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_stroke',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcStroke(data.arcStroke);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_curve_resolution',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcCurveResolution(data.arcCurveResolution);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_circular_resolution',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcCircularResolution(data.arcCircularResolution);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_altitude_scale',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcAltitudeAutoScale(data.arcAltitudeAutoScale);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_dash_length',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcDashLength(data.arcDashLength);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_dash_gap',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcDashGap(data.arcDashGap);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_transition',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcsTransitionDuration(data.arcsTransitionDuration);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_dash_initial_gap',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcDashInitialGap(data.arcDashInitialGap);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_dash_initial_gap',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcDashInitialGap(data.arcDashInitialGap);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_on_click',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.onArcClick(data.onArcClick);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_on_right_click',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.onArcRightClick(data.onArcRightClick);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_on_hover',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.onArcHover(data.onArcHover);
       }
   });
 

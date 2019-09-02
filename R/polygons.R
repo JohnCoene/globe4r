@@ -170,3 +170,57 @@ globe_choropleth.globeProxy <- function(globe, data, country, cap_color = NULL, 
 
   return(globe)
 }
+
+#' Polygons Data
+#' 
+#' Add polygons data to a globe.
+#' 
+#' @inheritParams globe_img
+#' @param data A data.frame containing arcs data.
+#' @param label Column name containing label.
+#' 
+#' @name polygons_data
+#' @export
+polygons_data <- function(globe, data) UseMethod("polygons_data")
+
+#' @export
+#' @method polygons_data globe
+polygons_data.globe <- function(globe, data){
+  assert_that(not_missing(data))
+  has_features <- "features" %in% names(data) 
+  validate_that(has_features, msg = "Do not pass the entire GeoJSON, only the `features`")
+  globe$x$polygonsData <- data
+  return(globe)
+}
+
+#' @export
+#' @method polygons_data globeProxy
+polygons_data.globeProxy <- function(globe, data){
+  assert_that(not_missing(data))
+  has_features <- "features" %in% names(data) 
+  validate_that(has_features, msg = "Do not pass the entire GeoJSON, only the `features`")
+  msg <- list(id = globe$id)
+  msg$polygonsData <- data
+  globe$session$sendCustomMessage("polygons_data", msg)
+  return(globe)
+}
+
+#' @rdname polygons_data
+#' @export
+polygons_label <- function(globe, label = "name") UseMethod("polygons_label")
+
+#' @export
+#' @method polygons_label globe
+polygons_label.globe <- function(globe, label = "name"){
+  globe$x$polygonLabel <- label
+  return(globe)
+}
+
+#' @export
+#' @method polygons_label globeProxy
+polygons_label.globeProxy <- function(globe, label = "name"){
+  msg <- list(id = globe$id)
+  msg$polygonLabel <- label
+  globe$session$sendCustomMessage("polygons_label", msg)
+  return(globe)
+}
