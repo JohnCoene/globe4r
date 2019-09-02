@@ -18,6 +18,8 @@ library(htmltools)
 
 Interactive globes for R via [globe-.gl](https://github.com/vasturiano/globe.gl).
 
+<img src="./logo.png" height="250" align="right" />
+
 ## Installation
 
 You can install the globe4r from Github:

@@ -1,6 +1,6 @@
 template:
   params:
-    bootswatch: lumen
+    bootswatch: cyborg
 
 authors:
   John Coene:

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Scale Arc Dash — scaling_dash • globe4r</title>
+<title>Polygons Data — polygons_data • globe4r</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -40,8 +40,8 @@
 
 
 
-<meta property="og:title" content="Scale Arc Dash — scaling_dash" />
-<meta property="og:description" content="Rescale various aspects of arcs dashes." />
+<meta property="og:title" content="Polygons Data — polygons_data" />
+<meta property="og:description" content="Add polygons data to a globe." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -104,16 +104,34 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Scale Arc Dash</h1>
+    <h1>Polygons Data</h1>
     
-    <div class="hidden name"><code>scaling_dash.Rd</code></div>
+    <div class="hidden name"><code>polygons_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Rescale various aspects of arcs dashes.</p>
+    <p>Add polygons data to a globe.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_arc_dash_length</span>(<span class='no'>globe</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>polygons_data</span>(<span class='no'>globe</span>, <span class='no'>data</span>)
+
+<span class='fu'>polygons_label</span>(<span class='no'>globe</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"name"</span>)
+
+<span class='fu'>polygons_geometry</span>(<span class='no'>globe</span>, <span class='kw'>geometry</span> <span class='kw'>=</span> <span class='st'>"geometry"</span>)
+
+<span class='fu'>polygons_cap_color</span>(<span class='no'>globe</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='constant.html'>constant</a></span>(<span class='st'>"ffffaa"</span>))
+
+<span class='fu'>polygons_side_color</span>(<span class='no'>globe</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='constant.html'>constant</a></span>(<span class='st'>"ffffaa"</span>))
+
+<span class='fu'>polygons_altitude</span>(<span class='no'>globe</span>, <span class='kw'>altitude</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
+
+<span class='fu'>polygons_transition</span>(<span class='no'>globe</span>, <span class='kw'>ms</span> <span class='kw'>=</span> <span class='fl'>1000L</span>)
+
+<span class='fu'>polygons_on_click</span>(<span class='no'>globe</span>, <span class='no'>func</span>)
+
+<span class='fu'>polygons_on_right_click</span>(<span class='no'>globe</span>, <span class='no'>func</span>)
+
+<span class='fu'>polygons_on_hover</span>(<span class='no'>globe</span>, <span class='no'>func</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -125,34 +143,47 @@
 as returned by <code><a href='globe-shiny.html'>globeProxy</a></code>.</p></td>
     </tr>
     <tr>
-      <th>min, max</th>
-      <td><p>Target minimum and maximum values of pixels.</p></td>
+      <th>data</th>
+      <td><p>A data.frame containing arcs data.</p></td>
+    </tr>
+    <tr>
+      <th>label</th>
+      <td><p>Name containing label in <code>data</code> list
+or JavaScript function.</p></td>
+    </tr>
+    <tr>
+      <th>geometry</th>
+      <td><p>Name containing geometry in <code>data</code> list 
+or JavaScript function.</p></td>
+    </tr>
+    <tr>
+      <th>color</th>
+      <td><p>A JavaScript function or <code><a href='constant.html'>constant</a></code>, or
+name containing color in <code>data</code> list.</p></td>
+    </tr>
+    <tr>
+      <th>altitude</th>
+      <td><p>Name containing altitude in <code>data</code> list,
+a numeric value, or JavaScript function.</p></td>
+    </tr>
+    <tr>
+      <th>ms</th>
+      <td><p>Number of milliseconds. A value of 0 will size the 
+cone immediately to their final altitude. New polygons are 
+animated by rising them from the ground up.</p></td>
+    </tr>
+    <tr>
+      <th>func</th>
+      <td><p>JavaScript function as character vector.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="scales"><a class="anchor" href="#scales"></a>Scales</h2>
 
-    
-    <ul>
-<li><p>Dash length: where <code>1</code> is the entire length of the arc.</p></li>
-</ul>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># basic</span>
-<span class='fu'><a href='create_globe.html'>create_globe</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='globe_img.html'>globe_img_url</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='globe_arcs.html'>globe_arcs</a></span>(
-    <span class='no'>usflights</span>, <span class='no'>start_lat</span>, <span class='no'>start_lon</span>, <span class='no'>end_lat</span>, <span class='no'>end_lon</span>,
-    <span class='kw'>stroke</span> <span class='kw'>=</span> <span class='no'>cnt</span>
-  ) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='scaling_stroke.html'>scale_arc_stroke</a></span>()</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#scales">Scales</a></li>
-      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

@@ -538,6 +538,86 @@ if (HTMLWidgets.shinyMode) {
       }
   });
 
+  Shiny.addCustomMessageHandler('polygons_data',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.polygonsData(data.polygonsData);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('polygons_label',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.polygonLabel(data.polygonLabel);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('polygons_geometry',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.polygonGeoJsonGeometry(data.polygonGeoJsonGeometry);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('polygons_cap_color',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.polygonCapColor(data.polygonCapColor);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('polygons_side_color',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.polygonSideColor(data.polygonSideColor);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('polygons_altitude',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.polygonAltitude(data.polygonAltitude);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('polygons_transition',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.polygonsTransitionDuration(data.polygonsTransitionDuration);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('polygons_on_click',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.onPolygonClick(data.onPolygonClick);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('polygons_on_right_click',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.onPolygonRightClick(data.onPolygonRightClick);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('polygons_on_hover',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.onPolygonHover(data.onPolygonHover);
+      }
+  });
+
   Shiny.addCustomMessageHandler('globe_points',
     function(data) {
       var globe = get_globe(data.id);
