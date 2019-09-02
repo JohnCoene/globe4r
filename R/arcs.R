@@ -225,8 +225,11 @@ globe_arcs.globeProxy <- function(globe, data, start_lat = NULL, start_lon = NUL
 #' @param length Column name or numeric giving the length of the dashed 
 #' segments in the arc, in terms of relative length of the whole line 
 #' (\code{1} = full line length).
-#' @param gap Column name or numeric giving the length of the gap between dash segments, in terms of 
-#' relative line length.
+#' @param gap Column name or numeric giving the length of the gap between 
+#' dash segments, in terms of relative line length.
+#' @param ms Colum name or numeric for the time duration (in ms) to animate 
+#' the motion of dash positions from the start to the end point for a full line 
+#' length. A value of 0 disables the animation.
 #' 
 #' @examples
 #' create_globe() %>% 
@@ -512,6 +515,7 @@ arcs_dash_length.globeProxy <- function(globe, length = 1L){
   globe$session$sendCustomMessage("arcs_dash_length", msg)
   return(globe)
 }
+
 #' @rdname arcs_data
 #' @export
 arcs_dash_gap <- function(globe, gap = 0L) UseMethod("arcs_dash_gap")
@@ -529,5 +533,65 @@ arcs_dash_gap.globeProxy <- function(globe, gap = 0L){
   msg <- list(id = globe$id)
   msg$arcDashGap <- gap
   globe$session$sendCustomMessage("arcs_dash_gap", msg)
+  return(globe)
+}
+
+#' @rdname arcs_data
+#' @export
+arcs_dash_initial_gap <- function(globe, gap = 0L) UseMethod("arcs_dash_initial_gap")
+
+#' @export
+#' @method arcs_dash_initial_gap globe
+arcs_dash_initial_gap.globe <- function(globe, gap = 0L){
+  globe$x$arcDashInitialGap <- gap
+  return(globe)
+}
+
+#' @export
+#' @method arcs_dash_initial_gap globeProxy
+arcs_dash_initial_gap.globeProxy <- function(globe, gap = 0L){
+  msg <- list(id = globe$id)
+  msg$arcDashAnimateTime <- gap
+  globe$session$sendCustomMessage("arcs_dash_initial_gap", msg)
+  return(globe)
+}
+
+#' @rdname arcs_data
+#' @export
+arcs_dash_animate <- function(globe, ms = 0L) UseMethod("arcs_dash_animate")
+
+#' @export
+#' @method arcs_dash_animate globe
+arcs_dash_animate.globe <- function(globe, ms = 0L){
+  globe$x$arcDashAnimateTime <- ms
+  return(globe)
+}
+
+#' @export
+#' @method arcs_dash_animate globeProxy
+arcs_dash_animate.globeProxy <- function(globe, ms = 0L){
+  msg <- list(id = globe$id)
+  msg$arcDashAnimateTime <- ms
+  globe$session$sendCustomMessage("arcs_dash_initial_gap", msg)
+  return(globe)
+}
+
+#' @rdname arcs_data
+#' @export
+arcs_transition <- function(globe, ms = 0L) UseMethod("arcs_transition")
+
+#' @export
+#' @method arcs_transition globe
+arcs_transition.globe <- function(globe, ms = 0L){
+  globe$x$arcsTransitionDuration <- ms
+  return(globe)
+}
+
+#' @export
+#' @method arcs_transition globeProxy
+arcs_transition.globeProxy <- function(globe, ms = 0L){
+  msg <- list(id = globe$id)
+  msg$arcsTransitionDuration <- ms
+  globe$session$sendCustomMessage("arcs_transition", msg)
   return(globe)
 }

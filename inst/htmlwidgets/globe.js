@@ -490,6 +490,30 @@ if (HTMLWidgets.shinyMode) {
       }
   });
 
+  Shiny.addCustomMessageHandler('arcs_transition',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcsTransitionDuration(data.arcsTransitionDuration);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_dash_initial_gap',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcDashInitialGap(data.arcDashInitialGap);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('arcs_dash_initial_gap',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcDashInitialGap(data.arcDashInitialGap);
+      }
+  });
+
   Shiny.addCustomMessageHandler('globe_points',
     function(data) {
       var globe = get_globe(data.id);

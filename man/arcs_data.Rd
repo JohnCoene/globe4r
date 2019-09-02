@@ -15,6 +15,9 @@
 \alias{arcs_circular_resolution}
 \alias{arcs_dash_length}
 \alias{arcs_dash_gap}
+\alias{arcs_dash_initial_gap}
+\alias{arcs_dash_animate}
+\alias{arcs_transition}
 \title{Arcs Data}
 \usage{
 arcs_data(globe, data)
@@ -44,6 +47,12 @@ arcs_circular_resolution(globe, circular = 6L)
 arcs_dash_length(globe, length = 1L)
 
 arcs_dash_gap(globe, gap = 0L)
+
+arcs_dash_initial_gap(globe, gap = 0L)
+
+arcs_dash_animate(globe, ms = 0L)
+
+arcs_transition(globe, ms = 0L)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
@@ -89,8 +98,12 @@ Only applicable when using Tube geometries (defined \code{stroke}).}
 segments in the arc, in terms of relative length of the whole line 
 (\code{1} = full line length).}
 
-\item{gap}{Column name or numeric giving the length of the gap between dash segments, in terms of 
-relative line length.}
+\item{gap}{Column name or numeric giving the length of the gap between 
+dash segments, in terms of relative line length.}
+
+\item{ms}{Colum name or numeric for the time duration (in ms) to animate 
+the motion of dash positions from the start to the end point for a full line 
+length. A value of 0 disables the animation.}
 }
 \description{
 Add arcs data to a globe.
