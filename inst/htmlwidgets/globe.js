@@ -586,6 +586,38 @@ if (HTMLWidgets.shinyMode) {
       }
   });
 
+  Shiny.addCustomMessageHandler('polygons_transition',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.polygonsTransitionDuration(data.polygonsTransitionDuration);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('polygons_on_click',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.onPolygonClick(data.onPolygonClick);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('polygons_on_right_click',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.onPolygonRightClick(data.onPolygonRightClick);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('polygons_on_hover',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.onPolygonHover(data.onPolygonHover);
+      }
+  });
+
   Shiny.addCustomMessageHandler('globe_points',
     function(data) {
       var globe = get_globe(data.id);

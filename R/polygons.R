@@ -185,6 +185,10 @@ globe_choropleth.globeProxy <- function(globe, data, country, cap_color = NULL, 
 #' name containing color in \code{data} list.
 #' @param altitude Name containing altitude in \code{data} list,
 #' a numeric value, or JavaScript function.
+#' @param ms Number of milliseconds. A value of 0 will size the 
+#' cone immediately to their final altitude. New polygons are 
+#' animated by rising them from the ground up.
+#' @param func JavaScript function as character vector.
 #' 
 #' @name polygons_data
 #' @export
@@ -311,3 +315,90 @@ polygons_altitude.globeProxy <- function(globe, altitude = .1){
   globe$session$sendCustomMessage("polygons_altitude", msg)
   return(globe)
 }
+
+#' @rdname polygons_data
+#' @export
+polygons_transition <- function(globe, ms = 1000L) UseMethod("polygons_transition")
+
+#' @export
+#' @method polygons_transition globe
+polygons_transition.globe <- function(globe, ms = 1000L){
+  globe$x$polygonsTransitionDuration <- ms
+  return(globe)
+}
+
+#' @export
+#' @method polygons_transition globeProxy
+polygons_transition.globeProxy <- function(globe, ms = 1000L){
+  msg <- list(id = globe$id)
+  msg$polygonsTransitionDuration <- ms
+  globe$session$sendCustomMessage("polygons_transition", msg)
+  return(globe)
+}
+
+
+#' @rdname polygons_data
+#' @export
+polygons_on_click <- function(globe, func) UseMethod("polygons_on_click")
+
+#' @export
+#' @method polygons_on_click globe
+polygons_on_click.globe <- function(globe, func){
+  assert_that(not_missing(func))
+  globe$x$onPointClick <- htmlwidgets::JS(func)
+  return(globe)
+}
+
+#' @export
+#' @method polygons_on_click globeProxy
+polygons_on_click.globeProxy <- function(globe, func){
+  assert_that(not_missing(func))
+  msg <- list(id = globe$id)
+  msg$onPointClick <- htmlwidgets::JS(func)
+  globe$session$sendCustomMessage("polygons_on_click", msg)
+  return(globe)
+} 
+
+#' @rdname polygons_data
+#' @export
+polygons_on_right_click <- function(globe, func) UseMethod("polygons_on_right_click")
+
+#' @export
+#' @method polygons_on_right_click globe
+polygons_on_right_click.globe <- function(globe, func){
+  assert_that(not_missing(func))
+  globe$x$onPointRightClick <- htmlwidgets::JS(func)
+  return(globe)
+}
+
+#' @export
+#' @method polygons_on_right_click globeProxy
+polygons_on_right_click.globeProxy <- function(globe, func){
+  assert_that(not_missing(func))
+  msg <- list(id = globe$id)
+  msg$onPointRightClick <- htmlwidgets::JS(func)
+  globe$session$sendCustomMessage("polygons_on_right_click", msg)
+  return(globe)
+} 
+
+#' @rdname polygons_data
+#' @export
+polygons_on_hover <- function(globe, func) UseMethod("polygons_on_hover")
+
+#' @export
+#' @method polygons_on_hover globe
+polygons_on_hover.globe <- function(globe, func){
+  assert_that(not_missing(func))
+  globe$x$onPointHover <- htmlwidgets::JS(func)
+  return(globe)
+}
+
+#' @export
+#' @method polygons_on_hover globeProxy
+polygons_on_hover.globeProxy <- function(globe, func){
+  assert_that(not_missing(func))
+  msg <- list(id = globe$id)
+  msg$onPointHover <- htmlwidgets::JS(func)
+  globe$session$sendCustomMessage("polygons_on_hover", msg)
+  return(globe)
+} 
