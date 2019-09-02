@@ -225,6 +225,8 @@ globe_arcs.globeProxy <- function(globe, data, start_lat = NULL, start_lon = NUL
 #' @param length Column name or numeric giving the length of the dashed 
 #' segments in the arc, in terms of relative length of the whole line 
 #' (\code{1} = full line length).
+#' @param gap Column name or numeric giving the length of the gap between dash segments, in terms of 
+#' relative line length.
 #' 
 #' @examples
 #' create_globe() %>% 
@@ -508,5 +510,24 @@ arcs_dash_length.globeProxy <- function(globe, length = 1L){
   msg <- list(id = globe$id)
   msg$arcDashLength <- length
   globe$session$sendCustomMessage("arcs_dash_length", msg)
+  return(globe)
+}
+#' @rdname arcs_data
+#' @export
+arcs_dash_gap <- function(globe, gap = 0L) UseMethod("arcs_dash_gap")
+
+#' @export
+#' @method arcs_dash_gap globe
+arcs_dash_gap.globe <- function(globe, gap = 0L){
+  globe$x$arcDashGap <- gap
+  return(globe)
+}
+
+#' @export
+#' @method arcs_dash_gap globeProxy
+arcs_dash_gap.globeProxy <- function(globe, gap = 0L){
+  msg <- list(id = globe$id)
+  msg$arcDashGap <- gap
+  globe$session$sendCustomMessage("arcs_dash_gap", msg)
   return(globe)
 }

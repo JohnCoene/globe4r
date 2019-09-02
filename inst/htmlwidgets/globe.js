@@ -482,6 +482,14 @@ if (HTMLWidgets.shinyMode) {
       }
   });
 
+  Shiny.addCustomMessageHandler('arcs_dash_gap',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcDashGap(data.arcDashGap);
+      }
+  });
+
   Shiny.addCustomMessageHandler('globe_points',
     function(data) {
       var globe = get_globe(data.id);
