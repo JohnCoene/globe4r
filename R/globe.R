@@ -53,6 +53,9 @@ build_globe <- function(globe){
     globe$x$arcsData <- apply(globe$x$arcsData, 1, as.list)
   if(length(globe$x$labelsData))
     globe$x$labelsData <- apply(globe$x$labelsData, 1, as.list)
+
+  if(!length(globe$x$backgroundColor) && length(getOption("backgroundColor")))
+    globe$x$backgroundColor <- getOption("backgroundColor")
   return(globe)
 }
 

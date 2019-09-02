@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Point of View — animation • globe4r</title>
+<title>Shared options — shared_background • globe4r</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,10 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Point of View — animation" />
-<meta property="og:description" content="Change the camera point of view." />
+<meta property="og:title" content="Shared options — shared_background" />
+<meta property="og:description" content="Options that will be shared with all subsequent visualisation.
+This is ideal when using Rmarkdown or Shiny, e.g.: only set
+the background color once, instead of multiple times." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -106,27 +108,25 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Point of View</h1>
+    <h1>Shared options</h1>
     
-    <div class="hidden name"><code>animation.Rd</code></div>
+    <div class="hidden name"><code>shared_background.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Change the camera point of view.</p>
+    <p>Options that will be shared with all subsequent visualisation.
+This is ideal when using Rmarkdown or Shiny, e.g.: only set
+the background color once, instead of multiple times.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pause_animation</span>(<span class='no'>globe</span>)
-
-<span class='fu'>resume_animation</span>(<span class='no'>globe</span>)</pre>
+    <pre class="usage"><span class='fu'>shared_background</span>(<span class='no'>value</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>globe</th>
-      <td><p>An object of class <code>globe</code> as returned by
-<code><a href='create_globe.html'>create_globe</a></code>, or an object of class <code>globeProxy</code>
-as returned by <code><a href='globe-shiny.html'>globeProxy</a></code>.</p></td>
+      <th>value</th>
+      <td><p>Value to set globally.</p></td>
     </tr>
     </table>
 
