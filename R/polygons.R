@@ -224,3 +224,23 @@ polygons_label.globeProxy <- function(globe, label = "name"){
   globe$session$sendCustomMessage("polygons_label", msg)
   return(globe)
 }
+
+#' @rdname polygons_data
+#' @export
+polygons_geometry <- function(globe, geometry = "geometry") UseMethod("polygons_geometry")
+
+#' @export
+#' @method polygons_geometry globe
+polygons_geometry.globe <- function(globe, geometry = "geometry"){
+  globe$x$polygonGeoJsonGeometry <- geometry
+  return(globe)
+}
+
+#' @export
+#' @method polygons_geometry globeProxy
+polygons_geometry.globeProxy <- function(globe, geometry = "geometry"){
+  msg <- list(id = globe$id)
+  msg$polygonGeoJsonGeometry <- geometry
+  globe$session$sendCustomMessage("polygons_geometry", msg)
+  return(globe)
+}
