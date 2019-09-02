@@ -15,11 +15,32 @@ library(htmltools)
 <!-- badges: start -->
 <!-- badges: end -->
 
-# globe4r
-
-Interactive globes for R via [globe.gl](https://github.com/vasturiano/globe.gl).
-
-<img src="./logo.png" height="250" align="right" />
+```{r, echo=FALSE}
+br()
+br()
+div(
+  class = "row",
+  div(
+    class = "col-md-4",
+    img(
+      src = "logo.png",
+      class = "img-responsive responsive-img"
+    )
+  ),
+  div(
+    class = "col-md-8",
+    p(
+      "Interactive globes for R via",
+      tags$a(
+        "globe-gl.", 
+        href = "https://github.com/vasturiano/globe.gl", 
+        target = "_blank"
+      ),
+      "Create 3D globes with points, bar, choropleth (polygons), arcs, and labels."
+    )
+  )
+)
+```
 
 ## Installation
 
