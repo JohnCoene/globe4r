@@ -183,6 +183,8 @@ globe_choropleth.globeProxy <- function(globe, data, country, cap_color = NULL, 
 #' or JavaScript function.
 #' @param color A JavaScript function or \code{\link{constant}}, or
 #' name containing color in \code{data} list.
+#' @param altitude Name containing altitude in \code{data} list,
+#' a numeric value, or JavaScript function.
 #' 
 #' @name polygons_data
 #' @export
@@ -287,5 +289,25 @@ polygons_side_color.globeProxy <- function(globe, color = constant("ffffaa")){
   msg <- list(id = globe$id)
   msg$polygonCapColor <- color
   globe$session$sendCustomMessage("polygons_side_color", msg)
+  return(globe)
+}
+
+#' @rdname polygons_data
+#' @export
+polygons_altitude <- function(globe, altitude = .1) UseMethod("polygons_altitude")
+
+#' @export
+#' @method polygons_altitude globe
+polygons_altitude.globe <- function(globe, altitude = .1){
+  globe$x$polygonAltitude <- altitude
+  return(globe)
+}
+
+#' @export
+#' @method polygons_altitude globeProxy
+polygons_altitude.globeProxy <- function(globe, altitude = .1){
+  msg <- list(id = globe$id)
+  msg$polygonAltitude <- altitude
+  globe$session$sendCustomMessage("polygons_altitude", msg)
   return(globe)
 }

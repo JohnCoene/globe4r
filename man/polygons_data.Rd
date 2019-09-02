@@ -6,6 +6,7 @@
 \alias{polygons_geometry}
 \alias{polygons_cap_color}
 \alias{polygons_side_color}
+\alias{polygons_altitude}
 \title{Polygons Data}
 \usage{
 polygons_data(globe, data)
@@ -17,6 +18,8 @@ polygons_geometry(globe, geometry = "geometry")
 polygons_cap_color(globe, color = constant("ffffaa"))
 
 polygons_side_color(globe, color = constant("ffffaa"))
+
+polygons_altitude(globe, altitude = 0.1)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
@@ -33,6 +36,9 @@ or JavaScript function.}
 
 \item{color}{A JavaScript function or \code{\link{constant}}, or
 name containing color in \code{data} list.}
+
+\item{altitude}{Name containing altitude in \code{data} list,
+a numeric value, or JavaScript function.}
 }
 \description{
 Add polygons data to a globe.
