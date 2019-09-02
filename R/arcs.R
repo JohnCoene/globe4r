@@ -285,3 +285,47 @@ arcs_start_lon.globeProxy <- function(globe, lon){
   globe$session$sendCustomMessage("arcs_start_lon", msg)
   return(globe)
 } 
+
+#' @rdname arcs_data
+#' @export
+arcs_end_lat <- function(globe, lat) UseMethod("arcs_end_lat")
+
+#' @export
+#' @method arcs_end_lat globe
+arcs_end_lat.globe <- function(globe, lat){
+  assert_that(not_missing(lat))
+  globe$x$arcEndLat <- label
+  return(globe)
+}
+
+#' @export
+#' @method arcs_end_lat globeProxy
+arcs_end_lat.globeProxy <- function(globe, lat){
+  assert_that(not_missing(lat))
+  msg <- list(id = globe$id)
+  msg$arcEndLat <- lat
+  globe$session$sendCustomMessage("arcs_end_lat", msg)
+  return(globe)
+} 
+
+#' @rdname arcs_data
+#' @export
+arcs_end_lon <- function(globe, lon) UseMethod("arcs_end_lon")
+
+#' @export
+#' @method arcs_end_lon globe
+arcs_end_lon.globe <- function(globe, lon){
+  assert_that(not_missing(lon))
+  globe$x$arcEndLng <- label
+  return(globe)
+}
+
+#' @export
+#' @method arcs_end_lon globeProxy
+arcs_end_lon.globeProxy <- function(globe, lon){
+  assert_that(not_missing(lon))
+  msg <- list(id = globe$id)
+  msg$arcEndLng <- lon
+  globe$session$sendCustomMessage("arcs_end_lon", msg)
+  return(globe)
+} 
