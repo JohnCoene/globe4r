@@ -442,6 +442,14 @@ if (HTMLWidgets.shinyMode) {
       }
   });
 
+  Shiny.addCustomMessageHandler('arcs_stroke',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcStroke(data.arcStroke);
+      }
+  });
+
   Shiny.addCustomMessageHandler('arcs_altitude_scale',
     function(data) {
       var globe = get_globe(data.id);

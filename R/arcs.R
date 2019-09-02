@@ -201,6 +201,22 @@ globe_arcs.globeProxy <- function(globe, data, start_lat = NULL, start_lon = NUL
 #' starting and ending coordinates of arc(s).
 #' @param color Column name or character vector indicating color of points.
 #' @param label Column name containing label or a charcater vector. Supports html.
+#' @param altitude Column name or a numeric constant for the arc's maximum altitude
+#' (ocurring at the half-way distance between the two points) in terms of globe radius
+#' units (0 = a numeric constant for the scale of the arc's automatic altitude, in terms of units of the great-arc distance between the two points. A value of 1 indicates the arc should be as high as its length on the ground. Only applicable if arcAltitude is not set.0 altitude (ground line), 1 = globe radius). If a value of null or
+#' undefined is used, the altitude is automatically set proportionally to the distance
+#' between the two points, according to the scale set in \code{arcs_altitude_scale}.
+#' @param stroke Column name indicating the line's diameter, 
+#' in angular degrees. A value of null or undefined will render a 
+#' \href{https://threejs.org/docs/#api/objects/Line}{ThreeJS} Line 
+#' whose width is constant (1px) regardless of the camera distance. 
+#' Otherwise, a 
+#' \href{https://threejs.org/docs/#api/en/geometries/TubeGeometry}{TubeGeometry}
+#' is used.
+#' @param scale Column name or a numeric constant for the scale of the arc's automatic
+#' altitude, in terms of units of the great-arc distance between the two points. A 
+#' value of 1 indicates the arc should be as high as its length on the ground. 
+#' Only applicable if \code{arcs_altitude} is not set.
 #' 
 #' @examples
 #' create_globe() %>% 
@@ -370,6 +386,7 @@ arcs_altitude <- function(globe, altitude) UseMethod("arcs_altitude")
 #' @export
 #' @method arcs_altitude globe
 arcs_altitude.globe <- function(globe, altitude){
+  assert_that(not_missing(altitude))
   globe$x$arcAltitude <- altitude
   return(globe)
 }
@@ -377,6 +394,7 @@ arcs_altitude.globe <- function(globe, altitude){
 #' @export
 #' @method arcs_altitude globeProxy
 arcs_altitude.globeProxy <- function(globe, altitude){
+  assert_that(not_missing(altitude))
   msg <- list(id = globe$id)
   msg$arcAltitude <- altitude
   globe$session$sendCustomMessage("arcs_altitude", msg)
@@ -400,5 +418,27 @@ arcs_altitude_scale.globeProxy <- function(globe, scale = .5){
   msg <- list(id = globe$id)
   msg$arcAltitudeAutoScale <- scale
   globe$session$sendCustomMessage("arcs_altitude_scale", msg)
+  return(globe)
+}
+
+#' @rdname arcs_data
+#' @export
+arcs_stroke <- function(globe, stroke) UseMethod("arcs_stroke")
+
+#' @export
+#' @method arcs_stroke globe
+arcs_stroke.globe <- function(globe, stroke){
+  assert_that(not_missing(stroke))
+  globe$x$arcStroke <- scale
+  return(globe)
+}
+
+#' @export
+#' @method arcs_stroke globeProxy
+arcs_stroke.globeProxy <- function(globe, stroke){
+  assert_that(not_missing(stroke))
+  msg <- list(id = globe$id)
+  msg$arcStroke <- scale
+  globe$session$sendCustomMessage("arcs_stroke", msg)
   return(globe)
 }

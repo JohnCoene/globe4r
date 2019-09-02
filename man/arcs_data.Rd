@@ -8,6 +8,9 @@
 \alias{arcs_end_lat}
 \alias{arcs_end_lon}
 \alias{arcs_color}
+\alias{arcs_altitude}
+\alias{arcs_altitude_scale}
+\alias{arcs_stroke}
 \title{Arcs Data}
 \usage{
 arcs_data(globe, data)
@@ -23,6 +26,12 @@ arcs_end_lat(globe, lat = "endLat")
 arcs_end_lon(globe, lon = "endLng")
 
 arcs_color(globe, color = constant("#ffffaa"))
+
+arcs_altitude(globe, altitude)
+
+arcs_altitude_scale(globe, scale = 0.5)
+
+arcs_stroke(globe, stroke)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
@@ -37,6 +46,25 @@ as returned by \code{\link{globeProxy}}.}
 starting and ending coordinates of arc(s).}
 
 \item{color}{Column name or character vector indicating color of points.}
+
+\item{altitude}{Column name or a numeric constant for the arc's maximum altitude
+(ocurring at the half-way distance between the two points) in terms of globe radius
+units (0 = a numeric constant for the scale of the arc's automatic altitude, in terms of units of the great-arc distance between the two points. A value of 1 indicates the arc should be as high as its length on the ground. Only applicable if arcAltitude is not set.0 altitude (ground line), 1 = globe radius). If a value of null or
+undefined is used, the altitude is automatically set proportionally to the distance
+between the two points, according to the scale set in \code{arcs_altitude_scale}.}
+
+\item{scale}{Column name or a numeric constant for the scale of the arc's automatic
+altitude, in terms of units of the great-arc distance between the two points. A 
+value of 1 indicates the arc should be as high as its length on the ground. 
+Only applicable if \code{arcs_altitude} is not set.}
+
+\item{stroke}{Column name indicating the line's diameter, 
+in angular degrees. A value of null or undefined will render a 
+\href{https://threejs.org/docs/#api/objects/Line}{ThreeJS} Line 
+whose width is constant (1px) regardless of the camera distance. 
+Otherwise, a 
+\href{https://threejs.org/docs/#api/en/geometries/TubeGeometry}{TubeGeometry}
+is used.}
 }
 \description{
 Add arcs data to a globe.
