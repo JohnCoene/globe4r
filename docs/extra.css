@@ -1,44 +1,31 @@
-/* Hemisu Dark */
-/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
-/* Original theme - http://noahfrederick.com/vim-color-scheme-hemisu/ */
-/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
-.hemisu-comment, pre .comment, pre .xml .doctype, pre .html .doctype {
-  color: #777777;
+@import url('https://fonts.googleapis.com/css?family=Comfortaa|Ubuntu+Mono&display=swap');
+
+body, *{
+  font-family: 'Comfortaa', cursive !important;
 }
 
-.hemisu-accent1, pre .number, pre .ruby .keyword {
-  color: #9fd3e6;
+code{
+  font-family: 'Ubuntu Mono', monospace !important;
 }
 
-.hemisu-accent2, pre .string, pre .regexp, pre .xml .value, pre .html .value {
-  color: #b1d631;
+pre, code{
+  color: #2f2f2f !important;
+  border: none !important;
+  background-color: #d3d3d3 !important;
 }
 
-.hemisu-accent3, pre .keyword, pre .title, pre .constant, pre .xml .tag, pre .html .tag, pre .css .rules .attribute {
-  color: #bbffaa;
-}
 
-.hemisu-accent4 {
-  color: #ece1c8;
-}
-
-pre code {
-  display: block;
-  background: #000011;
-  color: #eeeeee;
-  font-family: Menlo, Monaco, Consolas, monospace;
-  line-height: 1.5;
-  border: 1px solid #ccc;
-  padding: 10px;
-}
-pre .xml .tag .title {
-  color: #eeeeee;
-}
-pre .html .tag .title {
-  color: #eeeeee;
+code > a{
+  color: #2f2f2f !important;
 }
 
 pre{
-  border: none !important;
-  background-color: #000011 !important;
+  border-radius: 15px;
+  -webkit-box-shadow: 0px 0px 17px 0px rgba(207, 207, 207,.8);
+  -moz-box-shadow: 0px 0px 17px 0px rgba(207, 207, 207,.8);
+  box-shadow: 0px 0px 17px 0px rgba(207, 207, 207, .8);
+}
+
+.btn-copy-ex{
+  border-radius: 15px;
 }

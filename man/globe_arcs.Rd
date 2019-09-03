@@ -81,7 +81,13 @@ Add arcs to a globe.
 # basic
 create_globe() \%>\% 
   globe_img_url() \%>\% 
-  globe_arcs(usflights, start_lat, start_lon, end_lat, end_lon)
+  globe_arcs(
+    usflights, 
+    start_lat, start_lon, 
+    end_lat, end_lon,
+    color = cnt
+  ) \%>\% 
+  scale_arc_color()
 
 # in shiny
 library(shiny)

@@ -16,8 +16,6 @@ library(htmltools)
 <!-- badges: end -->
 
 ```{r, echo=FALSE}
-br()
-br()
 div(
   class = "row",
   div(
@@ -40,6 +38,7 @@ div(
     )
   )
 )
+br()
 ```
 
 ## Installation
@@ -62,7 +61,7 @@ create_globe(width = "100%") %>% # initialise
   globe_img_url() %>% # add image background
   globe_pov( # position camera
     lat = -21, 
-    lon = 179,
+    lon = 160,
     ms = 5000
   ) %>% 
   globe_points( # add points
@@ -70,7 +69,7 @@ create_globe(width = "100%") %>% # initialise
     lat = lat,
     lon = long,
     color = mag,
-    altitude = depth
+    altitude = mag
   ) %>% 
   scale_points_color() %>% 
   scale_points_altitude(0, .25)

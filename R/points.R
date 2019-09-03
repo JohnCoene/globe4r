@@ -85,14 +85,14 @@ globe_points.globe <- function(globe, data, lat = NULL, lon = NULL, color = NULL
       lat = !!lat_enquo,
       lng = !!lon_enquo,
       name = !!label_enquo,
-      color = !!color_enquo,
-      altitude = !!altitude_enquo,
-      radius = !!radius_enquo
+      !!color_enquo,
+      !!altitude_enquo,
+      !!radius_enquo
     )
-  
-  globe$x$pointColor <- if(!rlang::quo_is_null(color_enquo)) "color"
-  globe$x$pointAltitude <- if(!rlang::quo_is_null(altitude_enquo)) "altitude"
-  globe$x$pointRadius <- if(!rlang::quo_is_null(radius_enquo)) "radius"
+
+  globe$x$pointColor <- if(!rlang::quo_is_null(color_enquo)) rlang::quo_name(color_enquo)
+  globe$x$pointAltitude <- if(!rlang::quo_is_null(altitude_enquo)) rlang::quo_name(altitude_enquo)
+  globe$x$pointRadius <-  if(!rlang::quo_is_null(radius_enquo)) rlang::quo_name(radius_enquo)
   globe$x$pointResolution <- resolution
   globe$x$pointsMerge <- merge
   globe$x$pointsTransitionDuration <- transition

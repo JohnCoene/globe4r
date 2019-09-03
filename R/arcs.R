@@ -49,7 +49,13 @@
 #' # basic
 #' create_globe() %>% 
 #'   globe_img_url() %>% 
-#'   globe_arcs(usflights, start_lat, start_lon, end_lat, end_lon)
+#'   globe_arcs(
+#'     usflights, 
+#'     start_lat, start_lon, 
+#'     end_lat, end_lon,
+#'     color = cnt
+#'   ) %>% 
+#'   scale_arc_color()
 #' 
 #' # in shiny
 #' library(shiny)
@@ -108,12 +114,18 @@ globe_arcs.globe <- function(globe, data, start_lat = NULL, start_lon = NULL, en
       startLng = !!start_lon_enquo,
       endLat = !!end_lat_enquo,
       endLng = !!end_lon_enquo,
-      name = !!label_enquo,
-      color = !!color_enquo,
-      altitude = !!altitude_enquo,
-      altitude_scale = !!altitude_scale_enquo,
-      stroke = !!stroke_enquo
+      !!label_enquo,
+      !!color_enquo,
+      !!altitude_enquo,
+      !!altitude_scale_enquo,
+      !!stroke_enquo
     )
+
+  globe$x$arcLabel <- if(!rlang::quo_is_null(label_enquo)) rlang::quo_name(label_enquo)
+  globe$x$arcColor <- if(!rlang::quo_is_null(color_enquo)) rlang::quo_name(color_enquo)
+  globe$x$arcAltitude <- if(!rlang::quo_is_null(altitude_enquo)) rlang::quo_name(altitude_enquo)
+  globe$x$arcAltitudeAutoScale <- if(!rlang::quo_is_null(altitude_scale_enquo)) rlang::quo_name(altitude_scale_enquo)
+  globe$x$arcStroke <- if(!rlang::quo_is_null(stroke_enquo)) rlang::quo_name(stroke_enquo)
 
   globe$x$arcColor <- if(!rlang::quo_is_null(color_enquo)) "color"
   globe$x$arcAltitude <- if(!rlang::quo_is_null(altitude_enquo)) "altitude"

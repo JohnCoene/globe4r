@@ -10,19 +10,19 @@
 \alias{scale_label_color}
 \title{Scale Colour}
 \usage{
-scale_points_color(globe, palette = c("#edf8b1", "#7fcdbb", "#2c7fb8"))
+scale_points_color(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"))
 
-scale_arc_color(globe, palette = c("#edf8b1", "#7fcdbb", "#2c7fb8"))
+scale_arc_color(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"))
 
-scale_choropleth_cap_color(globe, palette = c("#edf8b1", "#7fcdbb",
-  "#2c7fb8"))
+scale_choropleth_cap_color(globe, palette = c("#2c7fb8", "#7fcdbb",
+  "#edf8b1"))
 
-scale_choropleth_side_color(globe, palette = c("#edf8b1", "#7fcdbb",
-  "#2c7fb8"))
+scale_choropleth_side_color(globe, palette = c("#2c7fb8", "#7fcdbb",
+  "#edf8b1"))
 
-scale_arcs_color(globe, palette = c("#edf8b1", "#7fcdbb", "#2c7fb8"))
+scale_arcs_color(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"))
 
-scale_label_color(globe, palette = c("#edf8b1", "#7fcdbb", "#2c7fb8"))
+scale_label_color(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"))
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by

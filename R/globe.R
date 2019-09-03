@@ -27,7 +27,8 @@ create_globe <- function(antialias = TRUE, alpha = TRUE, animate_in = TRUE,
         alpha = alpha
       ),
       animateIn = animate_in
-    )
+    ),
+    globals = list()
   )
 
   # create widget
