@@ -30,7 +30,7 @@ div(
     p(
       "Interactive globes for R via",
       tags$a(
-        "globe-gl.", 
+        "globe.gl", 
         href = "https://github.com/vasturiano/globe.gl", 
         target = "_blank"
       ),

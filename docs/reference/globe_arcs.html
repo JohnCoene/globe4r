@@ -226,7 +226,13 @@ to their final position. New arcs are animated by rising them from the ground up
     <pre class="examples"><div class='input'><span class='co'># basic</span>
 <span class='fu'><a href='create_globe.html'>create_globe</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='globe_img.html'>globe_img_url</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>globe_arcs</span>(<span class='no'>usflights</span>, <span class='no'>start_lat</span>, <span class='no'>start_lon</span>, <span class='no'>end_lat</span>, <span class='no'>end_lon</span>)
+  <span class='fu'>globe_arcs</span>(
+    <span class='no'>usflights</span>,
+    <span class='no'>start_lat</span>, <span class='no'>start_lon</span>,
+    <span class='no'>end_lat</span>, <span class='no'>end_lon</span>,
+    <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>cnt</span>
+  ) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='scaling_color.html'>scale_arc_color</a></span>()
 
 <span class='co'># in shiny</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>shiny</span>)
