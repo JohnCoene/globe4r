@@ -126,11 +126,6 @@ globe_arcs.globe <- function(globe, data, start_lat = NULL, start_lon = NULL, en
   globe$x$arcAltitude <- if(!rlang::quo_is_null(altitude_enquo)) rlang::quo_name(altitude_enquo)
   globe$x$arcAltitudeAutoScale <- if(!rlang::quo_is_null(altitude_scale_enquo)) rlang::quo_name(altitude_scale_enquo)
   globe$x$arcStroke <- if(!rlang::quo_is_null(stroke_enquo)) rlang::quo_name(stroke_enquo)
-
-  globe$x$arcColor <- if(!rlang::quo_is_null(color_enquo)) "color"
-  globe$x$arcAltitude <- if(!rlang::quo_is_null(altitude_enquo)) "altitude"
-  globe$x$arcAltitudeAutoScale <- if(!rlang::quo_is_null(altitude_scale_enquo)) "altitude_scale"
-  globe$x$arcStroke <- if(!rlang::quo_is_null(stroke_enquo)) "stroke"
   globe$x$arcCurveResolution <- curve_resolution
   globe$x$arcCircularResolution <- circular_resolution
   globe$x$arcDashLength <- dash_length

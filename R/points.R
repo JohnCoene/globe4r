@@ -4,28 +4,8 @@
 #' 
 #' @inheritParams globe_img
 #' @param data A data.frame of points to draw.
-#' @param lat,lon Bare column names of points coordinates.
-#' @param color Bare column name of points color.
-#' @param label Bare column name of points label. 
-#' Supports plain text or HTML content.
-#' @param altitude Bare column name of points
-#' defining the cylinder's altitude in terms of globe radius units 
-#' (0 = 0 altitude (flat circle), 1 = globe radius).
-#' @param radius Bare column name of points for the cylinder's radius, 
-#' in angular degrees.
-#' @param resolution Getter/setter for the radial geometric resolution 
-#' of each cylinder, expressed in how many slice segments to divide the
-#'  circumference. Higher values yield smoother cylinders.
-#' @param merge Whether to merge all the point meshes 
-#' into a single ThreeJS object, for improved rendering performance. 
-#' Visually both options are equivalent, setting this option only affects 
-#' the internal organization of the ThreeJS objects.
-#' @param transition Duration (ms) of the transition 
-#' to animate point changes involving geometry modifications. A value of 
-#' \code{0} will move the objects immediately to their final position. 
-#' New objects are animated by scaling them from the ground up. Only works 
-#' if \code{merge} is disabled.
 #' @param on_click,on_right_click,on_hover JavaScript functions as strings.
+#' @param ... Coordiantes, as specified by \code{\link{coords}}.
 #' 
 #' @examples
 #' # basic
@@ -56,46 +36,37 @@
 #' 
 #' \dontrun{shinyApp(ui, server)}
 #' @export
-globe_points <- function(globe, data, lat = NULL, lon = NULL, color = NULL, 
-  label = NULL, altitude = NULL, radius = NULL, resolution = 12L, merge = FALSE, 
-  transition = 1000L, on_click = NULL, on_right_click = NULL, 
+globe_points <- function(globe, ..., data = NULL, inherit_coords = TRUE, on_click = NULL, on_right_click = NULL, 
   on_hover = NULL) UseMethod("globe_points")
 
 #' @export
 #' @method globe_points globe
-globe_points.globe <- function(globe, data, lat = NULL, lon = NULL, color = NULL, 
-  label = NULL, altitude = NULL, radius = NULL, resolution = 12L, merge = FALSE, 
-  transition = 1000L, on_click = NULL, on_right_click = NULL, 
+globe_points.globe <- function(globe, ..., data = NULL, inherit_coords = TRUE, on_click = NULL, on_right_click = NULL, 
   on_hover = NULL){
 
   # check inputs
-  assert_that(not_missing(data))
+  data <- .get_data(globe$x$data, data)
+  assert_that(has_data(data))
 
-  # enquo all things
-  lat_enquo <- rlang::enquo(lat)
-  lon_enquo <- rlang::enquo(lon)
-  label_enquo <- rlang::enquo(label)
-  color_enquo <- rlang::enquo(color)
-  altitude_enquo <- rlang::enquo(altitude)
-  radius_enquo <- rlang::enquo(radius)
+  # extract & process coordinates
+  coords <- get_coords(...)
+  coords <- combine_coords(globe$x$mapping, coords, inherit_coords)
+  assert_that(has_coords(coords))
+  columns <- coords_to_columns(coords)
 
   # create points array
-  globe$x$pointsData <- data %>% 
-    dplyr::select(
-      lat = !!lat_enquo,
-      lng = !!lon_enquo,
-      name = !!label_enquo,
-      !!color_enquo,
-      !!altitude_enquo,
-      !!radius_enquo
-    )
+  globe$x$pointsData <- dplyr::select(data, columns)
 
-  globe$x$pointColor <- if(!rlang::quo_is_null(color_enquo)) rlang::quo_name(color_enquo)
-  globe$x$pointAltitude <- if(!rlang::quo_is_null(altitude_enquo)) rlang::quo_name(altitude_enquo)
-  globe$x$pointRadius <-  if(!rlang::quo_is_null(radius_enquo)) rlang::quo_name(radius_enquo)
-  globe$x$pointResolution <- resolution
-  globe$x$pointsMerge <- merge
-  globe$x$pointsTransitionDuration <- transition
+  # set options
+  globe$x$pointLat <- coords_to_opts(coords, "lat")
+  globe$x$pointLng <- coords_to_opts(coords, "lon")
+  globe$x$pointLabel <- coords_to_opts(coords, "label")
+  globe$x$pointColor <- coords_to_opts(coords, "color")
+  globe$x$pointAltitude <- coords_to_opts(coords, "altitude")
+  globe$x$pointRadius <-  coords_to_opts(coords, "radius")
+  globe$x$pointResolution <- coords_to_opts(coords, "resolution")
+  globe$x$pointsMerge <- coords_to_opts(coords, "merge")
+  globe$x$pointsTransitionDuration <- coords_to_opts(coords, "transition")
   globe$x$onPointClick <- if(!is.null(on_click)) htmlwidgets::JS(on_click)
   globe$x$onPointRightClick <- if(!is.null(on_right_click)) htmlwidgets::JS(on_right_click)
   globe$x$onPointHover <- if(!is.null(on_hover)) htmlwidgets::JS(on_hover)
@@ -106,44 +77,31 @@ globe_points.globe <- function(globe, data, lat = NULL, lon = NULL, color = NULL
 
 #' @export
 #' @method globe_points globeProxy
-globe_points.globeProxy <- function(globe, data, lat = NULL, lon = NULL, color = NULL, 
-  label = NULL, altitude = NULL, radius = NULL, resolution = 12L, merge = FALSE, 
-  transition = 1000L, on_click = NULL, on_right_click = NULL, 
+globe_points.globeProxy <- function(globe, ..., data = NULL, inherit_coords = FALSE, on_click = NULL, on_right_click = NULL, 
   on_hover = NULL){
 
   # check inputs
-  assert_that(not_missing(data))
+  data <- .get_data(globe$x$data, data)
+  assert_that(has_data(data))
 
-  # enquo all things
-  lat_enquo <- enquo(lat)
-  lon_enquo <- enquo(lon)
-  label_enquo <- enquo(label)
-  color_enquo <- enquo(color)
-  altitude_enquo <- enquo(altitude)
-  radius_enquo <- enquo(radius)
+  # extract & process coordinates
+  coords <- get_coords(...)
+  assert_that(has_coords(coords))
+  columns <- coords_to_columns(coords)
+
+  msg <- list(id = globe$id)
 
   # create points array
-  msg <- list(id = globe$id)
-  msg$pointsData <- data %>% 
-    select(
-      lat = !!lat_enquo,
-      lon = !!lon_enquo,
-      label = !!label_enquo,
-      color = !!color_enquo,
-      altitude = !!altitude_enquo,
-      radius = !!radius_enquo
-    ) %>% 
+  msg$pointsData <- dplyr::select(data, columns) %>% 
     apply(1, as.list)
 
-  msg$pointLat <- if(!rlang::quo_is_null(lat_enquo)) "lat"
-  msg$pointLng <- if(!rlang::quo_is_null(lon_enquo)) "lon"
-  msg$pointColor <- if(!rlang::quo_is_null(color_enquo)) "color"
-  msg$pointLabel <- if(!rlang::quo_is_null(label_enquo)) "label"
-  msg$pointAltitude <- if(!rlang::quo_is_null(altitude_enquo)) "altitude"
-  msg$pointRadius <- if(!rlang::quo_is_null(radius_enquo)) "radius"
-  msg$pointResolution <- resolution
-  msg$pointsMerge <- merge
-  msg$pointsTransitionDuration <- transition
+  msg$pointLabel <- coords_to_opts(coords, "label")
+  msg$pointColor <- coords_to_opts(coords, "color")
+  msg$pointAltitude <- coords_to_opts(coords, "altitude")
+  msg$pointRadius <-  coords_to_opts(coords, "radius")
+  msg$pointResolution <- coords_to_opts(coords, "resolution")
+  msg$pointsMerge <- coords_to_opts(coords, "merge")
+  msg$pointsTransitionDuration <- coords_to_opts(coords, "transition")
   msg$onPointClick <- if(!is.null(on_click)) htmlwidgets::JS(on_click)
   msg$onPointRightClick <- if(!is.null(on_right_click)) htmlwidgets::JS(on_right_click)
   msg$onPointHover <- if(!is.null(on_hover)) htmlwidgets::JS(on_hover)

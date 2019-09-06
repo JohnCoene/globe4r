@@ -4,10 +4,15 @@
 \alias{create_globe}
 \title{Create a globe}
 \usage{
-create_globe(antialias = TRUE, alpha = TRUE, animate_in = TRUE,
-  width = NULL, height = NULL, elementId = NULL)
+create_globe(data = NULL, mapping = NULL, antialias = TRUE,
+  alpha = TRUE, animate_in = TRUE, width = NULL, height = NULL,
+  elementId = NULL)
 }
 \arguments{
+\item{data}{A data.frame containing coordinates.}
+
+\item{mapping}{Coordiantes as specified by \code{\link{coords}}.}
+
 \item{antialias, alpha}{Configuration parameters to pass to the 
 \href{https://threejs.org/docs/#api/en/renderers/WebGLRenderer}{ThreeJS WebGLRenderer} constructor.}
 

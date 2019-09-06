@@ -4,46 +4,17 @@
 \alias{globe_points}
 \title{Points}
 \usage{
-globe_points(globe, data, lat = NULL, lon = NULL, color = NULL,
-  label = NULL, altitude = NULL, radius = NULL, resolution = 12L,
-  merge = FALSE, transition = 1000L, on_click = NULL,
-  on_right_click = NULL, on_hover = NULL)
+globe_points(globe, ..., data = NULL, inherit_coords = TRUE,
+  on_click = NULL, on_right_click = NULL, on_hover = NULL)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
 \code{\link{create_globe}}, or an object of class \code{globeProxy}
 as returned by \code{\link{globeProxy}}.}
 
+\item{...}{Coordiantes, as specified by \code{\link{coords}}.}
+
 \item{data}{A data.frame of points to draw.}
-
-\item{lat, lon}{Bare column names of points coordinates.}
-
-\item{color}{Bare column name of points color.}
-
-\item{label}{Bare column name of points label. 
-Supports plain text or HTML content.}
-
-\item{altitude}{Bare column name of points
-defining the cylinder's altitude in terms of globe radius units 
-(0 = 0 altitude (flat circle), 1 = globe radius).}
-
-\item{radius}{Bare column name of points for the cylinder's radius, 
-in angular degrees.}
-
-\item{resolution}{Getter/setter for the radial geometric resolution 
-of each cylinder, expressed in how many slice segments to divide the
- circumference. Higher values yield smoother cylinders.}
-
-\item{merge}{Whether to merge all the point meshes 
-into a single ThreeJS object, for improved rendering performance. 
-Visually both options are equivalent, setting this option only affects 
-the internal organization of the ThreeJS objects.}
-
-\item{transition}{Duration (ms) of the transition 
-to animate point changes involving geometry modifications. A value of 
-\code{0} will move the objects immediately to their final position. 
-New objects are animated by scaling them from the ground up. Only works 
-if \code{merge} is disabled.}
 
 \item{on_click, on_right_click, on_hover}{JavaScript functions as strings.}
 }

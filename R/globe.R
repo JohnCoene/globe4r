@@ -2,6 +2,8 @@
 #'
 #' Create a globe object.
 #'
+#' @param data A data.frame containing coordinates.
+#' @param mapping Coordiantes as specified by \code{\link{coords}}.
 #' @param width,height Must be a valid CSS unit (like \code{'100\%'},
 #'   \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
 #'   string and have \code{'px'} appended.
@@ -17,7 +19,7 @@
 #' @import htmlwidgets
 #'
 #' @export
-create_globe <- function(antialias = TRUE, alpha = TRUE, animate_in = TRUE, 
+create_globe <- function(data = NULL, mapping = NULL, antialias = TRUE, alpha = TRUE, animate_in = TRUE, 
   width = NULL, height = NULL, elementId = NULL) {
 
   x = list(
@@ -28,6 +30,8 @@ create_globe <- function(antialias = TRUE, alpha = TRUE, animate_in = TRUE,
       ),
       animateIn = animate_in
     ),
+    data = data,
+    mapping = mapping,
     globals = list()
   )
 
@@ -57,6 +61,9 @@ build_globe <- function(globe){
 
   if(!length(globe$x$backgroundColor) && length(getOption("backgroundColor")))
     globe$x$backgroundColor <- getOption("backgroundColor")
+
+  globe$x$data <- NULL
+  globe$x$mapping <- NULL
   return(globe)
 }
 
