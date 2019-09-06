@@ -115,12 +115,21 @@
     <p>Create a globe object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>create_globe</span>(<span class='kw'>antialias</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>animate_in</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>elementId</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>create_globe</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>coords</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>antialias</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>animate_in</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>elementId</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>A data.frame containing coordinates (<code><a href='coords.html'>coords</a></code>).</p></td>
+    </tr>
+    <tr>
+      <th>coords</th>
+      <td><p>Coordinates as specified by <code><a href='coords.html'>coords</a></code>.</p></td>
+    </tr>
     <tr>
       <th>antialias, alpha</th>
       <td><p>Configuration parameters to pass to the 

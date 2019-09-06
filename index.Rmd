@@ -66,10 +66,11 @@ create_globe(width = "100%") %>% # initialise
   ) %>% 
   globe_points( # add points
     data = quakes,
-    lat = lat,
-    lon = long,
-    color = mag,
-    altitude = mag
+    coords(
+      lat, long,
+      color = mag,
+      altitude = mag
+    )
   ) %>% 
   scale_points_color() %>% 
   scale_points_altitude(0, .25)

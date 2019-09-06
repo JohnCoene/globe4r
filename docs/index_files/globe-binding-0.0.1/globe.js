@@ -73,6 +73,14 @@ HTMLWidgets.widget({
         // arcs
         if(x.hasOwnProperty("arcsData"))
           globe.arcsData(x.arcsData);
+        if(x.hasOwnProperty("arcStartLat"))
+          globe.arcStartLat(x.arcStartLat);
+        if(x.hasOwnProperty("arcStartLng"))
+          globe.arcStartLng(x.arcStartLng);
+        if(x.hasOwnProperty("arcEndLat"))
+          globe.arcEndLat(x.arcEndLat);
+        if(x.hasOwnProperty("arcEndLng"))
+          globe.arcEndLng(x.arcEndLng);
         if(x.hasOwnProperty("arcColor"))
           globe.arcColor(x.arcColor);
         if(x.hasOwnProperty("arcAltitude"))
@@ -137,6 +145,10 @@ HTMLWidgets.widget({
           globe.labelsData(x.labelsData); 
         if(x.hasOwnProperty("labelText"))
           globe.labelText(x.labelText); 
+        if(x.hasOwnProperty("labelLat"))
+          globe.labelLat(x.labelLat); 
+        if(x.hasOwnProperty("labelLng"))
+          globe.labelLng(x.labelLng); 
         if(x.hasOwnProperty("labelLabel"))
           globe.labelLabel(x.labelLabel); 
         if(x.hasOwnProperty("labelColor"))
@@ -657,6 +669,14 @@ if (HTMLWidgets.shinyMode) {
       if (typeof globe != 'undefined') {
         if(data.hasOwnProperty("arcsData"))
           globe.arcsData(data.arcsData);
+        if(data.hasOwnProperty("arcStartLat"))
+          globe.arcStartLat(data.arcStartLat);
+        if(data.hasOwnProperty("arcStartLng"))
+          globe.arcStartLng(data.arcStartLng);
+        if(data.hasOwnProperty("arcEndLat"))
+          globe.arcEndLat(data.arcEndLat);
+        if(data.hasOwnProperty("arcEndLng"))
+          globe.arcEndLng(data.arcEndLng);
         if(data.hasOwnProperty("arcColor"))
           globe.arcColor(data.arcColor);
         if(data.hasOwnProperty("arcAltitude"))
@@ -721,8 +741,12 @@ if (HTMLWidgets.shinyMode) {
       var globe = get_globe(data.id);
       if(data.hasOwnProperty("labelsData"))
         globe.labelsData(data.labelsData); 
-      if(data.hasOwnProperty("labelTedatat"))
-        globe.labelTedatat(data.labelTedatat); 
+      if(data.hasOwnProperty("labelLat"))
+        globe.labelLat(data.labelLat); 
+      if(data.hasOwnProperty("labelLng"))
+        globe.labelLng(data.labelLng); 
+      if(data.hasOwnProperty("labelText"))
+        globe.labelText(data.labelText); 
       if(data.hasOwnProperty("labelLabel"))
         globe.labelLabel(data.labelLabel); 
       if(data.hasOwnProperty("labelColor"))

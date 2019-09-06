@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Scale Arc Dash — scaling_dash • globe4r</title>
+<title>Coordinates — coords • globe4r</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Scale Arc Dash — scaling_dash" />
-<meta property="og:description" content="Rescale various aspects of arcs dashes." />
+<meta property="og:title" content="Coordinates — coords" />
+<meta property="og:description" content="Coordinates to use to draw layers on globe." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -106,58 +106,65 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Scale Arc Dash</h1>
+    <h1>Coordinates</h1>
     
-    <div class="hidden name"><code>scaling_dash.Rd</code></div>
+    <div class="hidden name"><code>coords.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Rescale various aspects of arcs dashes.</p>
+    <p>Coordinates to use to draw layers on globe.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_arc_dash_length</span>(<span class='no'>globe</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>coords</span>(<span class='no'>lat</span>, <span class='no'>lon</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>globe</th>
-      <td><p>An object of class <code>globe</code> as returned by
-<code><a href='create_globe.html'>create_globe</a></code>, or an object of class <code>globeProxy</code>
-as returned by <code><a href='globe-shiny.html'>globeProxy</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>min, max</th>
-      <td><p>Target minimum and maximum values of pixels.</p></td>
+      <th>lat, lon, ...</th>
+      <td><p>List of name value pairs giving coordinates to map to
+variables. The names for lat and lon coordinates are typically omitted because
+they are so common; all other aspects must be named.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="scales"><a class="anchor" href="#scales"></a>Scales</h2>
+    <h2 class="hasAnchor" id="coordinates"><a class="anchor" href="#coordinates"></a>Coordinates</h2>
 
     
-    <ul>
-<li><p>Dash length: where <code>1</code> is the entire length of the arc.</p></li>
+    <p>Valid coordinates (depending on layer).</p><ul>
+<li><p><code>lat</code>, <code>lon</code></p></li>
+<li><p><code>start_lat</code>, <code>start_lon</code></p></li>
+<li><p><code>end_lat</code>, <code>end_lon</code></p></li>
+<li><p><code>altitude</code></p></li>
+<li><p><code>radius</code></p></li>
+<li><p><code>color</code></p></li>
+<li><p><code>label</code></p></li>
+<li><p><code>resolution</code></p></li>
+<li><p><code>merge</code></p></li>
+<li><p><code>transition</code></p></li>
+<li><p><code>size</code></p></li>
+<li><p><code>text</code></p></li>
+<li><p><code>rotation</code></p></li>
+<li><p><code>include_dot</code></p></li>
+<li><p><code>dot_radius</code></p></li>
+<li><p><code>dot_orientation</code></p></li>
+<li><p><code>type_face</code></p></li>
+<li><p><code>altitude_scale</code></p></li>
+<li><p><code>stroke</code></p></li>
+<li><p><code>curve_resolution</code></p></li>
+<li><p><code>circular_resolution</code></p></li>
+<li><p><code>dash_length</code></p></li>
+<li><p><code>dash_gap</code></p></li>
+<li><p><code>dash_initial_gap</code></p></li>
+<li><p><code>dash_animate_time</code></p></li>
 </ul>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># basic</span>
-<span class='fu'><a href='create_globe.html'>create_globe</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='globe_img.html'>globe_img_url</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='globe_arcs.html'>globe_arcs</a></span>(
-    <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>usflights</span>,
-    <span class='fu'><a href='coords.html'>coords</a></span> (
-      <span class='no'>start_lat</span>, <span class='no'>start_lon</span>, <span class='no'>end_lat</span>, <span class='no'>end_lon</span>,
-      <span class='kw'>dash_length</span> <span class='kw'>=</span> <span class='no'>cnt</span>
-    )
-  ) <span class='kw'>%&gt;%</span>
-  <span class='fu'>scale_arc_dash_length</span>()</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#scales">Scales</a></li>
-      <li><a href="#examples">Examples</a></li>
+      <li><a href="#coordinates">Coordinates</a></li>
     </ul>
 
   </div>

@@ -115,10 +115,8 @@
     <p>Add points to a globe.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>globe_points</span>(<span class='no'>globe</span>, <span class='no'>data</span>, <span class='kw'>lat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lon</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>altitude</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>radius</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>resolution</span> <span class='kw'>=</span> <span class='fl'>12L</span>,
-  <span class='kw'>merge</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>transition</span> <span class='kw'>=</span> <span class='fl'>1000L</span>, <span class='kw'>on_click</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>on_right_click</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>on_hover</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>globe_points</span>(<span class='no'>globe</span>, <span class='no'>...</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>inherit_coords</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>on_click</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>on_right_click</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>on_hover</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -130,53 +128,18 @@
 as returned by <code><a href='globe-shiny.html'>globeProxy</a></code>.</p></td>
     </tr>
     <tr>
+      <th>...</th>
+      <td><p>Coordinates, as specified by <code><a href='coords.html'>coords</a></code>.</p></td>
+    </tr>
+    <tr>
       <th>data</th>
       <td><p>A data.frame of points to draw.</p></td>
     </tr>
     <tr>
-      <th>lat, lon</th>
-      <td><p>Bare column names of points coordinates.</p></td>
-    </tr>
-    <tr>
-      <th>color</th>
-      <td><p>Bare column name of points color.</p></td>
-    </tr>
-    <tr>
-      <th>label</th>
-      <td><p>Bare column name of points label. 
-Supports plain text or HTML content.</p></td>
-    </tr>
-    <tr>
-      <th>altitude</th>
-      <td><p>Bare column name of points
-defining the cylinder's altitude in terms of globe radius units 
-(0 = 0 altitude (flat circle), 1 = globe radius).</p></td>
-    </tr>
-    <tr>
-      <th>radius</th>
-      <td><p>Bare column name of points for the cylinder's radius, 
-in angular degrees.</p></td>
-    </tr>
-    <tr>
-      <th>resolution</th>
-      <td><p>Getter/setter for the radial geometric resolution 
-of each cylinder, expressed in how many slice segments to divide the
- circumference. Higher values yield smoother cylinders.</p></td>
-    </tr>
-    <tr>
-      <th>merge</th>
-      <td><p>Whether to merge all the point meshes 
-into a single ThreeJS object, for improved rendering performance. 
-Visually both options are equivalent, setting this option only affects 
-the internal organization of the ThreeJS objects.</p></td>
-    </tr>
-    <tr>
-      <th>transition</th>
-      <td><p>Duration (ms) of the transition 
-to animate point changes involving geometry modifications. A value of 
-<code>0</code> will move the objects immediately to their final position. 
-New objects are animated by scaling them from the ground up. Only works 
-if <code>merge</code> is disabled.</p></td>
+      <th>inherit_coords</th>
+      <td><p>Whether to inherit the coordinates (<code><a href='coords.html'>coords</a></code>)
+from <code><a href='create_globe.html'>create_globe</a></code>. Only applies to method applied to object of class
+<code>globe4r</code> not on objects of class <code>globeProxy</code>.</p></td>
     </tr>
     <tr>
       <th>on_click, on_right_click, on_hover</th>
@@ -184,13 +147,26 @@ if <code>merge</code> is disabled.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="coordinates"><a class="anchor" href="#coordinates"></a>Coordinates</h2>
+
+    
+    <p>Valid coordinates (depending on layer).</p><ul>
+<li><p><code>lat</code>, <code>lon</code>,</p></li>
+<li><p><code>altitude</code></p></li>
+<li><p><code>radius</code></p></li>
+<li><p><code>color</code></p></li>
+<li><p><code>label</code></p></li>
+<li><p><code>resolution</code></p></li>
+<li><p><code>merge</code></p></li>
+<li><p><code>transition</code></p></li>
+</ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># basic</span>
 <span class='fu'><a href='create_globe.html'>create_globe</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='globe_img.html'>globe_img_url</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='globe_pov.html'>globe_pov</a></span>(-<span class='fl'>21</span>, <span class='fl'>179</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>globe_points</span>(<span class='no'>quakes</span>, <span class='no'>lat</span>, <span class='no'>long</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>stations</span>)
+  <span class='fu'>globe_points</span>(<span class='fu'><a href='coords.html'>coords</a></span>(<span class='no'>lat</span>, <span class='no'>long</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>stations</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>quakes</span>)
 
 <span class='co'># use in shiny</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>shiny</span>)
@@ -207,7 +183,7 @@ if <code>merge</code> is disabled.</p></td>
 
   <span class='fu'><a href='https://www.rdocumentation.org/packages/shiny/topics/observeEvent'>observeEvent</a></span>(<span class='no'>input</span>$<span class='no'>add</span>, {
     <span class='fu'><a href='globe-shiny.html'>globeProxy</a></span>(<span class='st'>"globe"</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>globe_points</span>(<span class='no'>quakes</span>, <span class='no'>lat</span>, <span class='no'>long</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'>globe_points</span>(<span class='fu'><a href='coords.html'>coords</a></span>(<span class='no'>lat</span>, <span class='no'>long</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>quakes</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='globe_pov.html'>globe_pov</a></span>(-<span class='fl'>21</span>, <span class='fl'>179</span>)
   })
 }</div><span class='co'># NOT RUN {</span>
@@ -218,6 +194,7 @@ if <code>merge</code> is disabled.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#coordinates">Coordinates</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
