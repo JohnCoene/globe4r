@@ -62,7 +62,7 @@ globe_labels <- function(globe, ...) UseMethod("globe_labels")
 globe_labels.globe <- function(globe, ..., data = NULL, inherit_coords = TRUE, 
   on_click = NULL, on_right_click = NULL, on_hover = NULL){
 
-    # check inputs
+  # check inputs
   data <- .get_data(globe$x$data, data)
   assert_that(has_data(data))
 

@@ -73,6 +73,14 @@ HTMLWidgets.widget({
         // arcs
         if(x.hasOwnProperty("arcsData"))
           globe.arcsData(x.arcsData);
+        if(x.hasOwnProperty("arcStartLat"))
+          globe.arcStartLat(x.arcStartLat);
+        if(x.hasOwnProperty("arcStartLng"))
+          globe.arcStartLng(x.arcStartLng);
+        if(x.hasOwnProperty("arcEndLat"))
+          globe.arcEndLat(x.arcEndLat);
+        if(x.hasOwnProperty("arcEndLng"))
+          globe.arcEndLng(x.arcEndLng);
         if(x.hasOwnProperty("arcColor"))
           globe.arcColor(x.arcColor);
         if(x.hasOwnProperty("arcAltitude"))
@@ -661,6 +669,14 @@ if (HTMLWidgets.shinyMode) {
       if (typeof globe != 'undefined') {
         if(data.hasOwnProperty("arcsData"))
           globe.arcsData(data.arcsData);
+        if(data.hasOwnProperty("arcStartLat"))
+          globe.arcStartLat(data.arcStartLat);
+        if(data.hasOwnProperty("arcStartLng"))
+          globe.arcStartLng(data.arcStartLng);
+        if(data.hasOwnProperty("arcEndLat"))
+          globe.arcEndLat(data.arcEndLat);
+        if(data.hasOwnProperty("arcEndLng"))
+          globe.arcEndLng(data.arcEndLng);
         if(data.hasOwnProperty("arcColor"))
           globe.arcColor(data.arcColor);
         if(data.hasOwnProperty("arcAltitude"))

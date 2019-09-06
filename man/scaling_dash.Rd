@@ -29,9 +29,12 @@ Rescale various aspects of arcs dashes.
 create_globe() \%>\% 
   globe_img_url() \%>\% 
   globe_arcs(
-    usflights, start_lat, start_lon, end_lat, end_lon,
-    stroke = cnt
+    data = usflights, 
+    coords (
+      start_lat, start_lon, end_lat, end_lon,
+      dash_length = cnt
+    )
   ) \%>\% 
-  scale_arc_stroke()
+  scale_arc_dash_length()
 
 }

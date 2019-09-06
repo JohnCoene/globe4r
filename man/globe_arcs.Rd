@@ -4,88 +4,63 @@
 \alias{globe_arcs}
 \title{Arcs}
 \usage{
-globe_arcs(globe, data, start_lat = NULL, start_lon = NULL,
-  end_lat = NULL, end_lon = NULL, label = NULL, color = NULL,
-  altitude = NULL, altitude_scale = NULL, stroke = NULL,
-  curve_resolution = 64L, circular_resolution = 6L, dash_length = 1L,
-  dash_gap = 0L, dash_initial_gap = 0L, dash_animate_time = 0L,
-  transition = 1000L, on_click = NULL, on_right_click = NULL,
-  on_hover = NULL)
+globe_arcs(globe, ..., data = NULL, inherit_coords = TRUE,
+  on_click = NULL, on_right_click = NULL, on_hover = NULL)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
 \code{\link{create_globe}}, or an object of class \code{globeProxy}
 as returned by \code{\link{globeProxy}}.}
 
+\item{...}{Coordinates, as specified by \code{\link{coords}}.}
+
 \item{data}{A data.frame of points to draw.}
 
-\item{start_lat, start_lon, end_lat, end_lon}{Bare column names 
-giving start and end coordinates of arcs.}
+\item{inherit_coords}{Whether to inherit the coordinates (\code{\link{coords}})
+from \code{\link{create_globe}}. Only applies to method applied to object of class
+\code{globe4r} not on objects of class \code{globeProxy}.}
 
-\item{label}{Bare column name of arc labels.}
+\item{on_click}{JavaScript functions as strings.}
 
-\item{color}{Bare column name of arc color.}
+\item{on_right_click}{JavaScript functions as strings.}
 
-\item{altitude}{Bare column name of the arc's maximum altitude 
-(ocurring at the half-way distance between the two points) in 
-terms of globe radius units (\code{0} = 0 altitude (ground line), 
-\code{1} = globe radius). If a value of null or undefined is used, 
-the altitude is automatically set proportionally to the distance 
-between the two points, according to the scale set in 
-\code{altitude_scale}.}
-
-\item{altitude_scale}{Bare column name of he scale of the arc's 
-automatic altitude, in terms of units of the great-arc distance 
-between the two points. A value of 1 indicates the arc should be 
-as high as its length on the ground. Only applicable if 
-\code{altitude} is not set.}
-
-\item{stroke}{Bare column name indicating the line's diameter, 
-in angular degrees. A value of null or undefined will render a 
-\href{https://threejs.org/docs/#api/objects/Line}{ThreeJS} Line 
-whose width is constant (1px) regardless of the camera distance. 
-Otherwise, a 
-\href{https://threejs.org/docs/#api/en/geometries/TubeGeometry}{TubeGeometry}
-is used.}
-
-\item{curve_resolution}{Resolution, expressed in how many straight line 
-segments to divide the curve by. Higher values yield smoother curves.}
-
-\item{circular_resolution}{Radial geometric resolution of each line, 
-expressed in how many slice segments to divide the tube's circumference. 
-Only applicable when using Tube geometries (defined \code{stroke}).}
-
-\item{dash_length}{The length of the dashed segments in the arc, in terms
-of relative length of the whole line (\code{1} = full line length).}
-
-\item{dash_gap}{The length of the gap between dash segments, in terms of 
-relative line length.}
-
-\item{dash_initial_gap}{The length of the initial gap before the first 
-dash segment, in terms of relative line length.}
-
-\item{dash_animate_time}{The time duration (in ms) to animate the motion 
-of dash positions from the start to the end point for a full line length. 
-A value of 0 disables the animation.}
-
-\item{transition}{Duration (ms) of the transition to animate arc changes 
-involving geometry modifications. A value of 0 will move the arcs immediately 
-to their final position. New arcs are animated by rising them from the ground up.}
-
-\item{on_click, on_right_click, on_hover}{JavaScript functions as strings.}
+\item{on_hover}{JavaScript functions as strings.}
 }
 \description{
 Add arcs to a globe.
 }
+\section{Coordinates}{
+
+Valid coordinates.
+\itemize{
+  \item{\code{start_lat}, \code{start_lon}}
+  \item{\code{end_lat}, \code{end_lon}}
+  \item{\code{altitude}}
+  \item{\code{color}}
+  \item{\code{label}}
+  \item{\code{transition}}
+  \item{\code{altitude_scale}}
+  \item{\code{stroke}}
+  \item{\code{curve_resolution}}
+  \item{\code{circular_resolution}}
+  \item{\code{dash_length}}
+  \item{\code{dash_gap}}
+  \item{\code{dash_initial_gap}}
+  \item{\code{dash_animate_time}}
+}
+}
+
 \examples{
 # basic
 create_globe() \%>\% 
   globe_img_url() \%>\% 
   globe_arcs(
-    usflights, 
-    start_lat, start_lon, 
-    end_lat, end_lon,
-    color = cnt
+    data= usflights, 
+    coords(
+      start_lat, start_lon, 
+      end_lat, end_lon,
+      color = cnt
+    )
   ) \%>\% 
   scale_arc_color()
 
@@ -105,7 +80,10 @@ server <- function(input, output){
 
   observeEvent(input$add, {
     globeProxy("globe") \%>\% 
-      globe_arcs(usflights, start_lat, start_lon, end_lat, end_lon)
+      globe_arcs(
+        coords(start_lat, start_lon, end_lat, end_lon),
+        data = usflights 
+      )
   })
 }
 

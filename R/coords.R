@@ -9,7 +9,9 @@
 #' @section Coordinates:
 #' Valid coordinates (depending on layer).
 #' \itemize{
-#'   \item{\code{lat}, \code{lon}},
+#'   \item{\code{lat}, \code{lon}}
+#'   \item{\code{start_lat}, \code{start_lon}}
+#'   \item{\code{end_lat}, \code{end_lon}}
 #'   \item{\code{altitude}}
 #'   \item{\code{radius}}
 #'   \item{\code{color}}
@@ -24,6 +26,14 @@
 #'   \item{\code{dot_radius}}
 #'   \item{\code{dot_orientation}}
 #'   \item{\code{type_face}}
+#'   \item{\code{altitude_scale}}
+#'   \item{\code{stroke}}
+#'   \item{\code{curve_resolution}}
+#'   \item{\code{circular_resolution}}
+#'   \item{\code{dash_length}}
+#'   \item{\code{dash_gap}}
+#'   \item{\code{dash_initial_gap}}
+#'   \item{\code{dash_animate_time}}
 #' }
 #' 
 #' @export

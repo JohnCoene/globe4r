@@ -3,57 +3,37 @@
 #' Add arcs to a globe.
 #' 
 #' @inheritParams globe_points
-#' @param start_lat,start_lon,end_lat,end_lon Bare column names 
-#' giving start and end coordinates of arcs. 
-#' @param label Bare column name of arc labels.
-#' @param color Bare column name of arc color.
-#' @param altitude Bare column name of the arc's maximum altitude 
-#' (ocurring at the half-way distance between the two points) in 
-#' terms of globe radius units (\code{0} = 0 altitude (ground line), 
-#' \code{1} = globe radius). If a value of null or undefined is used, 
-#' the altitude is automatically set proportionally to the distance 
-#' between the two points, according to the scale set in 
-#' \code{altitude_scale}.
-#' @param altitude_scale Bare column name of he scale of the arc's 
-#' automatic altitude, in terms of units of the great-arc distance 
-#' between the two points. A value of 1 indicates the arc should be 
-#' as high as its length on the ground. Only applicable if 
-#' \code{altitude} is not set.
-#' @param stroke Bare column name indicating the line's diameter, 
-#' in angular degrees. A value of null or undefined will render a 
-#' \href{https://threejs.org/docs/#api/objects/Line}{ThreeJS} Line 
-#' whose width is constant (1px) regardless of the camera distance. 
-#' Otherwise, a 
-#' \href{https://threejs.org/docs/#api/en/geometries/TubeGeometry}{TubeGeometry}
-#' is used.
-#' @param curve_resolution Resolution, expressed in how many straight line 
-#' segments to divide the curve by. Higher values yield smoother curves.
-#' @param circular_resolution Radial geometric resolution of each line, 
-#' expressed in how many slice segments to divide the tube's circumference. 
-#' Only applicable when using Tube geometries (defined \code{stroke}).
-#' @param dash_length The length of the dashed segments in the arc, in terms
-#' of relative length of the whole line (\code{1} = full line length).
-#' @param dash_gap The length of the gap between dash segments, in terms of 
-#' relative line length.
-#' @param dash_initial_gap The length of the initial gap before the first 
-#' dash segment, in terms of relative line length.
-#' @param dash_animate_time The time duration (in ms) to animate the motion 
-#' of dash positions from the start to the end point for a full line length. 
-#' A value of 0 disables the animation.
-#' @param transition Duration (ms) of the transition to animate arc changes 
-#' involving geometry modifications. A value of 0 will move the arcs immediately 
-#' to their final position. New arcs are animated by rising them from the ground up.
-#' @param on_click,on_right_click,on_hover JavaScript functions as strings.
+#' 
+#' @section Coordinates:
+#' Valid coordinates.
+#' \itemize{
+#'   \item{\code{start_lat}, \code{start_lon}}
+#'   \item{\code{end_lat}, \code{end_lon}}
+#'   \item{\code{altitude}}
+#'   \item{\code{color}}
+#'   \item{\code{label}}
+#'   \item{\code{transition}}
+#'   \item{\code{altitude_scale}}
+#'   \item{\code{stroke}}
+#'   \item{\code{curve_resolution}}
+#'   \item{\code{circular_resolution}}
+#'   \item{\code{dash_length}}
+#'   \item{\code{dash_gap}}
+#'   \item{\code{dash_initial_gap}}
+#'   \item{\code{dash_animate_time}}
+#' }
 #' 
 #' @examples
 #' # basic
 #' create_globe() %>% 
 #'   globe_img_url() %>% 
 #'   globe_arcs(
-#'     usflights, 
-#'     start_lat, start_lon, 
-#'     end_lat, end_lon,
-#'     color = cnt
+#'     data= usflights, 
+#'     coords(
+#'       start_lat, start_lon, 
+#'       end_lat, end_lon,
+#'       color = cnt
+#'     )
 #'   ) %>% 
 #'   scale_arc_color()
 #' 
@@ -73,66 +53,53 @@
 #' 
 #'   observeEvent(input$add, {
 #'     globeProxy("globe") %>% 
-#'       globe_arcs(usflights, start_lat, start_lon, end_lat, end_lon)
+#'       globe_arcs(
+#'         coords(start_lat, start_lon, end_lat, end_lon),
+#'         data = usflights 
+#'       )
 #'   })
 #' }
 #' 
 #' \dontrun{shinyApp(ui, server)}
 #' @export
-globe_arcs <- function(globe, data, start_lat = NULL, start_lon = NULL, end_lat = NULL, 
-  end_lon = NULL, label = NULL, color = NULL, altitude = NULL, altitude_scale = NULL, 
-  stroke = NULL, curve_resolution = 64L, circular_resolution = 6L, dash_length = 1L, 
-  dash_gap = 0L, dash_initial_gap = 0L, dash_animate_time = 0L, transition = 1000L,
+globe_arcs <- function(globe, ..., data = NULL, inherit_coords = TRUE,
   on_click = NULL, on_right_click = NULL, on_hover = NULL) UseMethod("globe_arcs")
 
 #' @export
 #' @method globe_arcs globe
-globe_arcs.globe <- function(globe, data, start_lat = NULL, start_lon = NULL, end_lat = NULL, 
-  end_lon = NULL, label = NULL, color = NULL, altitude = NULL, altitude_scale = NULL, 
-  stroke = NULL, curve_resolution = 64L, circular_resolution = 6L, dash_length = 1L, 
-  dash_gap = 0L, dash_initial_gap = 0L, dash_animate_time = 0L, transition = 1000L,
+globe_arcs.globe <- function(globe, ..., data = NULL, inherit_coords = TRUE,
   on_click = NULL, on_right_click = NULL, on_hover = NULL){
 
   # check inputs
-  assert_that(not_missing(data))
+  data <- .get_data(globe$x$data, data)
+  assert_that(has_data(data))
 
-  # enquo all things
-  start_lat_enquo <- rlang::enquo(start_lat)
-  start_lon_enquo <- rlang::enquo(start_lon)
-  end_lat_enquo <- rlang::enquo(end_lat)
-  end_lon_enquo <- rlang::enquo(end_lon)
-  label_enquo <- rlang::enquo(label)
-  color_enquo <- rlang::enquo(color)
-  altitude_enquo <- rlang::enquo(altitude)
-  altitude_scale_enquo <- rlang::enquo(altitude_scale)
-  stroke_enquo <- rlang::enquo(stroke)
+  # extract & process coordinates
+  coords <- get_coords(...)
+  coords <- combine_coords(globe$x$coords, coords, inherit_coords)
+  assert_that(has_coords(coords))
+  columns <- coords_to_columns(coords)
 
   # create points array
-  globe$x$arcsData <- data %>% 
-    dplyr::select(
-      startLat = !!start_lat_enquo,
-      startLng = !!start_lon_enquo,
-      endLat = !!end_lat_enquo,
-      endLng = !!end_lon_enquo,
-      !!label_enquo,
-      !!color_enquo,
-      !!altitude_enquo,
-      !!altitude_scale_enquo,
-      !!stroke_enquo
-    )
+  globe$x$arcsData <- dplyr::select(data, columns)
 
-  globe$x$arcLabel <- if(!rlang::quo_is_null(label_enquo)) rlang::quo_name(label_enquo)
-  globe$x$arcColor <- if(!rlang::quo_is_null(color_enquo)) rlang::quo_name(color_enquo)
-  globe$x$arcAltitude <- if(!rlang::quo_is_null(altitude_enquo)) rlang::quo_name(altitude_enquo)
-  globe$x$arcAltitudeAutoScale <- if(!rlang::quo_is_null(altitude_scale_enquo)) rlang::quo_name(altitude_scale_enquo)
-  globe$x$arcStroke <- if(!rlang::quo_is_null(stroke_enquo)) rlang::quo_name(stroke_enquo)
-  globe$x$arcCurveResolution <- curve_resolution
-  globe$x$arcCircularResolution <- circular_resolution
-  globe$x$arcDashLength <- dash_length
-  globe$x$arcDashGap <- dash_gap
-  globe$x$arcDashInitialGap <- dash_initial_gap
-  globe$x$arcDashAnimateTime <- dash_animate_time
-  globe$x$arcsTransitionDuration <- transition
+  globe$x$arcStartLat <- coords_to_opts(coords, "start_lat")
+  globe$x$arcStartLng <- coords_to_opts(coords, "start_lon")
+  globe$x$arcEndLat <- coords_to_opts(coords, "end_lat")
+  globe$x$arcEndLng <- coords_to_opts(coords, "end_lon")
+
+  globe$x$arcLabel <- coords_to_opts(coords, "label")
+  globe$x$arcColor <- coords_to_opts(coords, "color")
+  globe$x$arcAltitude <- coords_to_opts(coords, "altitude")
+  globe$x$arcAltitudeAutoScale <- coords_to_opts(coords, "altitude_scale")
+  globe$x$arcStroke <- coords_to_opts(coords, "stroke")
+  globe$x$arcCurveResolution <- coords_to_opts(coords, "curve_resolution")
+  globe$x$arcCircularResolution <- coords_to_opts(coords, "circular_resolution")
+  globe$x$arcDashLength <- coords_to_opts(coords, "dash_length")
+  globe$x$arcDashGap <- coords_to_opts(coords, "dash_gap")
+  globe$x$arcDashInitialGap <- coords_to_opts(coords, "dash_initial_gap")
+  globe$x$arcDashAnimateTime <- coords_to_opts(coords, "dash_animate_time")
+  globe$x$arcsTransitionDuration <- coords_to_opts(coords, "transition")
   globe$x$onArcClick <- if(!is.null(on_click)) htmlwidgets::JS(on_click)
   globe$x$onArcRightClick <- if(!is.null(on_right_click)) htmlwidgets::JS(on_right_click)
   globe$x$onArcHover <- if(!is.null(on_hover)) htmlwidgets::JS(on_hover)
@@ -142,53 +109,39 @@ globe_arcs.globe <- function(globe, data, start_lat = NULL, start_lon = NULL, en
 
 #' @export
 #' @method globe_arcs globeProxy
-globe_arcs.globeProxy <- function(globe, data, start_lat = NULL, start_lon = NULL, end_lat = NULL, 
-  end_lon = NULL, label = NULL, color = NULL, altitude = NULL, altitude_scale = NULL, 
-  stroke = NULL, curve_resolution = 64L, circular_resolution = 6L, dash_length = 1L, 
-  dash_gap = 0L, dash_initial_gap = 0L, dash_animate_time = 0L, transition = 1000L,
+globe_arcs.globeProxy <- function(globe, ..., data = NULL, inherit_coords = TRUE,
   on_click = NULL, on_right_click = NULL, on_hover = NULL){
 
   # check inputs
-  assert_that(not_missing(data))
+  data <- .get_data(globe$x$data, data)
+  assert_that(has_data(data))
 
-  # enquo all things
-  start_lat_enquo <- rlang::enquo(start_lat)
-  start_lon_enquo <- rlang::enquo(start_lon)
-  end_lat_enquo <- rlang::enquo(end_lat)
-  end_lon_enquo <- rlang::enquo(end_lon)
-  label_enquo <- rlang::enquo(label)
-  color_enquo <- rlang::enquo(color)
-  altitude_enquo <- rlang::enquo(altitude)
-  altitude_scale_enquo <- rlang::enquo(altitude_scale)
-  stroke_enquo <- rlang::enquo(stroke)
+  # extract & process coordinates
+  coords <- get_coords(...)
+  assert_that(has_coords(coords))
+  columns <- coords_to_columns(coords)
 
   msg <- list(id = globe$id)
 
-  msg$arcsData <- data %>% 
-    dplyr::select(
-      startLat = !!start_lat_enquo,
-      startLng = !!start_lon_enquo,
-      endLat = !!end_lat_enquo,
-      endLng = !!end_lon_enquo,
-      name = !!label_enquo,
-      color = !!color_enquo,
-      altitude = !!altitude_enquo,
-      altitude_scale = !!altitude_scale_enquo,
-      stroke = !!stroke_enquo
-    ) %>% 
-    apply(1, as.list)
+  msg$arcsData <- dplyr::select(data, columns)
 
-  msg$arcColor <- if(!rlang::quo_is_null(color_enquo)) "color"
-  msg$arcAltitude <- if(!rlang::quo_is_null(altitude_enquo)) "altitude"
-  msg$arcAltitudeAutoScale <- if(!rlang::quo_is_null(altitude_scale_enquo)) "altitude_scale"
-  msg$arcStroke <- if(!rlang::quo_is_null(stroke_enquo)) "stroke"
-  msg$arcCurveResolution <- curve_resolution
-  msg$arcCircularResolution <- circular_resolution
-  msg$arcDashLength <- dash_length
-  msg$arcDashGap <- dash_gap
-  msg$arcDashInitialGap <- dash_initial_gap
-  msg$arcDashAnimateTime <- dash_animate_time
-  msg$arcsTransitionDuration <- transition
+  msg$arcStartLat <- coords_to_opts(coords, "start_lat")
+  msg$arcStartLng <- coords_to_opts(coords, "start_lon")
+  msg$arcEndLat <- coords_to_opts(coords, "end_lat")
+  msg$arcEndLng <- coords_to_opts(coords, "end_lon")
+
+  msg$arcLabel <- coords_to_opts(coords, "label")
+  msg$arcColor <- coords_to_opts(coords, "color")
+  msg$arcAltitude <- coords_to_opts(coords, "altitude")
+  msg$arcAltitudeAutoScale <- coords_to_opts(coords, "altitude_scale")
+  msg$arcStroke <- coords_to_opts(coords, "stroke")
+  msg$arcCurveResolution <- coords_to_opts(coords, "curve_resolution")
+  msg$arcCircularResolution <- coords_to_opts(coords, "circular_resolution")
+  msg$arcDashLength <- coords_to_opts(coords, "dash_length")
+  msg$arcDashGap <- coords_to_opts(coords, "dash_gap")
+  msg$arcDashInitialGap <- coords_to_opts(coords, "dash_initial_gap")
+  msg$arcDashAnimateTime <- coords_to_opts(coords, "dash_animate_time")
+  msg$arcsTransitionDuration <- coords_to_opts(coords, "transition")
   msg$onArcClick <- if(!is.null(on_click)) htmlwidgets::JS(on_click)
   msg$onArcRightClick <- if(!is.null(on_right_click)) htmlwidgets::JS(on_right_click)
   msg$onArcHover <- if(!is.null(on_hover)) htmlwidgets::JS(on_hover)

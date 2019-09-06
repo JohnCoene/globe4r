@@ -228,8 +228,11 @@ scale_choropleth_altitude.globe <- function(globe, min = 0, max = .5){
 #' create_globe() %>% 
 #'   globe_img_url() %>% 
 #'   globe_arcs(
-#'     usflights, start_lat, start_lon, end_lat, end_lon,
-#'     stroke = cnt
+#'     data = usflights, 
+#'     coords (
+#'       start_lat, start_lon, end_lat, end_lon,
+#'       stroke = cnt
+#'     )
 #'   ) %>% 
 #'   scale_arc_stroke()
 #' 
@@ -258,10 +261,13 @@ scale_arc_stroke.globe <- function(globe, min = .1, max = 1){
 #' create_globe() %>% 
 #'   globe_img_url() %>% 
 #'   globe_arcs(
-#'     usflights, start_lat, start_lon, end_lat, end_lon,
-#'     stroke = cnt
+#'     data = usflights, 
+#'     coords (
+#'       start_lat, start_lon, end_lat, end_lon,
+#'       dash_length = cnt
+#'     )
 #'   ) %>% 
-#'   scale_arc_stroke()
+#'   scale_arc_dash_length()
 #' 
 #' @section Scales:
 #' \itemize{
@@ -275,7 +281,7 @@ scale_arc_dash_length <- function(globe, min = .1, max = 1) UseMethod("scale_arc
 #' @export
 #' @method scale_arc_dash_length globe 
 scale_arc_dash_length.globe <- function(globe, min = .1, max = 1){
-  assert_that(length(globe$x$arcsData$arcDashLength) >= 1, msg = "No arc dash length specified.")
-  globe$x$arcsData$arcDashLength <- scales::rescale(globe$x$arcsData$arcDashLength, to = c(min, max))
+  assert_that(length(globe$x$arcDashLength) >= 1, msg = "No arc dash length specified.")
+  globe$x$arcsData[[globe$x$arcDashLength]] <- scales::rescale(globe$x$arcsData[[globe$x$arcDashLength]], to = c(min, max))
   return(globe)
 }
