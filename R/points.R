@@ -95,6 +95,8 @@ globe_points.globeProxy <- function(globe, ..., data = NULL, inherit_coords = FA
   msg$pointsData <- dplyr::select(data, columns) %>% 
     apply(1, as.list)
 
+  msg$pointLat <- coords_to_opts(coords, "lat")
+  msg$pointLng <- coords_to_opts(coords, "lon")
   msg$pointLabel <- coords_to_opts(coords, "label")
   msg$pointColor <- coords_to_opts(coords, "color")
   msg$pointAltitude <- coords_to_opts(coords, "altitude")
