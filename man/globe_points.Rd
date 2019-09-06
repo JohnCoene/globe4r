@@ -4,7 +4,8 @@
 \alias{globe_points}
 \title{Points}
 \usage{
-globe_points(globe, ...)
+globe_points(globe, ..., data = NULL, inherit_coords = TRUE,
+  on_click = NULL, on_right_click = NULL, on_hover = NULL)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
@@ -15,10 +16,11 @@ as returned by \code{\link{globeProxy}}.}
 
 \item{data}{A data.frame of points to draw.}
 
-\item{on_click, on_right_click, on_hover}{JavaScript functions as strings.}
-
 \item{inherit_coords}{Whether to inherit the coordinates (\code{\link{coords}})
-from \code{\link{create_globe}}}
+from \code{\link{create_globe}}. Only applies to method applied to object of class
+\code{globe4r} not on objects of class \code{globeProxy}.}
+
+\item{on_click, on_right_click, on_hover}{JavaScript functions as strings.}
 }
 \description{
 Add points to a globe.
