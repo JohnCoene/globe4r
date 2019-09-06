@@ -19,7 +19,7 @@
 #' @import htmlwidgets
 #'
 #' @export
-create_globe <- function(data = NULL, mapping = NULL, antialias = TRUE, alpha = TRUE, animate_in = TRUE, 
+create_globe <- function(data = NULL, coords = NULL, antialias = TRUE, alpha = TRUE, animate_in = TRUE, 
   width = NULL, height = NULL, elementId = NULL) {
 
   x = list(
@@ -31,7 +31,7 @@ create_globe <- function(data = NULL, mapping = NULL, antialias = TRUE, alpha = 
       animateIn = animate_in
     ),
     data = data,
-    mapping = mapping,
+    coords = coords,
     globals = list()
   )
 

@@ -4,26 +4,40 @@
 \alias{globe_points}
 \title{Points}
 \usage{
-globe_points(globe, ..., data = NULL, inherit_coords = TRUE,
-  on_click = NULL, on_right_click = NULL, on_hover = NULL)
+globe_points(globe, ...)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
 \code{\link{create_globe}}, or an object of class \code{globeProxy}
 as returned by \code{\link{globeProxy}}.}
 
-\item{...}{Coordiantes, as specified by \code{\link{coords}}.}
+\item{...}{Coordinates, as specified by \code{\link{coords}}.}
 
 \item{data}{A data.frame of points to draw.}
 
+\item{on_click, on_right_click, on_hover}{JavaScript functions as strings.}
+
 \item{inherit_coords}{Whether to inherit the coordinates (\code{\link{coords}})
 from \code{\link{create_globe}}}
-
-\item{on_click, on_right_click, on_hover}{JavaScript functions as strings.}
 }
 \description{
 Add points to a globe.
 }
+\section{Coordinates}{
+
+Valid coordinates (depending on layer).
+\itemize{
+  \item{\code{lat}, \code{lon}},
+  \item{\code{altitude}}
+  \item{\code{radius}}
+  \item{\code{color}}
+  \item{\code{label}}
+  \item{\code{resolution}}
+  \item{\code{merge}}
+  \item{\code{transition}}
+}
+}
+
 \examples{
 # basic
 create_globe() \%>\% 

@@ -7,7 +7,20 @@
 #' @param on_click,on_right_click,on_hover JavaScript functions as strings.
 #' @param inherit_coords Whether to inherit the coordinates (\code{\link{coords}})
 #' from \code{\link{create_globe}} 
-#' @param ... Coordiantes, as specified by \code{\link{coords}}.
+#' @param ... Coordinates, as specified by \code{\link{coords}}.
+#' 
+#' @section Coordinates:
+#' Valid coordinates (depending on layer).
+#' \itemize{
+#'   \item{\code{lat}, \code{lon}},
+#'   \item{\code{altitude}}
+#'   \item{\code{radius}}
+#'   \item{\code{color}}
+#'   \item{\code{label}}
+#'   \item{\code{resolution}}
+#'   \item{\code{merge}}
+#'   \item{\code{transition}}
+#' }
 #' 
 #' @examples
 #' # basic
@@ -38,8 +51,7 @@
 #' 
 #' \dontrun{shinyApp(ui, server)}
 #' @export
-globe_points <- function(globe, ..., data = NULL, inherit_coords = TRUE, on_click = NULL, on_right_click = NULL, 
-  on_hover = NULL) UseMethod("globe_points")
+globe_points <- function(globe, ...) UseMethod("globe_points")
 
 #' @export
 #' @method globe_points globe
@@ -52,7 +64,7 @@ globe_points.globe <- function(globe, ..., data = NULL, inherit_coords = TRUE, o
 
   # extract & process coordinates
   coords <- get_coords(...)
-  coords <- combine_coords(globe$x$mapping, coords, inherit_coords)
+  coords <- combine_coords(globe$x$coords, coords, inherit_coords)
   assert_that(has_coords(coords))
   columns <- coords_to_columns(coords)
 
@@ -79,8 +91,10 @@ globe_points.globe <- function(globe, ..., data = NULL, inherit_coords = TRUE, o
 
 #' @export
 #' @method globe_points globeProxy
-globe_points.globeProxy <- function(globe, ..., data = NULL, inherit_coords = FALSE, on_click = NULL, on_right_click = NULL, 
+globe_points.globeProxy <- function(globe, ..., data = NULL, on_click = NULL, on_right_click = NULL, 
   on_hover = NULL){
+
+  assert_that(has_data(data))
 
   # check inputs
   data <- .get_data(globe$x$data, data)

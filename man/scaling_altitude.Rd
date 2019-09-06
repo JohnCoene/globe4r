@@ -32,7 +32,7 @@ and 1 is the globe radius.
 create_globe() \%>\% 
   globe_img_url() \%>\% 
   globe_pov(-21, 179) \%>\% 
-  globe_points(quakes, lat, long, altitude = mag) \%>\% 
+  globe_points(data = quakes, coords(lat, long, altitude = mag)) \%>\% 
   scale_points_altitude()
 
 }

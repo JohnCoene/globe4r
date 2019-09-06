@@ -37,7 +37,7 @@ constant <- function(x){
 #' create_globe() %>% 
 #'   globe_img_url() %>% 
 #'   globe_pov(-21, 179) %>% 
-#'   globe_points(quakes, lat, long, color = mag) %>% 
+#'   globe_points(coords(lat, long, color = mag), data = quakes) %>% 
 #'   scale_points_color()
 #' 
 #' @name scaling_color
@@ -155,7 +155,7 @@ scale_label_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#e
 #' create_globe() %>% 
 #'   globe_img_url() %>% 
 #'   globe_pov(-21, 179) %>% 
-#'   globe_points(quakes, lat, long, altitude = mag) %>% 
+#'   globe_points(data = quakes, coords(lat, long, altitude = mag)) %>% 
 #'   scale_points_altitude()
 #' 
 #' @name scaling_altitude

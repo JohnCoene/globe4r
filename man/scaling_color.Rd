@@ -39,7 +39,7 @@ Pass a numeric value as color and use this function
 create_globe() \%>\% 
   globe_img_url() \%>\% 
   globe_pov(-21, 179) \%>\% 
-  globe_points(quakes, lat, long, color = mag) \%>\% 
+  globe_points(coords(lat, long, color = mag), data = quakes) \%>\% 
   scale_points_color()
 
 }

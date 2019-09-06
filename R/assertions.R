@@ -11,6 +11,8 @@ on_failure(not_missing) <- function(call, env) {
 }
 
 has_data <- function(x){
+  if(missing(x))
+    return(FALSE)
   !is.null(x)
 }
 

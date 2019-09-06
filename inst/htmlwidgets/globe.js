@@ -137,6 +137,10 @@ HTMLWidgets.widget({
           globe.labelsData(x.labelsData); 
         if(x.hasOwnProperty("labelText"))
           globe.labelText(x.labelText); 
+        if(x.hasOwnProperty("labelLat"))
+          globe.labelLat(x.labelLat); 
+        if(x.hasOwnProperty("labelLng"))
+          globe.labelLng(x.labelLng); 
         if(x.hasOwnProperty("labelLabel"))
           globe.labelLabel(x.labelLabel); 
         if(x.hasOwnProperty("labelColor"))
@@ -721,8 +725,12 @@ if (HTMLWidgets.shinyMode) {
       var globe = get_globe(data.id);
       if(data.hasOwnProperty("labelsData"))
         globe.labelsData(data.labelsData); 
-      if(data.hasOwnProperty("labelTedatat"))
-        globe.labelTedatat(data.labelTedatat); 
+      if(data.hasOwnProperty("labelsLat"))
+        globe.labelsLat(data.labelsLat); 
+      if(data.hasOwnProperty("labelsLng"))
+        globe.labelsLng(data.labelsLng); 
+      if(data.hasOwnProperty("labelText"))
+        globe.labelText(data.labelText); 
       if(data.hasOwnProperty("labelLabel"))
         globe.labelLabel(data.labelLabel); 
       if(data.hasOwnProperty("labelColor"))

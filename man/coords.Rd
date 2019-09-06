@@ -26,6 +26,13 @@ Valid coordinates (depending on layer).
   \item{\code{resolution}}
   \item{\code{merge}}
   \item{\code{transition}}
+  \item{\code{size}}
+  \item{\code{text}}
+  \item{\code{rotation}}
+  \item{\code{include_dot}}
+  \item{\code{dot_radius}}
+  \item{\code{dot_orientation}}
+  \item{\code{type_face}}
 }
 }
 
