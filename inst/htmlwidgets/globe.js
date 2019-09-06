@@ -725,10 +725,10 @@ if (HTMLWidgets.shinyMode) {
       var globe = get_globe(data.id);
       if(data.hasOwnProperty("labelsData"))
         globe.labelsData(data.labelsData); 
-      if(data.hasOwnProperty("labelsLat"))
-        globe.labelsLat(data.labelsLat); 
-      if(data.hasOwnProperty("labelsLng"))
-        globe.labelsLng(data.labelsLng); 
+      if(data.hasOwnProperty("labelLat"))
+        globe.labelLat(data.labelLat); 
+      if(data.hasOwnProperty("labelLng"))
+        globe.labelLng(data.labelLng); 
       if(data.hasOwnProperty("labelText"))
         globe.labelText(data.labelText); 
       if(data.hasOwnProperty("labelLabel"))
