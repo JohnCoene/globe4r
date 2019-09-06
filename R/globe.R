@@ -2,8 +2,8 @@
 #'
 #' Create a globe object.
 #'
-#' @param data A data.frame containing coordinates.
-#' @param mapping Coordiantes as specified by \code{\link{coords}}.
+#' @param data A data.frame containing coordinates (\code{\link{coords}}).
+#' @param coords Coordinates as specified by \code{\link{coords}}.
 #' @param width,height Must be a valid CSS unit (like \code{'100\%'},
 #'   \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
 #'   string and have \code{'px'} appended.

@@ -9,9 +9,7 @@ create_globe(data = NULL, mapping = NULL, antialias = TRUE,
   elementId = NULL)
 }
 \arguments{
-\item{data}{A data.frame containing coordinates.}
-
-\item{mapping}{Coordiantes as specified by \code{\link{coords}}.}
+\item{data}{A data.frame containing coordinates (\code{\link{coords}}).}
 
 \item{antialias, alpha}{Configuration parameters to pass to the 
 \href{https://threejs.org/docs/#api/en/renderers/WebGLRenderer}{ThreeJS WebGLRenderer} constructor.}
@@ -24,6 +22,8 @@ and rotating the globe into its inital position.}
 string and have \code{'px'} appended.}
 
 \item{elementId}{Id of element.}
+
+\item{coords}{Coordinates as specified by \code{\link{coords}}.}
 }
 \description{
 Create a globe object.

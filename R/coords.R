@@ -1,14 +1,22 @@
 #' Coordinates
 #' 
-#' Chart's aspects, similar to \code{ggplot2}'s aesthetics.
+#' Coordinates to use to draw layers on globe.
 #' 
-#' @param lat,lon,... List of name value pairs giving aspects to map to
-#'  variables. The names for lat and lon aspects are typically omitted because
+#' @param lat,lon,... List of name value pairs giving coordinates to map to
+#'  variables. The names for lat and lon coordinates are typically omitted because
 #'  they are so common; all other aspects must be named.
 #' 
-#' @section Figures:
+#' @section Coordinates:
+#' Valid coordinates (depending on layer).
 #' \itemize{
-#'   \item{\code{lat}, \code{lon}}
+#'   \item{\code{lat}, \code{lon}},
+#'   \item{\code{altitude}}
+#'   \item{\code{radius}}
+#'   \item{\code{color}}
+#'   \item{\code{label}}
+#'   \item{\code{resolution}}
+#'   \item{\code{merge}}
+#'   \item{\code{transition}}
 #' }
 #' 
 #' @export

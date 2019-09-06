@@ -5,6 +5,8 @@
 #' @inheritParams globe_img
 #' @param data A data.frame of points to draw.
 #' @param on_click,on_right_click,on_hover JavaScript functions as strings.
+#' @param inherit_coords Whether to inherit the coordinates (\code{\link{coords}})
+#' from \code{\link{create_globe}} 
 #' @param ... Coordiantes, as specified by \code{\link{coords}}.
 #' 
 #' @examples
@@ -12,7 +14,7 @@
 #' create_globe() %>% 
 #'   globe_img_url() %>% 
 #'   globe_pov(-21, 179) %>% 
-#'   globe_points(quakes, lat, long, label = stations)
+#'   globe_points(coords(lat, long, label = stations), data = quakes)
 #' 
 #' # use in shiny
 #' library(shiny)
@@ -29,7 +31,7 @@
 #' 
 #'   observeEvent(input$add, {
 #'     globeProxy("globe") %>% 
-#'       globe_points(quakes, lat, long) %>% 
+#'       globe_points(coords(lat, long), data = quakes) %>% 
 #'       globe_pov(-21, 179)
 #'   })
 #' }

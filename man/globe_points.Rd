@@ -16,6 +16,9 @@ as returned by \code{\link{globeProxy}}.}
 
 \item{data}{A data.frame of points to draw.}
 
+\item{inherit_coords}{Whether to inherit the coordinates (\code{\link{coords}})
+from \code{\link{create_globe}}}
+
 \item{on_click, on_right_click, on_hover}{JavaScript functions as strings.}
 }
 \description{
@@ -26,7 +29,7 @@ Add points to a globe.
 create_globe() \%>\% 
   globe_img_url() \%>\% 
   globe_pov(-21, 179) \%>\% 
-  globe_points(quakes, lat, long, label = stations)
+  globe_points(coords(lat, long, label = stations), data = quakes)
 
 # use in shiny
 library(shiny)
@@ -43,7 +46,7 @@ server <- function(input, output){
 
   observeEvent(input$add, {
     globeProxy("globe") \%>\% 
-      globe_points(quakes, lat, long) \%>\% 
+      globe_points(coords(lat, long), data = quakes) \%>\% 
       globe_pov(-21, 179)
   })
 }
