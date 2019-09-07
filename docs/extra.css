@@ -1,24 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Comfortaa|Ubuntu+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Fira+Mono|Nunito&display=swap');
 
-body, *{
-  font-family: 'Comfortaa', cursive !important;
+body, h1, h2, h3{
+  font-family: 'Nunito', sans-serif !important;
 }
 
 code{
-  font-family: 'Ubuntu Mono', monospace !important;
-}
-
-pre, code{
-  color: #2f2f2f !important;
-  border: none !important;
-  background-color: #fff !important;
-}
-
-
-code > a{
-  color: #2f2f2f !important;
-}
-
-.btn-copy-ex{
-  border-radius: 15px;
+  font-family: 'Fira Mono', monospace !important;
 }

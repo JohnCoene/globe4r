@@ -25,7 +25,7 @@
 #'
 #' @export
 create_globe <- function(data = NULL, coords = NULL, antialias = TRUE, alpha = TRUE, animate_in = TRUE, 
-  width = NULL, height = NULL, elementId = NULL) {
+  width = "100%", height = NULL, elementId = NULL) {
 
   x = list(
     init = list(

@@ -12,6 +12,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+globe4r::shared_background("#060606")
 ```
 
 This document will let you get started with globe4r. First, install the library from github using either the [remotes](https://github.com/r-lib/remotes) or the [devtools](https://github.com/r-lib/devtools) packages.

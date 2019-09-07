@@ -5,7 +5,7 @@
 \title{Create a globe}
 \usage{
 create_globe(data = NULL, coords = NULL, antialias = TRUE,
-  alpha = TRUE, animate_in = TRUE, width = NULL, height = NULL,
+  alpha = TRUE, animate_in = TRUE, width = "100\%", height = NULL,
   elementId = NULL)
 }
 \arguments{

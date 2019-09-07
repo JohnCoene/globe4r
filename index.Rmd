@@ -8,8 +8,9 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
+library(globe4r)
 library(htmltools)
-# globe4r::shared_background("#060606")
+shared_background("#060606")
 ```
 
 ```{r, echo=FALSE}
@@ -42,7 +43,7 @@ br()
 
 You can install the globe4r from Github:
 
-``` r
+```r
 # install.packages("remotes")
 remotes::install_github("JohnCoene/globe4r")
 ```

@@ -8,3 +8,5 @@ test.R
 pkgdown
 docs
 vignettes
+^docs$
+^pkgdown$

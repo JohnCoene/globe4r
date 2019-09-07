@@ -1,20 +1,9 @@
+url: https://globe4r.john-coene.com
+
 template:
   params:
     bootswatch: cyborg
-
-navbar:
-  title: "globe4r"
-  left:
-    - icon: fas fa-home fa-lg
-      href: index.html
-    - icon: fas fa-balance-scale
-      href: LICENSE.html
-    - icon: fas fa-newspaper-o
-      href: news/index.html
-    - icon: fa-code
-      href: "reference/"
-    - text: Get Started
-      href: "articles/get_started.html"
+    ganalytics: UA-74544116-1
 
 authors:
   John Coene:
