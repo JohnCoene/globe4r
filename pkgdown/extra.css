@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Mono|Nunito&display=swap');
 
 body, h1, h2, h3{
-  font-family: 'Nunito', sans-serif !important;
+  font-family: 'Nunito', sans-serif;
 }
 
 code{
-  font-family: 'Fira Mono', monospace !important;
+  font-family: 'Fira Mono', monospace;
 }

@@ -10,7 +10,7 @@ knitr::opts_chunk$set(
 
 library(globe4r)
 library(htmltools)
-shared_background("#060606")
+# shared_background("#060606")
 ```
 
 ```{r, echo=FALSE}

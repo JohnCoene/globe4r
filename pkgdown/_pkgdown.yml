@@ -2,7 +2,7 @@ url: https://globe4r.john-coene.com
 
 template:
   params:
-    bootswatch: cyborg
+    bootswatch: paper
     ganalytics: UA-74544116-1
 
 authors:
