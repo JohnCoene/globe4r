@@ -7,6 +7,8 @@ globe4r
 
 Interactive globes for R via [globe.gl](https://github.com/vasturiano/globe.gl).
 
+Visit the [website](https://globe4r.john-coene.com) for more details.
+
 <img src="./man/figures/logo.png" height="250" align="right" />
 
 Installation
@@ -27,18 +29,13 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 library(globe4r)
 
+data("population") # sample data
+
 create_globe() %>% # initialise
-  globe_img_url() %>% # add image background
-  globe_pov( # position camera
-    lat = -21, 
-    lon = 179,
-    ms = 0
+  globe_bars(
+    coords(lat, lon, altitude = value, color = value),
+    data = population
   ) %>% 
-  globe_points( # add points
-    data = quakes,
-    lat = lat,
-    lon = long,
-    color = mag
-  ) %>% 
-  scale_points_color()
+  scale_bars_altitude() %>% 
+  scale_bars_color()
 ```
