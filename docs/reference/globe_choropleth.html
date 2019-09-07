@@ -84,12 +84,30 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../LICENSE.html">
+    <span class="fas fa fas fa-balance-scale"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../news/index.html">
+    <span class="fas fa fas fa-newspaper-o"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../reference/">
+    <span class="fa fa-code"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../articles/points.html">Points</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -115,10 +133,9 @@
     <p>Add points to a globe.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>globe_choropleth</span>(<span class='no'>globe</span>, <span class='no'>data</span>, <span class='no'>country</span>, <span class='kw'>cap_color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>side_color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>altitude</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>transition</span> <span class='kw'>=</span> <span class='fl'>1000L</span>, <span class='kw'>on_click</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>on_right_click</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>on_hover</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>match</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"auto"</span>, <span class='st'>"iso2"</span>, <span class='st'>"iso3"</span>, <span class='st'>"name"</span>))</pre>
+    <pre class="usage"><span class='fu'>globe_choropleth</span>(<span class='no'>globe</span>, <span class='no'>...</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>inherit_coords</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>on_click</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>on_right_click</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>on_hover</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>match</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"auto"</span>, <span class='st'>"iso2"</span>, <span class='st'>"iso3"</span>, <span class='st'>"name"</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -130,38 +147,18 @@
 as returned by <code><a href='globe-shiny.html'>globeProxy</a></code>.</p></td>
     </tr>
     <tr>
+      <th>...</th>
+      <td><p>Coordinates, as specified by <code><a href='coords.html'>coords</a></code>.</p></td>
+    </tr>
+    <tr>
       <th>data</th>
       <td><p>A data.frame of points to draw.</p></td>
     </tr>
     <tr>
-      <th>country</th>
-      <td><p>The Bare column name containing either 
-the ISO2, ISO3, or country name (see <code>match</code> argument).</p></td>
-    </tr>
-    <tr>
-      <th>cap_color</th>
-      <td><p>Bare column name containing the color of 
-the surface.</p></td>
-    </tr>
-    <tr>
-      <th>side_color</th>
-      <td><p>Bare column name containing color of 
-the sides.</p></td>
-    </tr>
-    <tr>
-      <th>altitude</th>
-      <td><p>Altitude of countries where (0 = 0 altitude 
-(flat polygon), 1 = globe radius).</p></td>
-    </tr>
-    <tr>
-      <th>label</th>
-      <td><p>Bare column name containing label.</p></td>
-    </tr>
-    <tr>
-      <th>transition</th>
-      <td><p>A value of 0 will size the cone immediatel
-to their final altitude. New polygons are animated by rising
-them from the ground up.</p></td>
+      <th>inherit_coords</th>
+      <td><p>Whether to inherit the coordinates (<code><a href='coords.html'>coords</a></code>)
+from <code><a href='create_globe.html'>create_globe</a></code>. Only applies to method applied to object of class
+<code>globe4r</code> not on objects of class <code>globeProxy</code>.</p></td>
     </tr>
     <tr>
       <th>on_click, on_right_click, on_hover</th>
@@ -175,16 +172,30 @@ them from the ground up.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="coordinates"><a class="anchor" href="#coordinates"></a>Coordinates</h2>
+
+    
+    <p>Valid coordinates.</p><ul>
+<li><p><code>country</code>,</p></li>
+<li><p><code>altitude</code></p></li>
+<li><p><code>label</code></p></li>
+<li><p><code>side_color</code>, <code>cap_color</code></p></li>
+<li><p><code>transition</code></p></li>
+</ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='create_globe.html'>create_globe</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='globe_img.html'>globe_img_url</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>globe_choropleth</span>(<span class='no'>agriland</span>, <span class='no'>country_code</span>, <span class='kw'>cap_color</span> <span class='kw'>=</span> <span class='no'>percent</span>)</div></pre>
+  <span class='fu'>globe_choropleth</span>(
+    <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>agriland</span>,
+    <span class='fu'><a href='coords.html'>coords</a></span>(<span class='kw'>country</span> <span class='kw'>=</span> <span class='no'>country_code</span>, <span class='kw'>cap_color</span> <span class='kw'>=</span> <span class='no'>percent</span>)
+  )</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#coordinates">Coordinates</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

@@ -2,6 +2,20 @@ template:
   params:
     bootswatch: cyborg
 
+navbar:
+  title: "globe4r"
+  left:
+    - icon: fas fa-home fa-lg
+      href: index.html
+    - icon: fas fa-balance-scale
+      href: LICENSE.html
+    - icon: fas fa-newspaper-o
+      href: news/index.html
+    - icon: fa-code
+      href: "reference/"
+    - text: Points
+      href: "articles/points.html"
+
 authors:
   John Coene:
     href: http://john-coene.com

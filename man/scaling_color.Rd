@@ -6,7 +6,6 @@
 \alias{scale_arc_color}
 \alias{scale_choropleth_cap_color}
 \alias{scale_choropleth_side_color}
-\alias{scale_arcs_color}
 \alias{scale_label_color}
 \title{Scale Colour}
 \usage{
@@ -19,8 +18,6 @@ scale_choropleth_cap_color(globe, palette = c("#2c7fb8", "#7fcdbb",
 
 scale_choropleth_side_color(globe, palette = c("#2c7fb8", "#7fcdbb",
   "#edf8b1"))
-
-scale_arcs_color(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"))
 
 scale_label_color(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"))
 }

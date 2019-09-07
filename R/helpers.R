@@ -106,21 +106,6 @@ scale_choropleth_side_color.globe <- function(globe, palette = c("#2c7fb8", "#7f
 
 #' @name scaling_color
 #' @export
-scale_arcs_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")) UseMethod("scale_arcs_color") 
-
-#' @export
-#' @method scale_arcs_color globe
-scale_arcs_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")){
-  assert_that(length(globe$x$arcData$color) >= 1, msg = "No color specified.")
-
-  scale <- scales::col_numeric(palette, NULL)
-  globe$x$arcData$color <- scale(globe$x$arcData$color)
-
-  return(globe)
-}
-
-#' @name scaling_color
-#' @export
 scale_label_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")) UseMethod("scale_label_color") 
 
 #' @export
