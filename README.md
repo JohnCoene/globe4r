@@ -24,8 +24,6 @@ remotes::install_github("JohnCoene/globe4r")
 Example
 -------
 
-This is a basic example which shows you how to solve a common problem:
-
 ``` r
 library(globe4r)
 

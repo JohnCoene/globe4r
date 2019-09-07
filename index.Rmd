@@ -52,18 +52,20 @@ remotes::install_github("JohnCoene/globe4r")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
-
 ```{r}
 library(globe4r)
 
-data("population")
-
 create_globe() %>% 
+  globe_pov(-21, 179) %>% # position camera
   globe_bars(
-    coords(lat, lon, altitude = value, color = value),
-    data = population
+    coords(
+      lat, long, 
+      altitude = depth,
+      color = depth,
+      label = stations # on hover label
+    ), 
+    data = quakes
   ) %>% 
-  scale_bars_altitude() %>% 
-  scale_bars_color()
+  scale_bars_color() %>% 
+  scale_bars_altitude()
 ```
