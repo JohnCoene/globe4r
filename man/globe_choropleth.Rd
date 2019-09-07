@@ -4,35 +4,22 @@
 \alias{globe_choropleth}
 \title{Choropleth}
 \usage{
-globe_choropleth(globe, data, country, cap_color = NULL,
-  side_color = NULL, altitude = NULL, label = NULL,
-  transition = 1000L, on_click = NULL, on_right_click = NULL,
-  on_hover = NULL, match = c("auto", "iso2", "iso3", "name"))
+globe_choropleth(globe, ..., data = NULL, inherit_coords = TRUE,
+  on_click = NULL, on_right_click = NULL, on_hover = NULL,
+  match = c("auto", "iso2", "iso3", "name"))
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
 \code{\link{create_globe}}, or an object of class \code{globeProxy}
 as returned by \code{\link{globeProxy}}.}
 
+\item{...}{Coordinates, as specified by \code{\link{coords}}.}
+
 \item{data}{A data.frame of points to draw.}
 
-\item{country}{The Bare column name containing either 
-the ISO2, ISO3, or country name (see \code{match} argument).}
-
-\item{cap_color}{Bare column name containing the color of 
-the surface.}
-
-\item{side_color}{Bare column name containing color of 
-the sides.}
-
-\item{altitude}{Altitude of countries where (0 = 0 altitude 
-(flat polygon), 1 = globe radius).}
-
-\item{label}{Bare column name containing label.}
-
-\item{transition}{A value of 0 will size the cone immediatel
-to their final altitude. New polygons are animated by rising
-them from the ground up.}
+\item{inherit_coords}{Whether to inherit the coordinates (\code{\link{coords}})
+from \code{\link{create_globe}}. Only applies to method applied to object of class
+\code{globe4r} not on objects of class \code{globeProxy}.}
 
 \item{on_click, on_right_click, on_hover}{JavaScript functions as strings.}
 
@@ -43,9 +30,24 @@ them from the ground up.}
 \description{
 Add points to a globe.
 }
+\section{Coordinates}{
+
+Valid coordinates.
+\itemize{
+  \item{\code{country}},
+  \item{\code{altitude}}
+  \item{\code{label}}
+  \item{\code{side_color}, \code{cap_color}}
+  \item{\code{transition}}
+}
+}
+
 \examples{
 create_globe() \%>\% 
   globe_img_url() \%>\% 
-  globe_choropleth(agriland, country_code, cap_color = percent)
+  globe_choropleth(
+    data = agriland, 
+    coords(country = country_code, cap_color = percent)
+  )
 
 }

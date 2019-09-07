@@ -62,6 +62,20 @@ build_globe <- function(globe){
   if(!length(globe$x$backgroundColor) && length(getOption("backgroundColor")))
     globe$x$backgroundColor <- getOption("backgroundColor")
 
+  if(length(globe$x$polygonsData)){
+    meta <- globe$x$polygonsData %>% 
+      apply(1, as.list) %>% 
+      map(function(x){
+        x$features <- NULL
+        return(x)
+      })
+
+    features <- globe$x$polygonsData$features
+    globe$x$polygonsData <- map2(features, meta, function(x, y){
+      append(x, y)
+    })
+  }
+
   globe$x$data <- NULL
   globe$x$mapping <- NULL
   return(globe)

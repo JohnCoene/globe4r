@@ -79,15 +79,11 @@ scale_choropleth_cap_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", 
 #' @export
 #' @method scale_choropleth_cap_color globe
 scale_choropleth_cap_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")){
-  assert_that(length(globe$x$polygonsData[[1]]$cap_color) >= 1, msg = "No color specified.")
-  colors <- purrr::map(globe$x$polygonsData, "cap_color") %>% unlist()
+  assert_that(length(globe$x$polygonCapColor) >= 1, msg = "No color specified.")
 
   scale <- scales::col_numeric(palette, NULL)
-  scaled_colors <- scale(colors)
-  globe$x$polygonsData <- purrr::map2(globe$x$polygonsData, scaled_colors, function(x, y){
-    x$cap_color <- y
-    return(x)
-  })
+  globe$x$arcData$GLOBE4RcapColor <- scale(globe$x$arcData[[globe$x$polygonCapColor]])
+  globe$x$polygonCapColor <- "GLOBE4RcapColor"
 
   return(globe)
 }
@@ -99,15 +95,11 @@ scale_choropleth_side_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb",
 #' @export
 #' @method scale_choropleth_side_color globe
 scale_choropleth_side_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")){
-  assert_that(length(globe$x$polygonsData[[1]]$side_color) >= 1, msg = "No color specified.")
-  colors <- purrr::map(globe$x$polygonsData, "side_color") %>% unlist()
+  assert_that(length(globe$x$polygonSideColor) >= 1, msg = "No color specified.")
 
   scale <- scales::col_numeric(palette, NULL)
-  scaled_colors <- scale(colors)
-  globe$x$polygonsData <- purrr::map2(globe$x$polygonsData, scaled_colors, function(x, y){
-    x$side_color <- y
-    return(x)
-  })
+  globe$x$arcData$GLOBE4RsideColor <- scale(globe$x$arcData[[globe$x$polygonSideColor]])
+  globe$x$polygonSideColor <- "GLOBE4RsideColor"
 
   return(globe)
 }

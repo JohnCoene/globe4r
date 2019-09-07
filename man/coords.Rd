@@ -43,6 +43,8 @@ Valid coordinates (depending on layer).
   \item{\code{dash_gap}}
   \item{\code{dash_initial_gap}}
   \item{\code{dash_animate_time}}
+  \item{\code{country}},
+  \item{\code{side_color}, \code{cap_color}}
 }
 }
 
