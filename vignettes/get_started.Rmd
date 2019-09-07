@@ -1,0 +1,113 @@
+---
+title: "Get Started"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{get_started`
+  %\VignetteEngine{knitr::rmarkdown`
+  %\VignetteEncoding{UTF-8`
+---
+
+```{r, include = FALSE`
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This document will let you get started with globe4r. First, install the library from github using either the [remotes](https://github.com/r-lib/remotes) or the [devtools](https://github.com/r-lib/devtools) packages.
+
+```r
+# install remotes if you do not have it already
+install.packages("remotes")
+
+# install globe4r
+remotes::install_github("JohnCoene/globe4r")
+```
+
+Once installed, you can load the package.
+
+```{r setup`
+library(globe4r)
+```
+
+## Your First Globe
+
+Every globe will be initiated with the `create_globe` function.
+
+```{r`
+create_globe()
+```
+
+You can use any background you want for globe using the `globe_img_url` function; as indicated by the function name these must be served on a server (i.e.: the `www` forlder of a [Shiny](https://shiny.rstudio.com/) app). The `image_url` function provides easy access to four popular such backgrounds, you can also use any from the [echarts4r.assets](https://cdn.jsdelivr.net/gh/JohnCoene/echarts4r.assets/inst/assets/) package. 
+
+With a globe drawn we can pipe (`%>%`) various data layers:
+
+1. bars
+2. arcs
+3. polygons
+4. points
+
+The above can be added via two different APIs, a convenient ggplot2-like API and raw API matching the underlayong JavaScript library one-to-one. This document covers the former.
+
+## Coords
+
+The package makes use of `coords` (coordiantes) which behaves like the `aes` function in [ggplot2](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html).
+
+```{r`
+create_globe() %>% 
+  globe_pov(-21, 179) %>% # position camera
+  globe_bars(
+    coords(lat, long), 
+    data = quakes
+  )
+```
+
+There are numerous coordinates (`coords`) available. 
+
+- `lat`, `lon`
+- `start_lat`, `start_lon`
+- `end_lat`, `end_lon`
+- `altitude`
+- `radius`
+- `color`
+- `label`
+- `resolution`
+- `merge`
+- `transition`
+- `size`
+- `text`
+- `rotation`
+- `include_dot`
+- `dot_radius`
+- `dot_orientation`
+- `type_face`
+- `altitude_scale`
+- `stroke`
+- `curve_resolution`
+- `circular_resolution`
+- `dash_length`
+- `dash_gap`
+- `dash_initial_gap`
+- `dash_animate_time`
+- `country`,
+- `side_color`, `cap_color`
+
+## Scales
+
+You can use the various `scale_` functions to ensure the data is as the underlying JavaScript library expects it. For instance, `altitude` is ideally between 0 (flat) and 1 (radius of the globe).
+
+```{r`
+create_globe() %>% 
+  globe_pov(-21, 179) %>% # position camera
+  globe_bars(
+    coords(
+      lat, long, 
+      altitude = depth,
+      color = depth,
+      label = stations # on hover label
+    ), 
+    data = quakes
+  ) %>% 
+  scale_bars_color() %>% 
+  scale_bars_altitude()
+```
