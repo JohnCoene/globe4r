@@ -2,12 +2,12 @@
 title: "Get Started"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{get_started`
-  %\VignetteEngine{knitr::rmarkdown`
-  %\VignetteEncoding{UTF-8`
+  %\VignetteIndexEntry{get_started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE`
+```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -26,7 +26,7 @@ remotes::install_github("JohnCoene/globe4r")
 
 Once installed, you can load the package.
 
-```{r setup`
+```{r setup}
 library(globe4r)
 ```
 
@@ -34,7 +34,7 @@ library(globe4r)
 
 Every globe will be initiated with the `create_globe` function.
 
-```{r`
+```{r}
 create_globe()
 ```
 
@@ -53,7 +53,7 @@ The above can be added via two different APIs, a convenient ggplot2-like API and
 
 The package makes use of `coords` (coordiantes) which behaves like the `aes` function in [ggplot2](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html).
 
-```{r`
+```{r}
 create_globe() %>% 
   globe_pov(-21, 179) %>% # position camera
   globe_bars(
@@ -96,7 +96,7 @@ There are numerous coordinates (`coords`) available.
 
 You can use the various `scale_` functions to ensure the data is as the underlying JavaScript library expects it. For instance, `altitude` is ideally between 0 (flat) and 1 (radius of the globe).
 
-```{r`
+```{r}
 create_globe() %>% 
   globe_pov(-21, 179) %>% # position camera
   globe_bars(
