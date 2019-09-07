@@ -121,7 +121,6 @@ Add arcs data to a globe.
 }
 \examples{
 create_globe() \%>\% 
-  globe_img_url() \%>\% 
   arcs_data(usflights) \%>\% 
   arcs_start_lat("start_lat") \%>\% 
   arcs_start_lon("start_lon") \%>\% 

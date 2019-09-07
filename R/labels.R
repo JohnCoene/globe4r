@@ -2,7 +2,7 @@
 #' 
 #' Add points to a globe.
 #' 
-#' @inheritParams globe_points
+#' @inheritParams globe_bars
 #' 
 #' @section Coordinates:
 #' Valid coordinates.
@@ -26,7 +26,7 @@
 #' quakes %>% 
 #'   create_globe() %>% 
 #'   globe_img_url() %>% 
-#'   globe_labels(
+#'   globe_points(
 #'     coords(lat, long, text = stations)
 #'   )
 #' 
@@ -45,7 +45,7 @@
 #' 
 #'   observeEvent(input$add, {
 #'     globeProxy("globe") %>% 
-#'       globe_labels(
+#'       globe_points(
 #'         coords(lat, long, text = stations),
 #'         data = quakes
 #'       )
@@ -55,11 +55,11 @@
 #' \dontrun{shinyApp(ui, server)}
 #' 
 #' @export
-globe_labels <- function(globe, ...) UseMethod("globe_labels")
+globe_points <- function(globe, ...) UseMethod("globe_points")
 
 #' @export
-#' @method globe_labels globe
-globe_labels.globe <- function(globe, ..., data = NULL, inherit_coords = TRUE, 
+#' @method globe_points globe
+globe_points.globe <- function(globe, ..., data = NULL, inherit_coords = TRUE, 
   on_click = NULL, on_right_click = NULL, on_hover = NULL){
 
   # check inputs
@@ -102,8 +102,8 @@ globe_labels.globe <- function(globe, ..., data = NULL, inherit_coords = TRUE,
 }
 
 #' @export
-#' @method globe_labels globeProxy
-globe_labels.globeProxy <- function(globe, ..., data = NULL, 
+#' @method globe_points globeProxy
+globe_points.globeProxy <- function(globe, ..., data = NULL, 
   on_click = NULL, on_right_click = NULL, on_hover = NULL){
   
     # check inputs

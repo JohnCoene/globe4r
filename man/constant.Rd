@@ -17,15 +17,15 @@ underlying JavaScript functions expect it.
 # create plot
 g <- create_globe() \%>\% 
   globe_img_url() \%>\% 
-  points_data(quakes) \%>\% 
-  points_lat("lat") \%>\% 
-  points_lon("long")
+  bars_data(quakes) \%>\% 
+  bars_lat("lat") \%>\% 
+  bars_lon("long")
 
 # passing a constant straight does not work
-\dontrun{points_color(g, "red")}
+\dontrun{bars_color(g, "red")}
 
 # using `constant` it works
 RED <- constant("red")
-points_color(g, RED)
+bars_color(g, RED)
 
 }

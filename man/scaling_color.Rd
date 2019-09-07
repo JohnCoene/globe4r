@@ -2,14 +2,14 @@
 % Please edit documentation in R/helpers.R
 \name{scaling_color}
 \alias{scaling_color}
-\alias{scale_points_color}
+\alias{scale_bars_color}
 \alias{scale_arc_color}
 \alias{scale_choropleth_cap_color}
 \alias{scale_choropleth_side_color}
 \alias{scale_label_color}
 \title{Scale Colour}
 \usage{
-scale_points_color(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"))
+scale_bars_color(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"))
 
 scale_arc_color(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"))
 
@@ -34,9 +34,8 @@ Pass a numeric value as color and use this function
 \examples{
 # basic
 create_globe() \%>\% 
-  globe_img_url() \%>\% 
   globe_pov(-21, 179) \%>\% 
-  globe_points(coords(lat, long, color = mag), data = quakes) \%>\% 
-  scale_points_color()
+  globe_bars(coords(lat, long, color = mag), data = quakes) \%>\% 
+  scale_bars_color()
 
 }

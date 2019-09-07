@@ -2,13 +2,13 @@
 % Please edit documentation in R/helpers.R
 \name{scaling_altitude}
 \alias{scaling_altitude}
-\alias{scale_points_altitude}
+\alias{scale_bars_altitude}
 \alias{scale_arcs_altitude}
 \alias{scale_labels_altitude}
 \alias{scale_choropleth_altitude}
 \title{Scale Altitude}
 \usage{
-scale_points_altitude(globe, min = 0, max = 0.5)
+scale_bars_altitude(globe, min = 0, max = 0.5)
 
 scale_arcs_altitude(globe, min = 0, max = 0.5)
 
@@ -32,7 +32,7 @@ and 1 is the globe radius.
 create_globe() \%>\% 
   globe_img_url() \%>\% 
   globe_pov(-21, 179) \%>\% 
-  globe_points(data = quakes, coords(lat, long, altitude = mag)) \%>\% 
-  scale_points_altitude()
+  globe_bars(data = quakes, coords(lat, long, altitude = mag)) \%>\% 
+  scale_bars_altitude()
 
 }

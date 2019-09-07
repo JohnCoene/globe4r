@@ -26,7 +26,6 @@ bump map in the material, to represent the globe's terrain.
 \examples{
 # basic
 create_globe() \%>\% 
-  globe_img_url() \%>\% 
   bump_img_url()
 
 # use in shiny
@@ -44,7 +43,7 @@ server <- function(input, output){
 
   observeEvent(input$btn, {
     globeProxy("globe") \%>\% 
-      globe_img_url()
+      bump_img_url()
   })
 }
 

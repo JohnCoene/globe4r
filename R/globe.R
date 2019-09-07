@@ -12,6 +12,11 @@
 #' \href{https://threejs.org/docs/#api/en/renderers/WebGLRenderer}{ThreeJS WebGLRenderer} constructor.
 #' @param animate_in Whether to animate the globe initialization, by scaling 
 #' and rotating the globe into its inital position.
+#' 
+#' @examples
+#' create_globe() %>% 
+#'   globe_pov(-21, 179) %>% 
+#'   globe_bars(coords(lat, long, label = stations), data = quakes)
 #'
 #' @import purrr 
 #' @import dplyr
@@ -30,6 +35,7 @@ create_globe <- function(data = NULL, coords = NULL, antialias = TRUE, alpha = T
       ),
       animateIn = animate_in
     ),
+    globeImageUrl = image_url(),
     data = data,
     coords = coords,
     globals = list()

@@ -26,9 +26,8 @@
 #' @examples
 #' # basic
 #' create_globe() %>% 
-#'   globe_img_url() %>% 
 #'   globe_pov(-21, 179) %>% 
-#'   globe_points(coords(lat, long, label = stations), data = quakes)
+#'   globe_bars(coords(lat, long, label = stations), data = quakes)
 #' 
 #' # use in shiny
 #' library(shiny)
@@ -45,19 +44,19 @@
 #' 
 #'   observeEvent(input$add, {
 #'     globeProxy("globe") %>% 
-#'       globe_points(coords(lat, long), data = quakes) %>% 
+#'       globe_bars(coords(lat, long), data = quakes) %>% 
 #'       globe_pov(-21, 179)
 #'   })
 #' }
 #' 
 #' \dontrun{shinyApp(ui, server)}
 #' @export
-globe_points <- function(globe, ..., data = NULL, inherit_coords = TRUE, on_click = NULL, on_right_click = NULL, 
-  on_hover = NULL) UseMethod("globe_points")
+globe_bars <- function(globe, ..., data = NULL, inherit_coords = TRUE, on_click = NULL, on_right_click = NULL, 
+  on_hover = NULL) UseMethod("globe_bars")
 
 #' @export
-#' @method globe_points globe
-globe_points.globe <- function(globe, ..., data = NULL, inherit_coords = TRUE, on_click = NULL, on_right_click = NULL, 
+#' @method globe_bars globe
+globe_bars.globe <- function(globe, ..., data = NULL, inherit_coords = TRUE, on_click = NULL, on_right_click = NULL, 
   on_hover = NULL){
 
   # check inputs
@@ -92,8 +91,8 @@ globe_points.globe <- function(globe, ..., data = NULL, inherit_coords = TRUE, o
 
 
 #' @export
-#' @method globe_points globeProxy
-globe_points.globeProxy <- function(globe, ..., data = NULL, inherit_coords = FALSE, on_click = NULL, on_right_click = NULL, 
+#' @method globe_bars globeProxy
+globe_bars.globeProxy <- function(globe, ..., data = NULL, inherit_coords = FALSE, on_click = NULL, on_right_click = NULL, 
   on_hover = NULL){
 
   assert_that(has_data(data))
@@ -135,7 +134,7 @@ globe_points.globeProxy <- function(globe, ..., data = NULL, inherit_coords = FA
 #' 
 #' Functional API to add and customise points on globe.
 #' 
-#' @inheritParams globe_points
+#' @inheritParams globe_bars
 #' @param lat,lon Column names or numeric value indicating coordinates.
 #' @param color Column name or character vector indicating color of points.
 #' @param altitude Column name or character vector indicating altitude of points 
@@ -159,10 +158,9 @@ globe_points.globeProxy <- function(globe, ..., data = NULL, inherit_coords = FA
 #' @examples
 #' # use data
 #' create_globe() %>% 
-#'   globe_img_url() %>% 
-#'   points_data(quakes) %>% 
-#'   points_lat("lat") %>% 
-#'   points_lon("long")
+#'   bars_data(quakes) %>% 
+#'   bars_lat("lat") %>% 
+#'   bars_lon("long")
 #' 
 #' # use in shiny
 #' library(shiny)
@@ -175,35 +173,34 @@ globe_points.globeProxy <- function(globe, ..., data = NULL, inherit_coords = FA
 #' server <- function(input, output) {
 #'   output$globe <- renderGlobe({
 #'     create_globe() %>% 
-#'       globe_img_url() %>% 
-#'       points_color(htmlwidgets::JS("() => '#ffffff'")) 
+#'       bars_color(constant("#ffffff")) 
 #'   })
 #' 
 #'   observeEvent(input$draw, {
 #'     globeProxy("globe") %>% 
-#'       points_data(quakes) %>% 
-#'       points_lon("long") %>% 
+#'       bars_data(quakes) %>% 
+#'       bars_lon("long") %>% 
 #'       globe_pov(-21, 179)
 #'   })
 #' }
 #' 
 #' \dontrun{shinyApp(ui, server)}
 #' 
-#' @name points_data
+#' @name bars_data
 #' @export
-points_data <- function(globe, data) UseMethod("points_data")
+bars_data <- function(globe, data) UseMethod("bars_data")
 
 #' @export
-#' @method points_data globe
-points_data.globe <- function(globe, data){
+#' @method bars_data globe
+bars_data.globe <- function(globe, data){
   assert_that(not_missing(data))
   globe$x$pointsData <- data
   return(globe)
 }
 
 #' @export
-#' @method points_data globeProxy
-points_data.globeProxy <- function(globe, data){
+#' @method bars_data globeProxy
+bars_data.globeProxy <- function(globe, data){
   assert_that(not_missing(data))
   msg <- list(id = globe$id)
   msg$pointsData <- apply(data, 1, as.list)
@@ -211,21 +208,21 @@ points_data.globeProxy <- function(globe, data){
   return(globe)
 } 
 
-#' @rdname points_data
+#' @rdname bars_data
 #' @export
-points_lat <- function(globe, lat = "lat") UseMethod("points_lat")
+bars_lat <- function(globe, lat = "lat") UseMethod("bars_lat")
 
 #' @export
-#' @method points_lat globe
-points_lat.globe <- function(globe, lat = "lat"){
+#' @method bars_lat globe
+bars_lat.globe <- function(globe, lat = "lat"){
   assert_that(not_missing(lat))
   globe$x$pointLat <- lat
   return(globe)
 }
 
 #' @export
-#' @method points_data globeProxy
-points_lat.globeProxy <- function(globe, lat = "lat"){
+#' @method bars_data globeProxy
+bars_lat.globeProxy <- function(globe, lat = "lat"){
   assert_that(not_missing(lat))
   msg <- list(id = globe$id)
   msg$pointLat <- lat
@@ -233,21 +230,21 @@ points_lat.globeProxy <- function(globe, lat = "lat"){
   return(globe)
 } 
 
-#' @rdname points_data
+#' @rdname bars_data
 #' @export
-points_lon <- function(globe, lon = "lng") UseMethod("points_lon")
+bars_lon <- function(globe, lon = "lng") UseMethod("bars_lon")
 
 #' @export
-#' @method points_lon globe
-points_lon.globe <- function(globe, lon = "lng"){
+#' @method bars_lon globe
+bars_lon.globe <- function(globe, lon = "lng"){
   assert_that(not_missing(lon))
   globe$x$pointLng <- lon
   return(globe)
 }
 
 #' @export
-#' @method points_lon globeProxy
-points_lon.globeProxy <- function(globe, lon = "lng"){
+#' @method bars_lon globeProxy
+bars_lon.globeProxy <- function(globe, lon = "lng"){
   assert_that(not_missing(lon))
   msg <- list(id = globe$id)
   msg$pointLng <- lon
@@ -255,21 +252,21 @@ points_lon.globeProxy <- function(globe, lon = "lng"){
   return(globe)
 } 
 
-#' @rdname points_data
+#' @rdname bars_data
 #' @export
-points_color <- function(globe, color = constant("ffffaa")) UseMethod("points_color")
+bars_color <- function(globe, color = constant("ffffaa")) UseMethod("bars_color")
 
 #' @export
-#' @method points_color globe
-points_color.globe <- function(globe, color = constant("ffffaa")){
+#' @method bars_color globe
+bars_color.globe <- function(globe, color = constant("ffffaa")){
   assert_that(not_missing(color))
   globe$x$pointColor <- color
   return(globe)
 }
 
 #' @export
-#' @method points_color globeProxy
-points_color.globeProxy <- function(globe, color = constant("ffffaa")){
+#' @method bars_color globeProxy
+bars_color.globeProxy <- function(globe, color = constant("ffffaa")){
   assert_that(not_missing(color))
   msg <- list(id = globe$id)
   msg$pointColor <- color
@@ -277,121 +274,121 @@ points_color.globeProxy <- function(globe, color = constant("ffffaa")){
   return(globe)
 }
 
-#' @rdname points_data
+#' @rdname bars_data
 #' @export
-points_altitude <- function(globe, altitude = .1) UseMethod("points_altitude")
+bars_altitude <- function(globe, altitude = .1) UseMethod("bars_altitude")
 
 #' @export
-#' @method points_altitude globe
-points_altitude.globe <- function(globe, altitude = .1){
+#' @method bars_altitude globe
+bars_altitude.globe <- function(globe, altitude = .1){
   globe$x$pointAltitude <- altitude
   return(globe)
 }
 
 #' @export
-#' @method points_altitude globeProxy
-points_altitude.globeProxy <- function(globe, altitude = .1){
+#' @method bars_altitude globeProxy
+bars_altitude.globeProxy <- function(globe, altitude = .1){
   msg <- list(id = globe$id)
   msg$pointAltitude <- altitude
   globe$session$sendCustomMessage("points_altitude", msg)
   return(globe)
 } 
 
-#' @rdname points_data
+#' @rdname bars_data
 #' @export
-points_radius <- function(globe, radius = .25) UseMethod("points_radius")
+bars_radius <- function(globe, radius = .25) UseMethod("bars_radius")
 
 #' @export
-#' @method points_radius globe
-points_radius.globe <- function(globe, radius = .25){
+#' @method bars_radius globe
+bars_radius.globe <- function(globe, radius = .25){
   globe$x$pointRadius <- radius
   return(globe)
 }
 
 #' @export
-#' @method points_radius globeProxy
-points_radius.globeProxy <- function(globe, radius = .25){
+#' @method bars_radius globeProxy
+bars_radius.globeProxy <- function(globe, radius = .25){
   msg <- list(id = globe$id)
   msg$pointRadius <- radius
   globe$session$sendCustomMessage("points_radius", msg)
   return(globe)
 } 
 
-#' @rdname points_data
+#' @rdname bars_data
 #' @export
-points_resolution <- function(globe, resolution = 12L) UseMethod("points_resolution")
+bars_resolution <- function(globe, resolution = 12L) UseMethod("bars_resolution")
 
 #' @export
-#' @method points_resolution globe
-points_resolution.globe <- function(globe, resolution = 12L){
+#' @method bars_resolution globe
+bars_resolution.globe <- function(globe, resolution = 12L){
   globe$x$pointResolution <- resolution
   return(globe)
 }
 
 #' @export
-#' @method points_resolution globeProxy
-points_resolution.globeProxy <- function(globe, resolution = 12L){
+#' @method bars_resolution globeProxy
+bars_resolution.globeProxy <- function(globe, resolution = 12L){
   msg <- list(id = globe$id)
   msg$pointResolution <- resolution
   globe$session$sendCustomMessage("points_resolution", msg)
   return(globe)
 } 
 
-#' @rdname points_data
+#' @rdname bars_data
 #' @export
-points_merge <- function(globe, merge = TRUE) UseMethod("points_merge")
+bars_merge <- function(globe, merge = TRUE) UseMethod("bars_merge")
 
 #' @export
-#' @method points_merge globe
-points_merge.globe <- function(globe, merge = TRUE){
+#' @method bars_merge globe
+bars_merge.globe <- function(globe, merge = TRUE){
   globe$x$pointMerge <- merge
   return(globe)
 }
 
 #' @export
-#' @method points_merge globeProxy
-points_merge.globeProxy <- function(globe, merge = TRUE){
+#' @method bars_merge globeProxy
+bars_merge.globeProxy <- function(globe, merge = TRUE){
   msg <- list(id = globe$id)
   msg$pointMerge <- merge
   globe$session$sendCustomMessage("points_merge", msg)
   return(globe)
 } 
 
-#' @rdname points_data
+#' @rdname bars_data
 #' @export
-points_transition <- function(globe, transition = 1000L) UseMethod("points_transition")
+bars_transition <- function(globe, transition = 1000L) UseMethod("bars_transition")
 
 #' @export
-#' @method points_transition globe
-points_transition.globe <- function(globe, transition = 1000L){
+#' @method bars_transition globe
+bars_transition.globe <- function(globe, transition = 1000L){
   globe$x$pointsTransitionDuration <- transition
   return(globe)
 }
 
 #' @export
-#' @method points_transition globeProxy
-points_transition.globeProxy <- function(globe, transition = 1000L){
+#' @method bars_transition globeProxy
+bars_transition.globeProxy <- function(globe, transition = 1000L){
   msg <- list(id = globe$id)
   msg$pointsTransitionDuration <- transition
   globe$session$sendCustomMessage("points_transition", msg)
   return(globe)
 } 
 
-#' @rdname points_data
+#' @rdname bars_data
 #' @export
-points_on_click <- function(globe, func) UseMethod("points_on_click")
+bars_on_click <- function(globe, func) UseMethod("bars_on_click")
 
 #' @export
-#' @method points_on_click globe
-points_on_click.globe <- function(globe, func){
+#' @method bars_on_click globe
+bars_on_click.globe <- function(globe, func){
   assert_that(not_missing(func))
   globe$x$onPointClick <- htmlwidgets::JS(func)
   return(globe)
 }
 
 #' @export
-#' @method points_on_click globeProxy
-points_on_click.globeProxy <- function(globe, func){
+#' @method bars_on_click globeProxy
+bars_on_click.globeProxy <- function(globe, func){
   assert_that(not_missing(func))
   msg <- list(id = globe$id)
   msg$onPointClick <- htmlwidgets::JS(func)
@@ -399,21 +396,21 @@ points_on_click.globeProxy <- function(globe, func){
   return(globe)
 } 
 
-#' @rdname points_data
+#' @rdname bars_data
 #' @export
-points_on_right_click <- function(globe, func) UseMethod("points_on_right_click")
+bars_on_right_click <- function(globe, func) UseMethod("bars_on_right_click")
 
 #' @export
-#' @method points_on_right_click globe
-points_on_right_click.globe <- function(globe, func){
+#' @method bars_on_right_click globe
+bars_on_right_click.globe <- function(globe, func){
   assert_that(not_missing(func))
   globe$x$onPointRightClick <- htmlwidgets::JS(func)
   return(globe)
 }
 
 #' @export
-#' @method points_on_right_click globeProxy
-points_on_right_click.globeProxy <- function(globe, func){
+#' @method bars_on_right_click globeProxy
+bars_on_right_click.globeProxy <- function(globe, func){
   assert_that(not_missing(func))
   msg <- list(id = globe$id)
   msg$onPointRightClick <- htmlwidgets::JS(func)
@@ -421,21 +418,21 @@ points_on_right_click.globeProxy <- function(globe, func){
   return(globe)
 } 
 
-#' @rdname points_data
+#' @rdname bars_data
 #' @export
-points_on_hover <- function(globe, func) UseMethod("points_on_hover")
+bars_on_hover <- function(globe, func) UseMethod("bars_on_hover")
 
 #' @export
-#' @method points_on_hover globe
-points_on_hover.globe <- function(globe, func){
+#' @method bars_on_hover globe
+bars_on_hover.globe <- function(globe, func){
   assert_that(not_missing(func))
   globe$x$onPointHover <- htmlwidgets::JS(func)
   return(globe)
 }
 
 #' @export
-#' @method points_on_hover globeProxy
-points_on_hover.globeProxy <- function(globe, func){
+#' @method bars_on_hover globeProxy
+bars_on_hover.globeProxy <- function(globe, func){
   assert_that(not_missing(func))
   msg <- list(id = globe$id)
   msg$onPointHover <- htmlwidgets::JS(func)

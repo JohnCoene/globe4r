@@ -28,3 +28,9 @@ string and have \code{'px'} appended.}
 \description{
 Create a globe object.
 }
+\examples{
+create_globe() \%>\% 
+  globe_pov(-21, 179) \%>\% 
+  globe_bars(coords(lat, long, label = stations), data = quakes)
+
+}

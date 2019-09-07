@@ -49,5 +49,11 @@ agriland <- agriland %>%
   ) %>% 
   filter(!is.na(percent))
 
-usethis::use_data(usflights, agriland, overwrite = TRUE)
+url <- paste0("https://ecomfe.github.io/echarts-examples/",
+              "public/data-gl/asset/data/population.json")
+population <- jsonlite::fromJSON(url)
+population <- as.data.frame(population)
+names(population) <- c("lon", "lat", "value")
+
+usethis::use_data(usflights, agriland, population, overwrite = TRUE)
 usethis::use_data(country_polygons, internal = TRUE, overwrite = TRUE)

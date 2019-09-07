@@ -2,7 +2,7 @@
 #' 
 #' Add points to a globe.
 #' 
-#' @inheritParams globe_points
+#' @inheritParams globe_bars
 #' @param on_click,on_right_click,on_hover JavaScript functions as strings.
 #' @param match The type of \code{country} identifier, 
 #' \code{auto} attempts to infer the type, \code{iso2}

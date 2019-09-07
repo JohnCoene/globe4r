@@ -2,7 +2,7 @@
 #' 
 #' Add arcs to a globe.
 #' 
-#' @inheritParams globe_points
+#' @inheritParams globe_bars
 #' 
 #' @section Coordinates:
 #' Valid coordinates.
@@ -26,7 +26,6 @@
 #' @examples
 #' # basic
 #' create_globe() %>% 
-#'   globe_img_url() %>% 
 #'   globe_arcs(
 #'     data= usflights, 
 #'     coords(
@@ -47,8 +46,7 @@
 #' 
 #' server <- function(input, output){
 #'   output$globe <- renderGlobe({
-#'     create_globe() %>% 
-#'       globe_img_url()
+#'     create_globe()
 #'   })
 #' 
 #'   observeEvent(input$add, {
@@ -194,7 +192,6 @@ globe_arcs.globeProxy <- function(globe, ..., data = NULL, inherit_coords = TRUE
 #' 
 #' @examples
 #' create_globe() %>% 
-#'   globe_img_url() %>% 
 #'   arcs_data(usflights) %>% 
 #'   arcs_start_lat("start_lat") %>% 
 #'   arcs_start_lon("start_lon") %>% 

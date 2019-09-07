@@ -13,8 +13,8 @@ navbar:
       href: news/index.html
     - icon: fa-code
       href: "reference/"
-    - text: Points
-      href: "articles/points.html"
+    - text: Get Started
+      href: "articles/get_started.html"
 
 authors:
   John Coene:

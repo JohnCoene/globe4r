@@ -7,3 +7,4 @@ test.R
 ^_pkgdown\.yml$
 pkgdown
 docs
+vignettes

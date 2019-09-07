@@ -9,16 +9,16 @@
 #' # create plot
 #' g <- create_globe() %>% 
 #'   globe_img_url() %>% 
-#'   points_data(quakes) %>% 
-#'   points_lat("lat") %>% 
-#'   points_lon("long")
+#'   bars_data(quakes) %>% 
+#'   bars_lat("lat") %>% 
+#'   bars_lon("long")
 #' 
 #' # passing a constant straight does not work
-#' \dontrun{points_color(g, "red")}
+#' \dontrun{bars_color(g, "red")}
 #' 
 #' # using `constant` it works
 #' RED <- constant("red")
-#' points_color(g, RED)
+#' bars_color(g, RED)
 #' 
 #' @export
 constant <- function(x){
@@ -35,22 +35,22 @@ constant <- function(x){
 #' @examples
 #' # basic
 #' create_globe() %>% 
-#'   globe_img_url() %>% 
 #'   globe_pov(-21, 179) %>% 
-#'   globe_points(coords(lat, long, color = mag), data = quakes) %>% 
-#'   scale_points_color()
+#'   globe_bars(coords(lat, long, color = mag), data = quakes) %>% 
+#'   scale_bars_color()
 #' 
 #' @name scaling_color
 #' @export
-scale_points_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")) UseMethod("scale_points_color") 
+scale_bars_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")) UseMethod("scale_bars_color") 
 
 #' @export
-#' @method scale_points_color globe
-scale_points_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")){
-  assert_that(length(globe$x$pointColor) >= 1, msg = "No color specified.")
+#' @method scale_bars_color globe
+scale_bars_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")){
+  assert_that(length(globe$x$pointColor) >= 1, msg = "No `color` specified.")
 
-  scale <- scales::col_numeric(palette, NULL)
-  globe$x$pointsData$GLOBE4pointColor <- scale(globe$x$pointsData[[globe$x$pointColor]])
+  colors <- globe$x$pointsData[[globe$x$pointColor]]
+  scale <- scales::col_numeric(palette, range(colors))
+  globe$x$pointsData$GLOBE4pointColor <- scale(colors)
   globe$x$pointColor <- "GLOBE4pointColor"
 
   return(globe)
@@ -63,7 +63,7 @@ scale_arc_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"))
 #' @export
 #' @method scale_arc_color globe
 scale_arc_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")){
-  assert_that(length(globe$x$arcColor) >= 1, msg = "No color specified.")
+  assert_that(length(globe$x$arcColor) >= 1, msg = "No `color` specified.")
 
   scale <- scales::col_numeric(palette, NULL)
   globe$x$arcData$GLOBE4RarcColor <- scale(globe$x$arcData[[globe$x$arcColor]])
@@ -79,7 +79,7 @@ scale_choropleth_cap_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", 
 #' @export
 #' @method scale_choropleth_cap_color globe
 scale_choropleth_cap_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")){
-  assert_that(length(globe$x$polygonCapColor) >= 1, msg = "No color specified.")
+  assert_that(length(globe$x$polygonCapColor) >= 1, msg = "No `color` specified.")
 
   scale <- scales::col_numeric(palette, NULL)
   globe$x$polygonData$GLOBE4RcapColor <- scale(globe$x$polygonData[[globe$x$polygonCapColor]])
@@ -95,7 +95,7 @@ scale_choropleth_side_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb",
 #' @export
 #' @method scale_choropleth_side_color globe
 scale_choropleth_side_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")){
-  assert_that(length(globe$x$polygonSideColor) >= 1, msg = "No color specified.")
+  assert_that(length(globe$x$polygonSideColor) >= 1, msg = "No `color` specified.")
 
   scale <- scales::col_numeric(palette, NULL)
   globe$x$polygonData$GLOBE4RpolygonColor <- scale(globe$x$polygonData[[globe$x$polygonSideColor]])
@@ -111,7 +111,7 @@ scale_label_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"
 #' @export
 #' @method scale_label_color globe
 scale_label_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")){
-  assert_that(length(globe$x$labelData$color) >= 1, msg = "No color specified.")
+  assert_that(length(globe$x$labelData$color) >= 1, msg = "No `color` specified.")
 
   scale <- scales::col_numeric(palette, NULL)
   globe$x$labelData$GLOBE4RlabelColor <- scale(globe$x$labelData[[globe$x$labelColor]])
@@ -132,17 +132,17 @@ scale_label_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#e
 #' create_globe() %>% 
 #'   globe_img_url() %>% 
 #'   globe_pov(-21, 179) %>% 
-#'   globe_points(data = quakes, coords(lat, long, altitude = mag)) %>% 
-#'   scale_points_altitude()
+#'   globe_bars(data = quakes, coords(lat, long, altitude = mag)) %>% 
+#'   scale_bars_altitude()
 #' 
 #' @name scaling_altitude
 #' @export
-scale_points_altitude <- function(globe, min = 0, max = .5) UseMethod("scale_points_altitude")
+scale_bars_altitude <- function(globe, min = 0, max = .5) UseMethod("scale_bars_altitude")
 
 #' @export
-#' @method scale_points_altitude globe 
-scale_points_altitude.globe <- function(globe, min = 0, max = .5){
-  assert_that(length(globe$x$pointAltitude) >= 1, msg = "No altitude specified.")
+#' @method scale_bars_altitude globe 
+scale_bars_altitude.globe <- function(globe, min = 0, max = .5){
+  assert_that(length(globe$x$pointAltitude) >= 1, msg = "No `altitude` specified.")
   globe$x$pointsData$GLOBE4RpointAltitude <- scales::rescale(globe$x$pointsData[[globe$x$pointAltitude]], to = c(min, max))
   globe$x$pointAltitude <- "GLOBE4RpointAltitude"
   return(globe)
@@ -155,7 +155,7 @@ scale_arcs_altitude <- function(globe, min = 0, max = .5) UseMethod("scale_arcs_
 #' @export
 #' @method scale_arcs_altitude globe 
 scale_arcs_altitude.globe <- function(globe, min = 0, max = .5){
-  assert_that(length(globe$x$arcAltitude) >= 1, msg = "No altitude specified.")
+  assert_that(length(globe$x$arcAltitude) >= 1, msg = "No `altitude` specified.")
   globe$x$arcsData$GLOBE4RarcAltitude <- scales::rescale(globe$x$arcsData[[globe$x$arcAltitude]], to = c(min, max))
   globe$x$arcAltitude <- "GLOBE4RarcAltitude"
   return(globe)
@@ -168,7 +168,7 @@ scale_labels_altitude <- function(globe, min = 0, max = .5) UseMethod("scale_lab
 #' @export
 #' @method scale_labels_altitude globe 
 scale_labels_altitude.globe <- function(globe, min = 0, max = .5){
-  assert_that(length(globe$x$labelsData$altitude) >= 1, msg = "No altitude specified.")
+  assert_that(length(globe$x$labelsData$altitude) >= 1, msg = "No `altitude` specified.")
   globe$x$labelsData[[globe$x$labelAltitude]] <- scales::rescale(globe$x$labelsData[[globe$x$labelAltitude]], to = c(min, max))
   return(globe)
 }
@@ -181,10 +181,9 @@ scale_choropleth_altitude <- function(globe, min = 0, max = .5) UseMethod("scale
 #' @export
 #' @method scale_choropleth_altitude globe
 scale_choropleth_altitude.globe <- function(globe, min = 0, max = .5){
-  assert_that(length(globe$x$polygonAltitude) >= 1, msg = "No altitude specified.")
+  assert_that(length(globe$x$polygonAltitude) >= 1, msg = "No `altitude` specified.")
 
-  scale <- scales::col_numeric(palette, NULL)
-  globe$x$polygonData$GLOBE4RpolygonAltitude <- scale(globe$x$polygonData[[globe$x$polygonAltitude]])
+  globe$x$polygonData$GLOBE4RpolygonAltitude <- scales::rescale(globe$x$polygonData[[globe$x$polygonAltitude]], to = c(min, max))
   globe$x$polygonAltitude <- "GLOBE4RpolygonAltitude"
 
   return(globe)
@@ -217,7 +216,7 @@ scale_arc_stroke <- function(globe, min = .1, max = 1) UseMethod("scale_arc_stro
 #' @export
 #' @method scale_arc_stroke globe 
 scale_arc_stroke.globe <- function(globe, min = .1, max = 1){
-  assert_that(length(globe$x$arcStroke) >= 1, msg = "No stroke specified.")
+  assert_that(length(globe$x$arcStroke) >= 1, msg = "No `stroke` specified.")
   globe$x$arcsData$GLOBE4RarcStroke <- scales::rescale(globe$x$arcsData[[globe$x$arcStroke]], to = c(min, max))
   globe$x$arcStroke <- "GLOBE4RarcStroke"
   return(globe)

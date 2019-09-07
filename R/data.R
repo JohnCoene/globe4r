@@ -23,3 +23,15 @@
 #' }
 #' @source \url{https://data.worldbank.org/indicator/AG.LND.AGRI.ZS}
 "agriland"
+
+#' World Population
+#'
+#' A datatset of world population by tiles.
+#'
+#' @format A data.frame object with 38,654 rows and 3 columns
+#' \describe{
+#'   \item{\code{lat}, \code{lon}}{: Coordinates.}
+#'   \item{\code{country_code}}{: Population.}
+#' }
+#' @source \url{https://ecomfe.github.io/echarts-examples/public/data-gl/asset/data/population.json}
+"population"

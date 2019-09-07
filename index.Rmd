@@ -57,21 +57,13 @@ This is a basic example which shows you how to solve a common problem:
 ```{r}
 library(globe4r)
 
-create_globe(width = "100%") %>% # initialise
-  globe_img_url() %>% # add image background
-  globe_pov( # position camera
-    lat = -21, 
-    lon = 160,
-    ms = 5000
+data("population")
+
+create_globe() %>% 
+  globe_bars(
+    coords(lat, lon, altitude = value, color = value),
+    data = population
   ) %>% 
-  globe_points( # add points
-    data = quakes,
-    coords(
-      lat, long,
-      color = mag,
-      altitude = mag
-    )
-  ) %>% 
-  scale_points_color() %>% 
-  scale_points_altitude(0, .25)
+  scale_bars_altitude() %>% 
+  scale_bars_color()
 ```

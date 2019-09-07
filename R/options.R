@@ -13,7 +13,6 @@
 #' @examples
 #' # basic
 #' create_globe() %>% 
-#'   globe_img_url() %>% 
 #'   bump_img_url()
 #' 
 #' # use in shiny
@@ -31,7 +30,7 @@
 #' 
 #'   observeEvent(input$btn, {
 #'     globeProxy("globe") %>% 
-#'       globe_img_url()
+#'       bump_img_url()
 #'   })
 #' }
 #' 
