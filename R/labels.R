@@ -243,3 +243,23 @@ labels_text.globeProxy <- function(globe, text = "text"){
   globe$session$sendCustomMessage("labels_text", msg)
   return(globe)
 } 
+
+#' @rdname labels_data
+#' @export
+labels_color <- function(globe, color = constant("#ffffaa")) UseMethod("labels_color")
+
+#' @export
+#' @method labels_color globe
+labels_color.globe <- function(globe, color = constant("#ffffaa")){
+  globe$x$labelColor <- color
+  return(globe)
+}
+
+#' @export
+#' @method labels_color globeProxy
+labels_color.globeProxy <- function(globe, color = constant("#ffffaa")){
+  msg <- list(id = globe$id)
+  msg$labelColor <- color
+  globe$session$sendCustomMessage("labels_color", msg)
+  return(globe)
+} 

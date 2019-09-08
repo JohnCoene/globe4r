@@ -5,6 +5,7 @@
 \alias{labels_lat}
 \alias{labels_lon}
 \alias{labels_text}
+\alias{labels_color}
 \title{Points Functional API}
 \usage{
 labels_data(globe, data)
@@ -14,6 +15,8 @@ labels_lat(globe, lat = "lat")
 labels_lon(globe, lon = "lng")
 
 labels_text(globe, text = "text")
+
+labels_color(globe, color = constant("#ffffaa"))
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
@@ -27,6 +30,8 @@ as returned by \code{\link{globeProxy}}.}
 \item{lon}{Column names or numeric value indicating coordinates.}
 
 \item{text}{Column name or constant of text.}
+
+\item{color}{Column name or character vector indicating color of points.}
 }
 \description{
 Functional API to add and customise points on globe.
