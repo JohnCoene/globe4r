@@ -7,16 +7,29 @@
 #' 
 #' @examples
 #' create_globe() %>% 
-#'   globe_img_url(image_url("earth-dark"))
+#'   globe_img_url(image_url("dark"))
 #' 
 #' @return URL to \url{https://jsdelivr.net} image.
 #' 
 #' @export
-image_url <- function(name = c("earth-night", "earth-blue-marble", "earth-dark", "earth-topology")) {
+image_url <- function(name = c("night", "blue-marble", "dark", "topology")) {
   name <- match.arg(name)
-  ext <- ifelse(name == "earth-topology", "png", "jpg")
+  ext <- ifelse(name == "topology", "png", "jpg")
   paste0(
-    "https://cdn.jsdelivr.net/npm/three-globe/example/img/",
+    "https://cdn.jsdelivr.net/npm/three-globe/example/img/earth-",
     name, ".", ext
   )
+}
+
+#' Demo Shiny App
+#' 
+#' Run demo Shiny app.
+#' 
+#' @examples
+#' if(interactive()) demo_app()
+#' 
+#' @export
+demo_app <- function(){
+  demo <- system.file("shiny", package = "globe4r")
+  shiny::shinyApp(demo)
 }

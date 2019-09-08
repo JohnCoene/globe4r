@@ -8,7 +8,7 @@
 \usage{
 globe_img_url(globe, url = image_url())
 
-bump_img_url(globe, url = image_url("earth-topology"))
+bump_img_url(globe, url = image_url("topology"))
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by

@@ -22,6 +22,8 @@
 #' 
 #' @export
 constant <- function(x){
+  if(is.logical(x))
+    x <- tolower(x)
   htmlwidgets::JS(paste0("() => '", x, "'"))
 }
 
@@ -66,7 +68,7 @@ scale_arc_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf
   assert_that(length(globe$x$arcColor) >= 1, msg = "No `color` specified.")
 
   scale <- scales::col_numeric(palette, NULL)
-  globe$x$arcData$GLOBE4RarcColor <- scale(globe$x$arcData[[globe$x$arcColor]])
+  globe$x$arcsData$GLOBE4RarcColor <- scale(globe$x$arcsData[[globe$x$arcColor]])
   globe$x$arcColor <- "GLOBE4RarcColor"
 
   return(globe)

@@ -502,6 +502,14 @@ if (HTMLWidgets.shinyMode) {
       }
   });
 
+  Shiny.addCustomMessageHandler('arcs_dash_animate',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcDashAnimateTime(data.arcDashAnimateTime);
+      }
+  });
+
   Shiny.addCustomMessageHandler('arcs_dash_gap',
     function(data) {
       var globe = get_globe(data.id);

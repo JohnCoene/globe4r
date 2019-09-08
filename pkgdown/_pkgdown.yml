@@ -19,6 +19,9 @@ navbar:
     - icon: fa-rocket fa-lg
       text: Get Started
       href: articles/get-started.html
+    - icon: fa-desktop fa-lg
+      text: Shiny
+      href: articles/shiny.html
   right:
     - icon: fa-github fa-lg
       href: https://github.com/JohnCoene/globe4r

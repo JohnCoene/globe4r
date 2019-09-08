@@ -4,14 +4,20 @@
 \alias{globe-shiny}
 \alias{globeOutput}
 \alias{renderGlobe}
+\alias{render_globe}
 \alias{globeProxy}
+\alias{globe_proxy}
 \title{Shiny bindings for globe}
 \usage{
 globeOutput(outputId, width = "100\%", height = "400px")
 
 renderGlobe(expr, env = parent.frame(), quoted = FALSE)
 
+render_globe(expr, env = parent.frame(), quoted = FALSE)
+
 globeProxy(id, session = shiny::getDefaultReactiveDomain())
+
+globe_proxy(id, session = shiny::getDefaultReactiveDomain())
 }
 \arguments{
 \item{outputId}{output variable to read from}

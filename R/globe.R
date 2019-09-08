@@ -120,6 +120,10 @@ renderGlobe <- function(expr, env = parent.frame(), quoted = FALSE) {
 
 #' @rdname globe-shiny
 #' @export
+render_globe <- renderGlobe
+
+#' @rdname globe-shiny
+#' @export
 globeProxy <- function(id, session = shiny::getDefaultReactiveDomain()){
   
   proxy <- list(id = id, session = session)
@@ -127,3 +131,7 @@ globeProxy <- function(id, session = shiny::getDefaultReactiveDomain()){
   
   return(proxy)
 }
+
+#' @rdname globe-shiny
+#' @export
+globe_proxy <- globeProxy

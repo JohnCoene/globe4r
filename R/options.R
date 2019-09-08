@@ -56,18 +56,18 @@ globe_img_url.globeProxy <- function(globe, url = image_url()){
 
 #' @rdname globe_img
 #' @export
-bump_img_url <- function(globe, url = image_url("earth-topology")) UseMethod("bump_img_url")
+bump_img_url <- function(globe, url = image_url("topology")) UseMethod("bump_img_url")
 
 #' @export
 #' @method bump_img_url globe
-bump_img_url.globe <- function(globe, url = image_url("earth-topology")){
+bump_img_url.globe <- function(globe, url = image_url("topology")){
   globe$x$bumpImageUrl <- url
   return(globe)
 }
 
 #' @export
 #' @method bump_img_url globeProxy
-bump_img_url.globeProxy <- function(globe, url = image_url("earth-topology")){
+bump_img_url.globeProxy <- function(globe, url = image_url("topology")){
   data <- list(id = globe$id, url = url)
   globe$session$sendCustomMessage("bumpImageUrl", data)
 }
@@ -83,7 +83,7 @@ bump_img_url.globeProxy <- function(globe, url = image_url("earth-topology")){
 #' 
 #' @examples
 #' # basic use case
-#' img <- image_url("earth-blue-marble")
+#' img <- image_url("blue-marble")
 #' create_globe() %>% 
 #'   globe_img_url(img) %>% 
 #'   show_atmosphere(FALSE) %>% 

@@ -4,8 +4,7 @@
 \alias{image_url}
 \title{Image URLs}
 \usage{
-image_url(name = c("earth-night", "earth-blue-marble", "earth-dark",
-  "earth-topology"))
+image_url(name = c("night", "blue-marble", "dark", "topology"))
 }
 \arguments{
 \item{name}{Name of image to return.}
@@ -19,6 +18,6 @@ and \code{\link{bump_img_url}}.
 }
 \examples{
 create_globe() \%>\% 
-  globe_img_url(image_url("earth-dark"))
+  globe_img_url(image_url("dark"))
 
 }

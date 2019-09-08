@@ -24,7 +24,7 @@ at every 10 degrees.
 }
 \examples{
 # basic use case
-img <- image_url("earth-blue-marble")
+img <- image_url("blue-marble")
 create_globe() \%>\% 
   globe_img_url(img) \%>\% 
   show_atmosphere(FALSE) \%>\% 

@@ -56,8 +56,10 @@ create_globe() \%>\%
   globe_arcs(
     data= usflights, 
     coords(
-      start_lat, start_lon, 
-      end_lat, end_lon,
+      start_lat = start_lat, 
+      start_lon = start_lon, 
+      end_lat = end_lat, 
+      end_lon = end_lon,
       color = cnt
     )
   ) \%>\% 

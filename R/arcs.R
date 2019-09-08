@@ -29,8 +29,10 @@
 #'   globe_arcs(
 #'     data= usflights, 
 #'     coords(
-#'       start_lat, start_lon, 
-#'       end_lat, end_lon,
+#'       start_lat = start_lat, 
+#'       start_lon = start_lon, 
+#'       end_lat = end_lat, 
+#'       end_lon = end_lon,
 #'       color = cnt
 #'     )
 #'   ) %>% 
@@ -509,7 +511,7 @@ arcs_dash_initial_gap.globe <- function(globe, gap = 0L){
 #' @method arcs_dash_initial_gap globeProxy
 arcs_dash_initial_gap.globeProxy <- function(globe, gap = 0L){
   msg <- list(id = globe$id)
-  msg$arcDashAnimateTime <- gap
+  msg$arcDashInitialGap <- gap
   globe$session$sendCustomMessage("arcs_dash_initial_gap", msg)
   return(globe)
 }
@@ -530,7 +532,7 @@ arcs_dash_animate.globe <- function(globe, ms = 0L){
 arcs_dash_animate.globeProxy <- function(globe, ms = 0L){
   msg <- list(id = globe$id)
   msg$arcDashAnimateTime <- ms
-  globe$session$sendCustomMessage("arcs_dash_initial_gap", msg)
+  globe$session$sendCustomMessage("arcs_dash_animate", msg)
   return(globe)
 }
 

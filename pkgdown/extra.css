@@ -80,12 +80,12 @@ li>a {
   color: #2c7fb8;
 }
 
-.sourceCode>a{
+code a, pre a{
   color: #2c7fb8;
 }
 
 .st{
-  color: #2c7fb8;
+  color: #2cb86b;
 }
 
 .op{
