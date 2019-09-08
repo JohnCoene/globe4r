@@ -146,3 +146,39 @@ globe_points.globeProxy <- function(globe, ..., data = NULL,
 
   return(globe)
 }
+
+#' Points Functional API
+#' 
+#' Functional API to add and customise points on globe.
+#' 
+#' @inheritParams globe_points
+#' @param func JavaScript function as character vector.
+#' 
+#' @examples
+#' # use data
+#' create_globe() %>% 
+#'   points_data(quakes) %>% 
+#'   points_lat("lat") %>% 
+#'   points_lon("long")
+#' 
+#' @name points_data
+#' @export
+points_data <- function(globe, data) UseMethod("points_data")
+
+#' @export
+#' @method points_data globe
+points_data.globe <- function(globe, data){
+  assert_that(not_missing(data))
+  globe$x$labelsData <- data
+  return(globe)
+}
+
+#' @export
+#' @method points_data globeProxy
+points_data.globeProxy <- function(globe, data){
+  assert_that(not_missing(data))
+  msg <- list(id = globe$id)
+  msg$labelsData <- apply(data, 1, as.list)
+  globe$session$sendCustomMessage("labels_data", msg)
+  return(globe)
+} 

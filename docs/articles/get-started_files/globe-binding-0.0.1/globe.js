@@ -630,14 +630,6 @@ if (HTMLWidgets.shinyMode) {
       }
   });
 
-  Shiny.addCustomMessageHandler('labels_data',
-    function(data) {
-      var globe = get_globe(data.id);
-      if (typeof globe != 'undefined') {
-        globe.labelsData(data.labelsData);
-      }
-  });
-
   Shiny.addCustomMessageHandler('globe_points',
     function(data) {
       var globe = get_globe(data.id);

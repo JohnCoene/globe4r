@@ -1,6 +1,6 @@
-#' Points
+#' Bars
 #' 
-#' Add points to a globe.
+#' Add bars to a globe.
 #' 
 #' @inheritParams globe_img
 #' @param data A data.frame of points to draw.
@@ -130,9 +130,9 @@ globe_bars.globeProxy <- function(globe, ..., data = NULL, inherit_coords = FALS
   return(globe)
 }
 
-#' Points Functional API
+#' Bars Raw API
 #' 
-#' Functional API to add and customise points on globe.
+#' Functional API to add and customise bars on globe.
 #' 
 #' @inheritParams globe_bars
 #' @param lat,lon Column names or numeric value indicating coordinates.

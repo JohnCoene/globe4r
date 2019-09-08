@@ -2,8 +2,26 @@ url: https://globe4r.john-coene.com
 
 template:
   params:
-    bootswatch: paper
+    bootswatch: lumen
     ganalytics: UA-74544116-1
+
+navbar:
+  title: "globe4r"
+  left:
+    - icon: fa-home fa-lg
+      href: index.html
+    - icon: fa-balance-scale fa-lg
+      href: LICENSE.html
+    - icon: fa-newspaper-o fa-lg
+      href: news/index.html
+    - icon: fa-code fa-lg
+      href: "reference/"
+    - icon: fa-rocket fa-lg
+      text: Get Started
+      href: articles/get-started.html
+  right:
+    - icon: fa-github fa-lg
+      href: https://github.com/JohnCoene/globe4r
 
 authors:
   John Coene:
