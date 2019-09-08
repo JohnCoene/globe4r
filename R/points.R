@@ -137,6 +137,7 @@ globe_bars.globeProxy <- function(globe, ..., data = NULL, inherit_coords = FALS
 #' @inheritParams globe_bars
 #' @param lat,lon Column names or numeric value indicating coordinates.
 #' @param color Column name or character vector indicating color of points.
+#' @param label Column name or constant of label.
 #' @param altitude Column name or character vector indicating altitude of points 
 #' in terms of globe radius units (0 = 0 altitude (flat circle), 1 = globe radius).
 #' @param radius Column name of radius a numeric constant for the cylinder's 
@@ -271,6 +272,29 @@ bars_color.globeProxy <- function(globe, color = constant("ffffaa")){
   msg <- list(id = globe$id)
   msg$pointColor <- color
   globe$session$sendCustomMessage("points_color", msg)
+  return(globe)
+}
+
+
+#' @rdname bars_data
+#' @export
+bars_label <- function(globe, label) UseMethod("bars_label")
+
+#' @export
+#' @method bars_label globe
+bars_label.globe <- function(globe, label){
+  assert_that(not_missing(label))
+  globe$x$pointLabel <- label
+  return(globe)
+}
+
+#' @export
+#' @method bars_label globeProxy
+bars_label.globeProxy <- function(globe, label){
+  assert_that(not_missing(label))
+  msg <- list(id = globe$id)
+  msg$pointLabel <- label
+  globe$session$sendCustomMessage("points_labels", msg)
   return(globe)
 }
 

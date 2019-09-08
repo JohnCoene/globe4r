@@ -149,9 +149,9 @@ globe_arcs.globeProxy <- function(globe, ..., data = NULL, inherit_coords = TRUE
   return(globe)
 }
 
-#' Arcs Data
+#' Arcs Raw API
 #' 
-#' Add arcs data to a globe.
+#' Custimise arcs on a globe.
 #' 
 #' @inheritParams globe_img
 #' @param data A data.frame containing arcs data.

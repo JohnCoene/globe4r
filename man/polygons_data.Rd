@@ -11,7 +11,7 @@
 \alias{polygons_on_click}
 \alias{polygons_on_right_click}
 \alias{polygons_on_hover}
-\title{Polygons Data}
+\title{Polygons Raw API}
 \usage{
 polygons_data(globe, data)
 
@@ -59,5 +59,5 @@ animated by rising them from the ground up.}
 \item{func}{JavaScript function as character vector.}
 }
 \description{
-Add polygons data to a globe.
+Raw API to polygons layer.
 }

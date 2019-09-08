@@ -58,6 +58,7 @@ create_globe <- function(data = NULL, coords = NULL, antialias = TRUE, alpha = T
 }
 
 build_globe <- function(globe){
+  # convert data.frames to list
   if(length(globe$x$pointsData))
     globe$x$pointsData <- apply(globe$x$pointsData, 1, as.list)
   if(length(globe$x$arcsData))
@@ -65,7 +66,7 @@ build_globe <- function(globe){
   if(length(globe$x$labelsData))
     globe$x$labelsData <- apply(globe$x$labelsData, 1, as.list)
 
-  if(!length(globe$x$backgroundColor) && length(getOption("backgroundColor")))
+  if(!length(globe$x$backgroundColor))
     globe$x$backgroundColor <- getOption("backgroundColor")
 
   if(length(globe$x$polygonsData)){

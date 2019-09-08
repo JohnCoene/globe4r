@@ -5,6 +5,7 @@
 \alias{bars_lat}
 \alias{bars_lon}
 \alias{bars_color}
+\alias{bars_label}
 \alias{bars_altitude}
 \alias{bars_radius}
 \alias{bars_resolution}
@@ -13,7 +14,7 @@
 \alias{bars_on_click}
 \alias{bars_on_right_click}
 \alias{bars_on_hover}
-\title{Points Functional API}
+\title{Bars Raw API}
 \usage{
 bars_data(globe, data)
 
@@ -22,6 +23,8 @@ bars_lat(globe, lat = "lat")
 bars_lon(globe, lon = "lng")
 
 bars_color(globe, color = constant("ffffaa"))
+
+bars_label(globe, label)
 
 bars_altitude(globe, altitude = 0.1)
 
@@ -50,6 +53,8 @@ as returned by \code{\link{globeProxy}}.}
 
 \item{color}{Column name or character vector indicating color of points.}
 
+\item{label}{Column name or constant of label.}
+
 \item{altitude}{Column name or character vector indicating altitude of points 
 in terms of globe radius units (0 = 0 altitude (flat circle), 1 = globe radius).}
 
@@ -74,7 +79,7 @@ if \code{merge} is disabled.}
 \item{func}{JavaScript function as character vector.}
 }
 \description{
-Functional API to add and customise points on globe.
+Functional API to add and customise bars on globe.
 }
 \examples{
 # use data

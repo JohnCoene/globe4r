@@ -147,9 +147,9 @@ globe_choropleth.globeProxy <- function(globe, ..., data = NULL, inherit_coords 
   return(globe)
 }
 
-#' Polygons Data
+#' Polygons Raw API
 #' 
-#' Add polygons data to a globe.
+#' Raw API to polygons layer.
 #' 
 #' @inheritParams globe_img
 #' @param data A data.frame containing arcs data.

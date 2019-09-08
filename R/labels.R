@@ -1,6 +1,6 @@
-#' Points
+#' Labels
 #' 
-#' Add points to a globe.
+#' Add labels to a globe.
 #' 
 #' @inheritParams globe_bars
 #' 
@@ -26,7 +26,7 @@
 #' quakes %>% 
 #'   create_globe() %>% 
 #'   globe_img_url() %>% 
-#'   globe_points(
+#'   globe_labels(
 #'     coords(lat, long, text = stations)
 #'   )
 #' 
@@ -45,7 +45,7 @@
 #' 
 #'   observeEvent(input$add, {
 #'     globeProxy("globe") %>% 
-#'       globe_points(
+#'       globe_labels(
 #'         coords(lat, long, text = stations),
 #'         data = quakes
 #'       )
@@ -55,11 +55,11 @@
 #' \dontrun{shinyApp(ui, server)}
 #' 
 #' @export
-globe_points <- function(globe, ...) UseMethod("globe_points")
+globe_labels <- function(globe, ...) UseMethod("globe_labels")
 
 #' @export
-#' @method globe_points globe
-globe_points.globe <- function(globe, ..., data = NULL, inherit_coords = TRUE, 
+#' @method globe_labels globe
+globe_labels.globe <- function(globe, ..., data = NULL, inherit_coords = TRUE, 
   on_click = NULL, on_right_click = NULL, on_hover = NULL){
 
   # check inputs
@@ -102,8 +102,8 @@ globe_points.globe <- function(globe, ..., data = NULL, inherit_coords = TRUE,
 }
 
 #' @export
-#' @method globe_points globeProxy
-globe_points.globeProxy <- function(globe, ..., data = NULL, 
+#' @method globe_labels globeProxy
+globe_labels.globeProxy <- function(globe, ..., data = NULL, 
   on_click = NULL, on_right_click = NULL, on_hover = NULL){
   
     # check inputs
@@ -151,34 +151,95 @@ globe_points.globeProxy <- function(globe, ..., data = NULL,
 #' 
 #' Functional API to add and customise points on globe.
 #' 
-#' @inheritParams globe_points
-#' @param func JavaScript function as character vector.
+#' @inheritParams bars_data
+#' @param text Column name or constant of text.
 #' 
 #' @examples
 #' # use data
 #' create_globe() %>% 
-#'   points_data(quakes) %>% 
-#'   points_lat("lat") %>% 
-#'   points_lon("long")
+#'   labels_data(quakes) %>% 
+#'   labels_lat("lat") %>% 
+#'   labels_lon("long")
 #' 
-#' @name points_data
+#' @name labels_data
 #' @export
-points_data <- function(globe, data) UseMethod("points_data")
+labels_data <- function(globe, data) UseMethod("labels_data")
 
 #' @export
-#' @method points_data globe
-points_data.globe <- function(globe, data){
+#' @method labels_data globe
+labels_data.globe <- function(globe, data){
   assert_that(not_missing(data))
   globe$x$labelsData <- data
   return(globe)
 }
 
 #' @export
-#' @method points_data globeProxy
-points_data.globeProxy <- function(globe, data){
+#' @method labels_data globeProxy
+labels_data.globeProxy <- function(globe, data){
   assert_that(not_missing(data))
   msg <- list(id = globe$id)
   msg$labelsData <- apply(data, 1, as.list)
   globe$session$sendCustomMessage("labels_data", msg)
+  return(globe)
+} 
+
+
+#' @rdname labels_data
+#' @export
+labels_lat <- function(globe, lat = "lat") UseMethod("labels_lat")
+
+#' @export
+#' @method labels_lat globe
+labels_lat.globe <- function(globe, lat = "lat"){
+  globe$x$labelLat <- lat
+  return(globe)
+}
+
+#' @export
+#' @method labels_data globeProxy
+labels_lat.globeProxy <- function(globe, lat = "lat"){
+  msg <- list(id = globe$id)
+  msg$labelLat <- lat
+  globe$session$sendCustomMessage("labels_lat", msg)
+  return(globe)
+} 
+
+#' @rdname labels_data
+#' @export
+labels_lon <- function(globe, lon = "lng") UseMethod("labels_lon")
+
+#' @export
+#' @method labels_lon globe
+labels_lon.globe <- function(globe, lon = "lng"){
+  globe$x$labelLng <- lon
+  return(globe)
+}
+
+#' @export
+#' @method labels_lon globeProxy
+labels_lon.globeProxy <- function(globe, lon = "lng"){
+  msg <- list(id = globe$id)
+  msg$labelLng <- lon
+  globe$session$sendCustomMessage("labels_lon", msg)
+  return(globe)
+} 
+
+#' @rdname labels_data
+#' @export
+labels_text <- function(globe, text = "text") UseMethod("labels_text")
+
+#' @export
+#' @method labels_text globe
+labels_text.globe <- function(globe, text = "text"){
+  globe$x$labelText <- text
+  return(globe)
+}
+
+#' @export
+#' @method labels_text globeProxy
+labels_text.globeProxy <- function(globe, text = "text"){
+  msg <- list(id = globe$id)
+  msg$labelText <- text
+  globe$session$sendCustomMessage("labels_text", msg)
   return(globe)
 } 

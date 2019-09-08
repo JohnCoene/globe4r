@@ -2,7 +2,7 @@
 % Please edit documentation in R/points.R
 \name{globe_bars}
 \alias{globe_bars}
-\title{Points}
+\title{Bars}
 \usage{
 globe_bars(globe, ..., data = NULL, inherit_coords = TRUE,
   on_click = NULL, on_right_click = NULL, on_hover = NULL)
@@ -23,7 +23,7 @@ from \code{\link{create_globe}}. Only applies to method applied to object of cla
 \item{on_click, on_right_click, on_hover}{JavaScript functions as strings.}
 }
 \description{
-Add points to a globe.
+Add bars to a globe.
 }
 \section{Coordinates}{
 

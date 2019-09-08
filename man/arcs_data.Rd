@@ -21,7 +21,7 @@
 \alias{arcs_on_click}
 \alias{arcs_on_right_click}
 \alias{arcs_on_hover}
-\title{Arcs Data}
+\title{Arcs Raw API}
 \usage{
 arcs_data(globe, data)
 
@@ -117,7 +117,7 @@ length. A value of 0 disables the animation.}
 \item{func}{JavaScript function as character vector.}
 }
 \description{
-Add arcs data to a globe.
+Custimise arcs on a globe.
 }
 \examples{
 create_globe() \%>\% 
