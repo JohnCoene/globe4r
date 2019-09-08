@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a globe — create_globe • globe4r</title>
+<title>Points Functional API — labels_data • globe4r</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Create a globe — create_globe" />
-<meta property="og:description" content="Create a globe object." />
+<meta property="og:title" content="Points Functional API — labels_data" />
+<meta property="og:description" content="Functional API to add and customise points on globe." />
 <meta property="og:image" content="https://globe4r.john-coene.com/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -143,57 +143,57 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a globe</h1>
+    <h1>Points Functional API</h1>
     
-    <div class="hidden name"><code>create_globe.Rd</code></div>
+    <div class="hidden name"><code>labels_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create a globe object.</p>
+    <p>Functional API to add and customise points on globe.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>create_globe</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>coords</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>antialias</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>animate_in</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='st'>"100%"</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>elementId</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>labels_data</span>(<span class='no'>globe</span>, <span class='no'>data</span>)
+
+<span class='fu'>labels_lat</span>(<span class='no'>globe</span>, <span class='kw'>lat</span> <span class='kw'>=</span> <span class='st'>"lat"</span>)
+
+<span class='fu'>labels_lon</span>(<span class='no'>globe</span>, <span class='kw'>lon</span> <span class='kw'>=</span> <span class='st'>"lng"</span>)
+
+<span class='fu'>labels_text</span>(<span class='no'>globe</span>, <span class='kw'>text</span> <span class='kw'>=</span> <span class='st'>"text"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>globe</th>
+      <td><p>An object of class <code>globe</code> as returned by
+<code><a href='create_globe.html'>create_globe</a></code>, or an object of class <code>globeProxy</code>
+as returned by <code><a href='globe-shiny.html'>globeProxy</a></code>.</p></td>
+    </tr>
+    <tr>
       <th>data</th>
-      <td><p>A data.frame containing coordinates (<code><a href='coords.html'>coords</a></code>).</p></td>
+      <td><p>A data.frame of points to draw.</p></td>
     </tr>
     <tr>
-      <th>coords</th>
-      <td><p>Coordinates as specified by <code><a href='coords.html'>coords</a></code>.</p></td>
+      <th>lat</th>
+      <td><p>Column names or numeric value indicating coordinates.</p></td>
     </tr>
     <tr>
-      <th>antialias, alpha</th>
-      <td><p>Configuration parameters to pass to the 
-<a href='https://threejs.org/docs/#api/en/renderers/WebGLRenderer'>ThreeJS WebGLRenderer</a> constructor.</p></td>
+      <th>lon</th>
+      <td><p>Column names or numeric value indicating coordinates.</p></td>
     </tr>
     <tr>
-      <th>animate_in</th>
-      <td><p>Whether to animate the globe initialization, by scaling 
-and rotating the globe into its inital position.</p></td>
-    </tr>
-    <tr>
-      <th>width, height</th>
-      <td><p>Must be a valid CSS unit (like <code>'100%'</code>,
-<code>'400px'</code>, <code>'auto'</code>) or a number, which will be coerced to a
-string and have <code>'px'</code> appended.</p></td>
-    </tr>
-    <tr>
-      <th>elementId</th>
-      <td><p>Id of element.</p></td>
+      <th>text</th>
+      <td><p>Column name or constant of text.</p></td>
     </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>create_globe</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='globe_pov.html'>globe_pov</a></span>(-<span class='fl'>21</span>, <span class='fl'>179</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='globe_bars.html'>globe_bars</a></span>(<span class='fu'><a href='coords.html'>coords</a></span>(<span class='no'>lat</span>, <span class='no'>long</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>stations</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>quakes</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='co'># use data</span>
+<span class='fu'><a href='create_globe.html'>create_globe</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'>labels_data</span>(<span class='no'>quakes</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>labels_lat</span>(<span class='st'>"lat"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>labels_lon</span>(<span class='st'>"long"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

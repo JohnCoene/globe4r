@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a globe — create_globe • globe4r</title>
+<title>Labels — globe_labels • globe4r</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Create a globe — create_globe" />
-<meta property="og:description" content="Create a globe object." />
+<meta property="og:title" content="Labels — globe_labels" />
+<meta property="og:description" content="Add labels to a globe." />
 <meta property="og:image" content="https://globe4r.john-coene.com/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -143,62 +143,89 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a globe</h1>
+    <h1>Labels</h1>
     
-    <div class="hidden name"><code>create_globe.Rd</code></div>
+    <div class="hidden name"><code>globe_labels.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create a globe object.</p>
+    <p>Add labels to a globe.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>create_globe</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>coords</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>antialias</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>animate_in</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='st'>"100%"</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>elementId</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>globe_labels</span>(<span class='no'>globe</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>A data.frame containing coordinates (<code><a href='coords.html'>coords</a></code>).</p></td>
+      <th>globe</th>
+      <td><p>An object of class <code>globe</code> as returned by
+<code><a href='create_globe.html'>create_globe</a></code>, or an object of class <code>globeProxy</code>
+as returned by <code><a href='globe-shiny.html'>globeProxy</a></code>.</p></td>
     </tr>
     <tr>
-      <th>coords</th>
-      <td><p>Coordinates as specified by <code><a href='coords.html'>coords</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>antialias, alpha</th>
-      <td><p>Configuration parameters to pass to the 
-<a href='https://threejs.org/docs/#api/en/renderers/WebGLRenderer'>ThreeJS WebGLRenderer</a> constructor.</p></td>
-    </tr>
-    <tr>
-      <th>animate_in</th>
-      <td><p>Whether to animate the globe initialization, by scaling 
-and rotating the globe into its inital position.</p></td>
-    </tr>
-    <tr>
-      <th>width, height</th>
-      <td><p>Must be a valid CSS unit (like <code>'100%'</code>,
-<code>'400px'</code>, <code>'auto'</code>) or a number, which will be coerced to a
-string and have <code>'px'</code> appended.</p></td>
-    </tr>
-    <tr>
-      <th>elementId</th>
-      <td><p>Id of element.</p></td>
+      <th>...</th>
+      <td><p>Coordinates, as specified by <code><a href='coords.html'>coords</a></code>.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="coordinates"><a class="anchor" href="#coordinates"></a>Coordinates</h2>
+
+    
+    <p>Valid coordinates.</p><ul>
+<li><p><code>lat</code>, <code>lon</code>,</p></li>
+<li><p><code>altitude</code></p></li>
+<li><p><code>color</code></p></li>
+<li><p><code>label</code></p></li>
+<li><p><code>resolution</code></p></li>
+<li><p><code>transition</code></p></li>
+<li><p><code>size</code></p></li>
+<li><p><code>text</code></p></li>
+<li><p><code>rotation</code></p></li>
+<li><p><code>include_dot</code></p></li>
+<li><p><code>dot_radius</code></p></li>
+<li><p><code>dot_orientation</code></p></li>
+<li><p><code>type_face</code></p></li>
+</ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>create_globe</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='globe_pov.html'>globe_pov</a></span>(-<span class='fl'>21</span>, <span class='fl'>179</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='globe_bars.html'>globe_bars</a></span>(<span class='fu'><a href='coords.html'>coords</a></span>(<span class='no'>lat</span>, <span class='no'>long</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>stations</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>quakes</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>quakes</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='create_globe.html'>create_globe</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='globe_img.html'>globe_img_url</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'>globe_labels</span>(
+    <span class='fu'><a href='coords.html'>coords</a></span>(<span class='no'>lat</span>, <span class='no'>long</span>, <span class='kw'>text</span> <span class='kw'>=</span> <span class='no'>stations</span>)
+  )
+
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>shiny</span>)
+
+<span class='no'>ui</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/shiny/topics/fluidPage'>fluidPage</a></span>(
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/shiny/topics/actionButton'>actionButton</a></span>(<span class='st'>"add"</span>, <span class='st'>"add quakes labels"</span>),
+  <span class='fu'><a href='globe-shiny.html'>globeOutput</a></span>(<span class='st'>"globe"</span>)
+)
+
+<span class='no'>server</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>input</span>, <span class='no'>output</span>){
+  <span class='no'>output</span>$<span class='no'>globe</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='globe-shiny.html'>renderGlobe</a></span>({
+    <span class='fu'><a href='create_globe.html'>create_globe</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='globe_img.html'>globe_img_url</a></span>()
+  })
+
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/shiny/topics/observeEvent'>observeEvent</a></span>(<span class='no'>input</span>$<span class='no'>add</span>, {
+    <span class='fu'><a href='globe-shiny.html'>globeProxy</a></span>(<span class='st'>"globe"</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'>globe_labels</span>(
+        <span class='fu'><a href='coords.html'>coords</a></span>(<span class='no'>lat</span>, <span class='no'>long</span>, <span class='kw'>text</span> <span class='kw'>=</span> <span class='no'>stations</span>),
+        <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>quakes</span>
+      )
+  })
+}</div><span class='co'># NOT RUN {</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/shiny/topics/shinyApp'>shinyApp</a></span>(<span class='no'>ui</span>, <span class='no'>server</span>)
+<span class='co'># }</span><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#coordinates">Coordinates</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

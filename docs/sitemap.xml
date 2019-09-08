@@ -46,13 +46,16 @@
     <loc>https://globe4r.john-coene.com/reference/globe_img.html</loc>
   </url>
   <url>
-    <loc>https://globe4r.john-coene.com/reference/globe_points.html</loc>
+    <loc>https://globe4r.john-coene.com/reference/globe_labels.html</loc>
   </url>
   <url>
     <loc>https://globe4r.john-coene.com/reference/globe_pov.html</loc>
   </url>
   <url>
     <loc>https://globe4r.john-coene.com/reference/image_url.html</loc>
+  </url>
+  <url>
+    <loc>https://globe4r.john-coene.com/reference/labels_data.html</loc>
   </url>
   <url>
     <loc>https://globe4r.john-coene.com/reference/pipe.html</loc>

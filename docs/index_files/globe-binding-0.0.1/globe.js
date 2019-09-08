@@ -317,6 +317,14 @@ if (HTMLWidgets.shinyMode) {
       }
   });
 
+  Shiny.addCustomMessageHandler('points_label',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.pointLabel(data.pointLabel);
+      }
+  });
+
   Shiny.addCustomMessageHandler('points_color',
     function(data) {
       var globe = get_globe(data.id);
@@ -627,6 +635,38 @@ if (HTMLWidgets.shinyMode) {
       var globe = get_globe(data.id);
       if (typeof globe != 'undefined') {
         globe.onPolygonHover(data.onPolygonHover);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('labels_data',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.labelsData(data.labelsData);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('labels_lon',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.labelLng(data.labelLng);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('labels_lat',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.labelLat(data.labelLat);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('labels_text',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.labelText(data.labelText);
       }
   });
 
