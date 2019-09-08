@@ -123,6 +123,13 @@
     Get Started
   </a>
 </li>
+<li>
+  <a href="../articles/shiny.html">
+    <span class="fa fa-desktop fa-lg"></span>
+     
+    Shiny
+  </a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -218,8 +225,10 @@ from <code><a href='create_globe.html'>create_globe</a></code>. Only applies to 
   <span class='fu'>globe_arcs</span>(
     <span class='kw'>data</span><span class='kw'>=</span> <span class='no'>usflights</span>,
     <span class='fu'><a href='coords.html'>coords</a></span>(
-      <span class='no'>start_lat</span>, <span class='no'>start_lon</span>,
-      <span class='no'>end_lat</span>, <span class='no'>end_lon</span>,
+      <span class='kw'>start_lat</span> <span class='kw'>=</span> <span class='no'>start_lat</span>,
+      <span class='kw'>start_lon</span> <span class='kw'>=</span> <span class='no'>start_lon</span>,
+      <span class='kw'>end_lat</span> <span class='kw'>=</span> <span class='no'>end_lat</span>,
+      <span class='kw'>end_lon</span> <span class='kw'>=</span> <span class='no'>end_lon</span>,
       <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>cnt</span>
     )
   ) <span class='kw'>%&gt;%</span>

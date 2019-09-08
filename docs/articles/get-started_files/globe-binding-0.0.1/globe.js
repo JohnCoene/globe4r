@@ -502,6 +502,14 @@ if (HTMLWidgets.shinyMode) {
       }
   });
 
+  Shiny.addCustomMessageHandler('arcs_dash_animate',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.arcDashAnimateTime(data.arcDashAnimateTime);
+      }
+  });
+
   Shiny.addCustomMessageHandler('arcs_dash_gap',
     function(data) {
       var globe = get_globe(data.id);
@@ -667,6 +675,110 @@ if (HTMLWidgets.shinyMode) {
       var globe = get_globe(data.id);
       if (typeof globe != 'undefined') {
         globe.labelText(data.labelText);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('labels_color',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.labelColor(data.labelColor);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('labels_altitude',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.labelAltitude(data.labelAltitude);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('labels_size',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.labelSize(data.labelSize);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('labels_typeface',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.labelTypeFace(data.labelTypeFace);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('labels_rotation',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.labelRotation(data.labelRotation);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('labels_resolution',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.labelResolution(data.labelResolution);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('labels_include_dot',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.labelIncludeDot(data.labelIncludeDot);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('labels_dot_radius',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.labelDotRadius(data.labelDotRadius);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('labels_dot_orientation',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.labelDotOrientation(data.labelDotOrientation);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('labels_transition',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.labelsTransitionDuration(data.labelsTransitionDuration);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('labels_on_click',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.onLabelClick(data.onLabelClick);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('labels_on_right_click',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.onLabelRightClick(data.onLabelRightClick);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('labels_on_hover',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.onLabelHover(data.onLabelHover);
       }
   });
 

@@ -12,8 +12,84 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+library(globe4r)
 ```
 
-```{r setup}
-library(globe4r)
+In globe4r nearly every function is shiny friendly: the vast majority have a proxy method. Let's a very create a basic application.
+
+```r
+library(shiny)
+
+ui <- fluidPage(
+  globeOutput("globe")
+)
+
+server <- function(input, output){
+  output$globe <- render_globe({
+    create_globe()
+  })
+}
+
+shinyApp(ui, server)
+```
+
+With our basic shiny application setup we can demonstrate how proxies and their methods work in globe4r. Let's add a dropdown to allow users to change the globe map.
+
+```r
+library(shiny)
+
+ui <- fluidPage(
+  globeOutput("globe"),
+  actionButton("draw", "Draw map")
+)
+
+server <- function(input, output){
+  output$globe <- render_globe({
+    create_globe()
+  })
+
+  observeEvent(input$draw, {
+    globe_proxy("globe") %>% 
+      globe_img_url(image_url("blue"))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+The `globe_proxy` function creates a "proxy" of our visualisation and enables modifying it in place, without redrawing th entire globe.
+
+```r
+library(shiny)
+
+df <- agriland
+scale_color <- scales::col_numeric(c("#2c7fb8", "#7fcdbb", "#edf8b1"), c(0, 1))
+df$color <- scale_color(df$percent)
+df$percent <- (df$percent / 2) + .1
+
+ui <- fluidPage(
+  globeOutput("globe", height = 500),
+  actionButton("draw", "Draw polygons")
+)
+
+server <- function(input, output){
+  output$globe <- render_globe({
+    create_globe()
+  })
+
+  observeEvent(input$draw, {
+    globe_proxy("globe") %>% 
+      globe_choropleth(
+        data = df,
+        coords(
+          country = country_code,
+          altitude = percent,
+          cap_color = color
+        )
+      )
+  })
+}
+
+shinyApp(ui, server)
 ```

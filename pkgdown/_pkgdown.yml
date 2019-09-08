@@ -27,7 +27,7 @@ navbar:
       href: https://github.com/JohnCoene/globe4r
 
 reference:
-  - title: "Initialisation"
+  - title: "Initialisation & Shiny"
     desc: "Initialise a globe."
     contents: 
       - create_globe
@@ -73,6 +73,10 @@ reference:
     desc: "Scale data."
     contents: 
       - starts_with("scale")
+  - title: "Demo"
+    desc: "Demo shiny app."
+    contents: 
+      - demo_app
 
 authors:
   John Coene:

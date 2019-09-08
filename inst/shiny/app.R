@@ -13,7 +13,7 @@ ui <- fluidPage(
         "Select background:",
         choices = list(
           "Night" = "night", 
-          "Blue" = "blue-marble", 
+          "Blue" = "blue", 
           "Dark" = "dark"
         )
       ),
