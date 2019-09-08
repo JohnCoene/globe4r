@@ -10,7 +10,6 @@ knitr::opts_chunk$set(
 
 library(globe4r)
 library(htmltools)
-# shared_background("#060606")
 ```
 
 ```{r, echo=FALSE}
@@ -40,11 +39,13 @@ div(
       tags$a(
         tags$i(class = "fa fa-rocket"),
         "Get Started",
-        href = "articles/get-start.html"
+        class = "btn btn-primary",
+        href = "articles/get-started.html"
       ),
       tags$a(
         tags$i(class = "fa fa-desktop"),
         "Shiny",
+        class = "btn btn-default",
         href = "articles/shiny.html"
       )
     )
@@ -62,22 +63,46 @@ You can install the globe4r from Github:
 remotes::install_github("JohnCoene/globe4r")
 ```
 
-## Example
+## Examples
 
-```{r}
-library(globe4r)
-
-create_globe() %>% 
-  globe_pov(-21, 179) %>% # position camera
-  globe_bars(
-    coords(
-      lat, long, 
-      altitude = depth,
-      color = depth,
-      label = stations # on hover label
-    ), 
-    data = quakes
-  ) %>% 
-  scale_bars_color() %>% 
-  scale_bars_altitude()
+```{r, echo = FALSE}
+div(
+  class = "row",
+  div(class = "col-md-3",
+    tags$a(
+      "Bars",
+      class = "btn btn-default",
+      href = "bars.html",
+      target = "_blank",
+      style = "width:100%;"
+    )
+  ),
+  div(class = "col-md-3",
+    tags$a(
+      "Acs",
+      class = "btn btn-default",
+      href = "arcs.html",
+      target = "_blank",
+      style = "width:100%;"
+    )
+  ),
+  div(class = "col-md-3",
+    tags$a(
+      "Labels",
+      class = "btn btn-default",
+      href = "labels.html",
+      target = "_blank",
+      style = "width:100%;"
+    )
+  ),
+  div(class = "col-md-3",
+    tags$a(
+      "Polygons",
+      class = "btn btn-default",
+      href = "choropleth.html",
+      target = "_blank",
+      style = "width:100%;"
+    )
+  )
+)
 ```

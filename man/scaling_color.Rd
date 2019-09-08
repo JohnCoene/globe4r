@@ -4,6 +4,7 @@
 \alias{scaling_color}
 \alias{scale_bars_color}
 \alias{scale_arc_color}
+\alias{scale_labels_color}
 \alias{scale_choropleth_cap_color}
 \alias{scale_choropleth_side_color}
 \alias{scale_label_color}
@@ -12,6 +13,8 @@
 scale_bars_color(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"))
 
 scale_arc_color(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"))
+
+scale_labels_color(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"))
 
 scale_choropleth_cap_color(globe, palette = c("#2c7fb8", "#7fcdbb",
   "#edf8b1"))

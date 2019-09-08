@@ -178,8 +178,12 @@ HTMLWidgets.widget({
         if(x.hasOwnProperty("onLabelHover"))
           globe.onLabelHover(x.onLabelHover); 
 
-        if(x.hasOwnProperty("pointOfView")){
+        if(x.hasOwnProperty("pointOfView"))
           globe.pointOfView(x.pointOfView, x.pointOfViewMs);
+
+        if(x.hasOwnProperty("autoRotate")){
+          globe.controls().autoRotate = x.autoRotate;
+          globe.controls().autoRotateSpeed = x.autoRotateSpeed;
         }
 
       },
@@ -216,6 +220,15 @@ function get_globe(id){
 }
 
 if (HTMLWidgets.shinyMode) {
+
+  Shiny.addCustomMessageHandler('globe_rotate',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.controls().autoRotate = msg.autoRotate;
+        globe.controls().autoRotateSpeed = msg.autoRotateSpeed;
+      }
+  });
   
   Shiny.addCustomMessageHandler('globeImageUrl',
     function(data) {

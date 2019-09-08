@@ -74,6 +74,23 @@ scale_arc_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf
   return(globe)
 }
 
+
+#' @rdname scaling_color
+#' @export
+scale_labels_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")) UseMethod("scale_labels_color") 
+
+#' @export
+#' @method scale_labels_color globe
+scale_labels_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")){
+  assert_that(length(globe$x$labelColor) >= 1, msg = "No `color` specified.")
+
+  scale <- scales::col_numeric(palette, NULL)
+  globe$x$labelsData$GLOBE4RlabelColor <- scale(globe$x$labelsData[[globe$x$labelColor]])
+  globe$x$labelColor <- "GLOBE4RlabelColor"
+
+  return(globe)
+}
+
 #' @rdname scaling_color
 #' @export
 scale_choropleth_cap_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")) UseMethod("scale_choropleth_cap_color") 
@@ -84,7 +101,7 @@ scale_choropleth_cap_color.globe <- function(globe, palette = c("#2c7fb8", "#7fc
   assert_that(length(globe$x$polygonCapColor) >= 1, msg = "No `color` specified.")
 
   scale <- scales::col_numeric(palette, NULL)
-  globe$x$polygonData$GLOBE4RcapColor <- scale(globe$x$polygonData[[globe$x$polygonCapColor]])
+  globe$x$polygonsData$GLOBE4RcapColor <- scale(globe$x$polygonsData[[globe$x$polygonCapColor]])
   globe$x$polygonCapColor <- "GLOBE4RcapColor"
 
   return(globe)
@@ -100,7 +117,7 @@ scale_choropleth_side_color.globe <- function(globe, palette = c("#2c7fb8", "#7f
   assert_that(length(globe$x$polygonSideColor) >= 1, msg = "No `color` specified.")
 
   scale <- scales::col_numeric(palette, NULL)
-  globe$x$polygonData$GLOBE4RpolygonColor <- scale(globe$x$polygonData[[globe$x$polygonSideColor]])
+  globe$x$polygonsData$GLOBE4RpolygonColor <- scale(globe$x$polygonsData[[globe$x$polygonSideColor]])
   globe$x$polygonSideColor <- "GLOBE4RpolygonColor"
 
   return(globe)
@@ -185,7 +202,7 @@ scale_choropleth_altitude <- function(globe, min = 0, max = .5) UseMethod("scale
 scale_choropleth_altitude.globe <- function(globe, min = 0, max = .5){
   assert_that(length(globe$x$polygonAltitude) >= 1, msg = "No `altitude` specified.")
 
-  globe$x$polygonData$GLOBE4RpolygonAltitude <- scales::rescale(globe$x$polygonData[[globe$x$polygonAltitude]], to = c(min, max))
+  globe$x$polygonsData$GLOBE4RpolygonAltitude <- scales::rescale(globe$x$polygonsData[[globe$x$polygonAltitude]], to = c(min, max))
   globe$x$polygonAltitude <- "GLOBE4RpolygonAltitude"
 
   return(globe)
@@ -258,5 +275,45 @@ scale_arc_dash_length <- function(globe, min = .1, max = 1) UseMethod("scale_arc
 scale_arc_dash_length.globe <- function(globe, min = .1, max = 1){
   assert_that(length(globe$x$arcDashLength) >= 1, msg = "No `dash_length` specified.")
   globe$x$arcsData[[globe$x$arcDashLength]] <- scales::rescale(globe$x$arcsData[[globe$x$arcDashLength]], to = c(min, max))
+  return(globe)
+}
+
+#' Scale Dots
+#' 
+#' Rescale various aspects of dots from \code{\link{globe_labels}}.
+#' 
+#' @inheritParams globe_img
+#' @param min,max Target minimum and maximum values.
+#' 
+#' @name scale_labels_radius
+#' @export
+scale_labels_radius <- function(globe, min = .1, max = 1) UseMethod("scale_labels_radius")
+
+#' @export
+#' @method scale_labels_radius globe 
+scale_labels_radius.globe <- function(globe, min = .1, max = 1){
+  assert_that(length(globe$x$labelDotRadius) >= 1, msg = "No `dot_radius` specified.")
+  globe$x$labelsData$GLOBE4RdotRadius <- scales::rescale(globe$x$labelsData[[globe$x$labelDotRadius]], to = c(min, max))
+  globe$x$labelDotRadius <- "GLOBE4RdotRadius"
+  return(globe)
+}
+
+#' Scale Labels SIze
+#' 
+#' Rescale \code{\link{globe_labels}} text size.
+#' 
+#' @inheritParams globe_img
+#' @param min,max Target minimum and maximum values.
+#' 
+#' @name scale_labels_size
+#' @export
+scale_labels_size <- function(globe, min = .1, max = 1) UseMethod("scale_labels_size")
+
+#' @export
+#' @method scale_labels_size globe 
+scale_labels_size.globe <- function(globe, min = .1, max = 1){
+  assert_that(length(globe$x$labelSize) >= 1, msg = "No `size` specified.")
+  globe$x$labelsData$GLOBE4Rsize <- scales::rescale(globe$x$labelsData[[globe$x$labelSize]], to = c(min, max))
+  globe$x$labelSize <- "GLOBE4Rsize"
   return(globe)
 }

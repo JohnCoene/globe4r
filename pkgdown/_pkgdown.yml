@@ -69,6 +69,7 @@ reference:
       - container
       - globe_img
       - image_url
+      - globe_rotate
   - title: "Scaling"
     desc: "Scale data."
     contents: 

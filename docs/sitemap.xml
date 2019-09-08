@@ -55,6 +55,9 @@
     <loc>https://globe4r.john-coene.com/reference/globe_pov.html</loc>
   </url>
   <url>
+    <loc>https://globe4r.john-coene.com/reference/globe_rotate.html</loc>
+  </url>
+  <url>
     <loc>https://globe4r.john-coene.com/reference/image_url.html</loc>
   </url>
   <url>
@@ -68,6 +71,12 @@
   </url>
   <url>
     <loc>https://globe4r.john-coene.com/reference/population.html</loc>
+  </url>
+  <url>
+    <loc>https://globe4r.john-coene.com/reference/scale_labels_radius.html</loc>
+  </url>
+  <url>
+    <loc>https://globe4r.john-coene.com/reference/scale_labels_size.html</loc>
   </url>
   <url>
     <loc>https://globe4r.john-coene.com/reference/scaling_altitude.html</loc>
