@@ -23,6 +23,54 @@ navbar:
     - icon: fa-github fa-lg
       href: https://github.com/JohnCoene/globe4r
 
+reference:
+  - title: "Initialisation"
+    desc: "Initialise a globe."
+    contents: 
+      - create_globe
+      - globe-shiny
+  - title: "Layers"
+    desc: "Convenient layers."
+    contents: 
+      - globe_bars
+      - globe_labels
+      - globe_arcs
+      - globe_choropleth
+  - title: "Arcs"
+    desc: "Add and customise arcs."
+    contents: 
+      - starts_with("arcs")
+  - title: "Bars"
+    desc: "Add and customise bars."
+    contents: 
+      - starts_with("bars")
+  - title: "Labels"
+    desc: "Add and customise labels."
+    contents: 
+      - starts_with("labels")
+  - title: "Polygons"
+    desc: "Add and customise polygons."
+    contents: 
+      - starts_with("polygons")
+  - title: "Data"
+    desc: "Datsets."
+    contents: 
+      - agriland
+      - usflights
+      - population
+  - title: "Options"
+    desc: "Customise the globe."
+    contents: 
+      - animation
+      - atmosphere
+      - container
+      - globe_img
+      - image_url
+  - title: "Scaling"
+    desc: "Scale data."
+    contents: 
+      - starts_with("scale")
+
 authors:
   John Coene:
     href: http://john-coene.com
