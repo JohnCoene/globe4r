@@ -10,3 +10,7 @@ docs
 vignettes
 ^docs$
 ^pkgdown$
+arcs.html
+bars.html
+labels.html
+choropleth.html

@@ -44,7 +44,7 @@ Valid coordinates (depending on layer).
 # basic
 create_globe() \%>\% 
   globe_pov(-21, 179) \%>\% 
-  globe_bars(coords(lat, long, label = stations), data = quakes)
+  globe_bars(coords(lat, long, altitude = mag), data = quakes)
 
 # use in shiny
 library(shiny)

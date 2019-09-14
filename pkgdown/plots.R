@@ -6,18 +6,19 @@ library(htmltools)
 # viz
 # bars
 create_globe(height = "100vh") %>% 
-  globe_bars(
+  globe_hex(
     coords(
       lat, lon, 
-      altitude = value,
-      color = value
+      weight = value,
+      color = value,
+      cap_color = value
     ), 
     data = population
   ) %>% 
   globe_rotate(1L) %>% 
-  scale_bars_color() %>% 
-  scale_bars_altitude() %>% 
-  htmlwidgets::saveWidget(file = "bars.html")
+  scale_hex_cap_color() %>% 
+  scale_hex_altitude() %>% 
+  htmlwidgets::saveWidget(file = "hex.html")
 
 # polygons
 create_globe(height = "100vh") %>% 

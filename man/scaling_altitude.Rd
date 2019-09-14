@@ -6,6 +6,7 @@
 \alias{scale_arcs_altitude}
 \alias{scale_labels_altitude}
 \alias{scale_choropleth_altitude}
+\alias{scale_hex_altitude}
 \title{Scale Altitude}
 \usage{
 scale_bars_altitude(globe, min = 0, max = 0.5)
@@ -15,6 +16,8 @@ scale_arcs_altitude(globe, min = 0, max = 0.5)
 scale_labels_altitude(globe, min = 0, max = 0.5)
 
 scale_choropleth_altitude(globe, min = 0, max = 0.5)
+
+scale_hex_altitude(globe, min = 0, max = 0.5)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by

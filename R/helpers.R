@@ -123,21 +123,6 @@ scale_choropleth_side_color.globe <- function(globe, palette = c("#2c7fb8", "#7f
   return(globe)
 }
 
-#' @name scaling_color
-#' @export
-scale_label_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")) UseMethod("scale_label_color") 
-
-#' @export
-#' @method scale_label_color globe
-scale_label_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")){
-  assert_that(length(globe$x$labelData$color) >= 1, msg = "No `color` specified.")
-
-  scale <- scales::col_numeric(palette, NULL)
-  globe$x$labelData$GLOBE4RlabelColor <- scale(globe$x$labelData[[globe$x$labelColor]])
-  globe$x$labelColor <- "GLOBE4RlabelColor"
-  return(globe)
-}
-
 #' Scale Altitude
 #' 
 #' Rescale altitude to a more appropriate range, where 0 if flat
@@ -204,6 +189,21 @@ scale_choropleth_altitude.globe <- function(globe, min = 0, max = .5){
 
   globe$x$polygonsData$GLOBE4RpolygonAltitude <- scales::rescale(globe$x$polygonsData[[globe$x$polygonAltitude]], to = c(min, max))
   globe$x$polygonAltitude <- "GLOBE4RpolygonAltitude"
+
+  return(globe)
+}
+
+#' @rdname scaling_altitude
+#' @export
+scale_hex_altitude <- function(globe, min = 0, max = .5) UseMethod("scale_hex_altitude") 
+
+#' @export
+#' @method scale_hex_altitude globe
+scale_hex_altitude.globe <- function(globe, min = 0, max = .5){
+  assert_that(length(globe$x$hexAltitude) >= 1, msg = "No `altitude` specified.")
+
+  globe$x$hexBinPointsData$GLOBE4RhexAltitude <- scales::rescale(globe$x$hexBinPointsData[[globe$x$hexAltitude]], to = c(min, max))
+  globe$x$hexAltitude <- "GLOBE4RhexAltitude"
 
   return(globe)
 }
@@ -315,5 +315,26 @@ scale_labels_size.globe <- function(globe, min = .1, max = 1){
   assert_that(length(globe$x$labelSize) >= 1, msg = "No `size` specified.")
   globe$x$labelsData$GLOBE4Rsize <- scales::rescale(globe$x$labelsData[[globe$x$labelSize]], to = c(min, max))
   globe$x$labelSize <- "GLOBE4Rsize"
+  return(globe)
+}
+
+
+#' Scale Hex Weight
+#' 
+#' Rescale hex weight to more appropriate values.
+#' 
+#' @inheritParams globe_img
+#' @param min,max Target minimum and maximum values of pixels.
+#' 
+#' @name scaling_hex_weight
+#' @export
+scaling_hex_weight <- function(globe, min = .1, max = 1) UseMethod("scaling_hex_weight")
+
+#' @export
+#' @method scale_arc_stroke globe 
+scaling_hex_weight.globe <- function(globe, min = .1, max = 1){
+  assert_that(length(globe$x$hexBinPointWeight) >= 1, msg = "No `stroke` specified.")
+  globe$x$hexBinPointsData$GLOBE4Rweight <- scales::rescale(globe$x$hexBinPointsData[[globe$x$hexBinPointWeight]], to = c(min, max))
+  globe$x$arcStroke <- "GLOBE4Rweight"
   return(globe)
 }

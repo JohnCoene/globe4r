@@ -186,6 +186,37 @@ HTMLWidgets.widget({
           globe.controls().autoRotateSpeed = x.autoRotateSpeed;
         }
 
+        if(x.hasOwnProperty("hexBinPointsData"))
+          globe.hexBinPointsData(x.hexBinPointsData);
+        if(x.hasOwnProperty("hexLabel"))
+          globe.hexLabel(x.hexLabel);
+        if(x.hasOwnProperty("hexBinPointLat"))
+          globe.hexBinPointLat(x.hexBinPointLat);
+        if(x.hasOwnProperty("hexBinPointLng"))
+          globe.hexBinPointLng(x.hexBinPointLng);
+        if(x.hasOwnProperty("hexBinPointWeight"))
+          globe.hexBinPointWeight(x.hexBinPointWeight);
+        if(x.hasOwnProperty("hexBinResolution"))
+          globe.hexBinResolution(x.hexBinResolution);
+        if(x.hasOwnProperty("hexMargin"))
+          globe.hexMargin(x.hexMargin);
+        if(x.hasOwnProperty("hexAltitude"))
+          globe.hexAltitude(x.hexAltitude);
+        if(x.hasOwnProperty("hexTopColor"))
+          globe.hexTopColor(x.hexTopColor);
+        if(x.hasOwnProperty("hexSideColor"))
+          globe.hexSideColor(x.hexSideColor);
+        if(x.hasOwnProperty("hexBinMerge"))
+          globe.hexBinMerge(x.hexBinMerge);
+        if(x.hasOwnProperty("hexTransitionDuration"))
+          globe.hexTransitionDuration(x.hexTransitionDuration);
+        if(x.hasOwnProperty("onHexClick"))
+          globe.onHexClick(x.onHexClick);
+        if(x.hasOwnProperty("onHexRightClick"))
+          globe.onHexRightClick(x.onHexRightClick);
+        if(x.hasOwnProperty("onHexHover"))
+          globe.onHexHover(x.onHexHover);
+
       },
 
       getGlobe: function(){
