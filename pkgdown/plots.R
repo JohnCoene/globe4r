@@ -13,13 +13,15 @@ color_scale <- htmlwidgets::JS(
 )  
 
 create_globe(height = "100vh") %>% 
-  globe_pov(-21, 179) %>%  
+  globe_img_url(image_url("blue")) %>% 
+  bump_img_url() %>% 
+  globe_pov(-16, 172, 1) %>%  
   hex_data(quakes) %>% 
   hex_lat("lat") %>% 
   hex_lon("long") %>% 
   hex_weight(1L) %>% 
   hex_side_color(color_scale) %>% 
-  hex_cap_color(color_scale)%>%  
+  hex_cap_color(color_scale) %>%  
   htmlwidgets::saveWidget(file = "hex.html")
 
 # polygons
@@ -28,11 +30,13 @@ create_globe(height = "100vh") %>%
     coords(
       country = country_code,
       altitude = percent,
-      cap_color = percent
+      cap_color = percent,
+      side_color = percent
     ), 
     data = agriland
   ) %>% 
   scale_choropleth_cap_color() %>% 
+  scale_choropleth_side_color() %>% 
   scale_choropleth_altitude() %>% 
   htmlwidgets::saveWidget(file = "choropleth.html")
 

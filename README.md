@@ -12,6 +12,14 @@ Visit the [website](https://globe4r.john-coene.com) for more details.
 
 <img src="./man/figures/logo.png" height="250" align="right" />
 
+1.  bars
+2.  arcs
+3.  polygons
+4.  points
+5.  Hex bin
+
+Visit the website for the [full list of functions](https://globe4r.john-coene.com/reference/)
+
 Installation
 ------------
 
