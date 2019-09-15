@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Scale Altitude — scaling_altitude • globe4r</title>
+<title>Scale Hex Weight — scale_hex_weight • globe4r</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,9 +42,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Scale Altitude — scaling_altitude" />
-<meta property="og:description" content="Rescale altitude to a more appropriate range, where 0 if flat
-and 1 is the globe radius." />
+<meta property="og:title" content="Scale Hex Weight — scale_hex_weight" />
+<meta property="og:description" content="Rescale hex weight to more appropriate values." />
 <meta property="og:image" content="https://globe4r.john-coene.com/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -151,25 +150,16 @@ and 1 is the globe radius." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Scale Altitude</h1>
+    <h1>Scale Hex Weight</h1>
     
-    <div class="hidden name"><code>scaling_altitude.Rd</code></div>
+    <div class="hidden name"><code>scale_hex_weight.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Rescale altitude to a more appropriate range, where 0 if flat
-and 1 is the globe radius.</p>
+    <p>Rescale hex weight to more appropriate values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_bars_altitude</span>(<span class='no'>globe</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
-
-<span class='fu'>scale_arcs_altitude</span>(<span class='no'>globe</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
-
-<span class='fu'>scale_labels_altitude</span>(<span class='no'>globe</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
-
-<span class='fu'>scale_choropleth_altitude</span>(<span class='no'>globe</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
-
-<span class='fu'>scale_hex_altitude</span>(<span class='no'>globe</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</pre>
+    <pre class="usage"><span class='fu'>scale_hex_weight</span>(<span class='no'>globe</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -182,24 +172,16 @@ as returned by <code><a href='globe-shiny.html'>globeProxy</a></code>.</p></td>
     </tr>
     <tr>
       <th>min, max</th>
-      <td><p>Target minimum and maximum values of altitude.</p></td>
+      <td><p>Target minimum and maximum values of pixels.</p></td>
     </tr>
     </table>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># basic</span>
-<span class='fu'><a href='create_globe.html'>create_globe</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='globe_img.html'>globe_img_url</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='globe_pov.html'>globe_pov</a></span>(-<span class='fl'>21</span>, <span class='fl'>179</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='globe_bars.html'>globe_bars</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>quakes</span>, <span class='fu'><a href='coords.html'>coords</a></span>(<span class='no'>lat</span>, <span class='no'>long</span>, <span class='kw'>altitude</span> <span class='kw'>=</span> <span class='no'>mag</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'>scale_bars_altitude</span>()</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

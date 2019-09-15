@@ -3,16 +3,23 @@ library(globe4r)
 library(htmltools)
 # shared_background("#060606")
 
-
-
 # viz
 # hex
+color_scale <- htmlwidgets::JS(
+  "function(d){
+    fnc = chroma.scale(['yellow', 'lightgreen', '008ae5']).domain([0, 5]);
+    return fnc(d.sumWeight).hex();
+  }"
+)  
+
 create_globe(height = "100vh") %>% 
-  globe_pov(-21, 179) %>% 
-  globe_hex(
-    coords(lat, long), 
-    data = quakes
-  ) %>%  
+  globe_pov(-21, 179) %>%  
+  hex_data(quakes) %>% 
+  hex_lat("lat") %>% 
+  hex_lon("long") %>% 
+  hex_weight(1L) %>% 
+  hex_side_color(color_scale) %>% 
+  hex_cap_color(color_scale)%>%  
   htmlwidgets::saveWidget(file = "hex.html")
 
 # polygons

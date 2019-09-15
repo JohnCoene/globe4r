@@ -1,4 +1,6 @@
 <!-- badges: start -->
+[![Travis build status](https://travis-ci.org/JohnCoene/globe4r.svg?branch=master)](https://travis-ci.org/JohnCoene/globe4r)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
 ```{r setup, include = FALSE}
@@ -68,24 +70,7 @@ remotes::install_github("JohnCoene/globe4r")
 ```{r, echo = FALSE}
 div(
   class = "row",
-  div(class = "col-md-3",
-    tags$a(
-      "Bars",
-      class = "btn btn-default",
-      href = "bars.html",
-      target = "_blank",
-      style = "width:100%;"
-    )
-  ),
-  div(class = "col-md-3",
-    tags$a(
-      "Acs",
-      class = "btn btn-default",
-      href = "arcs.html",
-      target = "_blank",
-      style = "width:100%;"
-    )
-  ),
+  div(class = "col-md-3"),
   div(class = "col-md-3",
     tags$a(
       "Labels",
@@ -100,6 +85,40 @@ div(
       "Polygons",
       class = "btn btn-default",
       href = "choropleth.html",
+      target = "_blank",
+      style = "width:100%;"
+    )
+  ),
+  div(class = "col-md-3")
+)
+
+br()
+
+div(
+  class = "row",
+  div(class = "col-md-4",
+    tags$a(
+      "Bars",
+      class = "btn btn-default",
+      href = "bars.html",
+      target = "_blank",
+      style = "width:100%;"
+    )
+  ),
+  div(class = "col-md-4",
+    tags$a(
+      "Acs",
+      class = "btn btn-default",
+      href = "arcs.html",
+      target = "_blank",
+      style = "width:100%;"
+    )
+  ),
+  div(class = "col-md-4",
+    tags$a(
+      "Hex",
+      class = "btn btn-default",
+      href = "hex.html",
       target = "_blank",
       style = "width:100%;"
     )

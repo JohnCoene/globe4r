@@ -5,6 +5,16 @@
 \alias{hex_lat}
 \alias{hex_lon}
 \alias{hex_weight}
+\alias{hex_label}
+\alias{hex_resolution}
+\alias{hex_margin}
+\alias{hex_cap_color}
+\alias{hex_side_color}
+\alias{hex_merge}
+\alias{hex_transition}
+\alias{hex_on_click}
+\alias{hex_on_right_click}
+\alias{hex_on_hover}
 \title{Hex Raw API}
 \usage{
 hex_data(globe, data)
@@ -14,6 +24,26 @@ hex_lat(globe, lat = "lat")
 hex_lon(globe, lon = "lng")
 
 hex_weight(globe, weight = 1L)
+
+hex_label(globe, label)
+
+hex_resolution(globe, resolution = 4L)
+
+hex_margin(globe, margin = 0.2)
+
+hex_cap_color(globe, color = constant("#ffffaa"))
+
+hex_side_color(globe, color = constant("#ffffaa"))
+
+hex_merge(globe, merge = TRUE)
+
+hex_transition(globe, transition = 1000L)
+
+hex_on_click(globe, func)
+
+hex_on_right_click(globe, func)
+
+hex_on_hover(globe, func)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
@@ -24,19 +54,25 @@ as returned by \code{\link{globeProxy}}.}
 
 \item{lat, lon}{Column names or numeric value indicating coordinates.}
 
-\item{color}{Column name or character vector indicating color of points.}
+\item{weight}{Column name or JavaScript function defining height of hex.}
 
 \item{label}{Column name or constant of label.}
-
-\item{altitude}{Column name or character vector indicating altitude of points 
-in terms of globe radius units (0 = 0 altitude (flat circle), 1 = globe radius).}
-
-\item{radius}{Column name of radius a numeric constant for the cylinder's 
-radius, in angular degrees.}
 
 \item{resolution}{Numeric value defining the geometric resolution of each 
 cylinder, expressed in how many slice segments to divide the circumference. 
 Higher values yield smoother cylinders.}
+
+\item{margin}{The radial margin of each hexagon. 
+Margins above 0 will create gaps between adjacent hexagons and serve only 
+a visual purpose, as the data points within the margin still contribute to 
+the hexagon's data. The margin is specified in terms of fraction of the 
+hexagon's surface diameter. Values below 0 or above 1 are disadvised. This 
+property also supports using an accessor method based on the hexagon's 
+aggregated data, following the syntax: 
+\code{htmlwidgets::JS('hexMargin(({ points, sumWeight, center: { lat, lng }}) => ...)')}. 
+This method should return a numeric constant.}
+
+\item{color}{Column name or character vector indicating color of points.}
 
 \item{merge}{Whether to merge all the point meshes 
 into a single ThreeJS object, for improved rendering performance. 

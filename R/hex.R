@@ -141,10 +141,16 @@ globe_hex.globeProxy <- function(globe, ..., data = NULL, inherit_coords = FALSE
 #' @param lat,lon Column names or numeric value indicating coordinates.
 #' @param color Column name or character vector indicating color of points.
 #' @param label Column name or constant of label.
-#' @param altitude Column name or character vector indicating altitude of points 
-#' in terms of globe radius units (0 = 0 altitude (flat circle), 1 = globe radius).
-#' @param radius Column name of radius a numeric constant for the cylinder's 
-#' radius, in angular degrees.
+#' @param weight Column name or JavaScript function defining height of hex.
+#' @param margin The radial margin of each hexagon. 
+#' Margins above 0 will create gaps between adjacent hexagons and serve only 
+#' a visual purpose, as the data points within the margin still contribute to 
+#' the hexagon's data. The margin is specified in terms of fraction of the 
+#' hexagon's surface diameter. Values below 0 or above 1 are disadvised. This 
+#' property also supports using an accessor method based on the hexagon's 
+#' aggregated data, following the syntax: 
+#' \code{htmlwidgets::JS('hexMargin(({ points, sumWeight, center: { lat, lng }}) => ...)')}. 
+#' This method should return a numeric constant.
 #' @param resolution Numeric value defining the geometric resolution of each 
 #' cylinder, expressed in how many slice segments to divide the circumference. 
 #' Higher values yield smoother cylinders.
@@ -247,5 +253,213 @@ hex_weight.globeProxy <- function(globe, weight = 1L){
   msg <- list(id = globe$id)
   msg$hexBinPointWeight <- weight
   globe$session$sendCustomMessage("hex_weight", msg)
+  return(globe)
+} 
+
+#' @rdname hex_data
+#' @export
+hex_label <- function(globe, label) UseMethod("hex_label")
+
+#' @export
+#' @method hex_label globe
+hex_label.globe <- function(globe, label){
+  assert_that(not_missing(label))
+  globe$x$hexLabel <- label
+  return(globe)
+}
+
+#' @export
+#' @method hex_label globeProxy
+hex_label.globeProxy <- function(globe, label){
+  assert_that(not_missing(label))
+  msg <- list(id = globe$id)
+  msg$hexLabel <- label
+  globe$session$sendCustomMessage("hex_label", msg)
+  return(globe)
+} 
+
+#' @rdname hex_data
+#' @export
+hex_resolution <- function(globe, resolution = 4L) UseMethod("hex_resolution")
+
+#' @export
+#' @method hex_resolution globe
+hex_resolution.globe <- function(globe, resolution = 4L){
+  globe$x$hexBinResolution <- resolution
+  return(globe)
+}
+
+#' @export
+#' @method hex_resolution globeProxy
+hex_resolution.globeProxy <- function(globe, resolution = 4L){
+  msg <- list(id = globe$id)
+  msg$hexBinResolution <- resolution
+  globe$session$sendCustomMessage("hex_resolution", msg)
+  return(globe)
+} 
+
+#' @rdname hex_data
+#' @export
+hex_margin <- function(globe, margin = .2) UseMethod("hex_margin")
+
+#' @export
+#' @method hex_margin globe
+hex_margin.globe <- function(globe, margin = .2){
+  globe$x$hexMargin <- margin
+  return(globe)
+}
+
+#' @export
+#' @method hex_margin globeProxy
+hex_margin.globeProxy <- function(globe, margin = .2){
+  msg <- list(id = globe$id)
+  msg$hexMargin <- margin
+  globe$session$sendCustomMessage("hex_margin", msg)
+  return(globe)
+} 
+
+#' @rdname hex_data
+#' @export
+hex_cap_color <- function(globe, color = constant("#ffffaa")) UseMethod("hex_cap_color")
+
+#' @export
+#' @method hex_cap_color globe
+hex_cap_color.globe <- function(globe, color = constant("#ffffaa")){
+  globe$x$hexTopColor <- color
+  return(globe)
+}
+
+#' @export
+#' @method hex_cap_color globeProxy
+hex_cap_color.globeProxy <- function(globe, color = constant("#ffffaa")){
+  msg <- list(id = globe$id)
+  msg$hexTopColor <- color
+  globe$session$sendCustomMessage("hex_cap_color", msg)
+  return(globe)
+} 
+
+#' @rdname hex_data
+#' @export
+hex_side_color <- function(globe, color = constant("#ffffaa")) UseMethod("hex_side_color")
+
+#' @export
+#' @method hex_side_color globe
+hex_side_color.globe <- function(globe, color = constant("#ffffaa")){
+  globe$x$hexSideColor <- color
+  return(globe)
+}
+
+#' @export
+#' @method hex_side_color globeProxy
+hex_side_color.globeProxy <- function(globe, color = constant("#ffffaa")){
+  msg <- list(id = globe$id)
+  msg$hexSideColor <- color
+  globe$session$sendCustomMessage("hex_side_color", msg)
+  return(globe)
+} 
+
+#' @rdname hex_data
+#' @export
+hex_merge <- function(globe, merge = TRUE) UseMethod("hex_merge")
+
+#' @export
+#' @method hex_merge globe
+hex_merge.globe <- function(globe, merge = TRUE){
+  globe$x$hexBinMerge <- merge
+  return(globe)
+}
+
+#' @export
+#' @method hex_merge globeProxy
+hex_merge.globeProxy <- function(globe, merge = TRUE){
+  msg <- list(id = globe$id)
+  msg$hexBinMerge <- merge
+  globe$session$sendCustomMessage("hex_merge", msg)
+  return(globe)
+}
+
+#' @rdname hex_data
+#' @export
+hex_transition <- function(globe, transition = 1000L) UseMethod("hex_transition")
+
+#' @export
+#' @method hex_transition globe
+hex_transition.globe <- function(globe, transition = 1000L){
+  globe$x$hexTransitionDuration <- transition
+  return(globe)
+}
+
+#' @export
+#' @method hex_transition globeProxy
+hex_transition.globeProxy <- function(globe, transition = 1000L){
+  msg <- list(id = globe$id)
+  msg$hexTransitionDuration <- transition
+  globe$session$sendCustomMessage("hex_transition", msg)
+  return(globe)
+}
+
+#' @rdname hex_data
+#' @export
+hex_on_click <- function(globe, func) UseMethod("hex_on_click")
+
+#' @export
+#' @method hex_on_click globe
+hex_on_click.globe <- function(globe, func){
+  assert_that(not_missing(func))
+  globe$x$onPointClick <- htmlwidgets::JS(func)
+  return(globe)
+}
+
+#' @export
+#' @method hex_on_click globeProxy
+hex_on_click.globeProxy <- function(globe, func){
+  assert_that(not_missing(func))
+  msg <- list(id = globe$id)
+  msg$onPointClick <- htmlwidgets::JS(func)
+  globe$session$sendCustomMessage("points_on_click", msg)
+  return(globe)
+} 
+
+#' @rdname hex_data
+#' @export
+hex_on_right_click <- function(globe, func) UseMethod("hex_on_right_click")
+
+#' @export
+#' @method hex_on_right_click globe
+hex_on_right_click.globe <- function(globe, func){
+  assert_that(not_missing(func))
+  globe$x$onPointRightClick <- htmlwidgets::JS(func)
+  return(globe)
+}
+
+#' @export
+#' @method hex_on_right_click globeProxy
+hex_on_right_click.globeProxy <- function(globe, func){
+  assert_that(not_missing(func))
+  msg <- list(id = globe$id)
+  msg$onPointRightClick <- htmlwidgets::JS(func)
+  globe$session$sendCustomMessage("hex_on_right_click", msg)
+  return(globe)
+} 
+
+#' @rdname hex_data
+#' @export
+hex_on_hover <- function(globe, func) UseMethod("hex_on_hover")
+
+#' @export
+#' @method hex_on_hover globe
+hex_on_hover.globe <- function(globe, func){
+  assert_that(not_missing(func))
+  globe$x$onPointHover <- htmlwidgets::JS(func)
+  return(globe)
+}
+
+#' @export
+#' @method hex_on_hover globeProxy
+hex_on_hover.globeProxy <- function(globe, func){
+  assert_that(not_missing(func))
+  msg <- list(id = globe$id)
+  msg$onPointHover <- htmlwidgets::JS(func)
+  globe$session$sendCustomMessage("hex_on_hover", msg)
   return(globe)
 } 

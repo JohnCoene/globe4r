@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Scale Altitude — scaling_altitude • globe4r</title>
+<title>Hex Raw API — hex_data • globe4r</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,9 +42,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Scale Altitude — scaling_altitude" />
-<meta property="og:description" content="Rescale altitude to a more appropriate range, where 0 if flat
-and 1 is the globe radius." />
+<meta property="og:title" content="Hex Raw API — hex_data" />
+<meta property="og:description" content="Functional API to add and customise hex on globe." />
 <meta property="og:image" content="https://globe4r.john-coene.com/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -151,25 +150,42 @@ and 1 is the globe radius." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Scale Altitude</h1>
+    <h1>Hex Raw API</h1>
     
-    <div class="hidden name"><code>scaling_altitude.Rd</code></div>
+    <div class="hidden name"><code>hex_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Rescale altitude to a more appropriate range, where 0 if flat
-and 1 is the globe radius.</p>
+    <p>Functional API to add and customise hex on globe.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_bars_altitude</span>(<span class='no'>globe</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
+    <pre class="usage"><span class='fu'>hex_data</span>(<span class='no'>globe</span>, <span class='no'>data</span>)
 
-<span class='fu'>scale_arcs_altitude</span>(<span class='no'>globe</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
+<span class='fu'>hex_lat</span>(<span class='no'>globe</span>, <span class='kw'>lat</span> <span class='kw'>=</span> <span class='st'>"lat"</span>)
 
-<span class='fu'>scale_labels_altitude</span>(<span class='no'>globe</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
+<span class='fu'>hex_lon</span>(<span class='no'>globe</span>, <span class='kw'>lon</span> <span class='kw'>=</span> <span class='st'>"lng"</span>)
 
-<span class='fu'>scale_choropleth_altitude</span>(<span class='no'>globe</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
+<span class='fu'>hex_weight</span>(<span class='no'>globe</span>, <span class='kw'>weight</span> <span class='kw'>=</span> <span class='fl'>1L</span>)
 
-<span class='fu'>scale_hex_altitude</span>(<span class='no'>globe</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</pre>
+<span class='fu'>hex_label</span>(<span class='no'>globe</span>, <span class='no'>label</span>)
+
+<span class='fu'>hex_resolution</span>(<span class='no'>globe</span>, <span class='kw'>resolution</span> <span class='kw'>=</span> <span class='fl'>4L</span>)
+
+<span class='fu'>hex_margin</span>(<span class='no'>globe</span>, <span class='kw'>margin</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)
+
+<span class='fu'>hex_cap_color</span>(<span class='no'>globe</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='constant.html'>constant</a></span>(<span class='st'>"#ffffaa"</span>))
+
+<span class='fu'>hex_side_color</span>(<span class='no'>globe</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='constant.html'>constant</a></span>(<span class='st'>"#ffffaa"</span>))
+
+<span class='fu'>hex_merge</span>(<span class='no'>globe</span>, <span class='kw'>merge</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'>hex_transition</span>(<span class='no'>globe</span>, <span class='kw'>transition</span> <span class='kw'>=</span> <span class='fl'>1000L</span>)
+
+<span class='fu'>hex_on_click</span>(<span class='no'>globe</span>, <span class='no'>func</span>)
+
+<span class='fu'>hex_on_right_click</span>(<span class='no'>globe</span>, <span class='no'>func</span>)
+
+<span class='fu'>hex_on_hover</span>(<span class='no'>globe</span>, <span class='no'>func</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -181,19 +197,72 @@ and 1 is the globe radius.</p>
 as returned by <code><a href='globe-shiny.html'>globeProxy</a></code>.</p></td>
     </tr>
     <tr>
-      <th>min, max</th>
-      <td><p>Target minimum and maximum values of altitude.</p></td>
+      <th>data</th>
+      <td><p>A data.frame of points to draw.</p></td>
+    </tr>
+    <tr>
+      <th>lat, lon</th>
+      <td><p>Column names or numeric value indicating coordinates.</p></td>
+    </tr>
+    <tr>
+      <th>weight</th>
+      <td><p>Column name or JavaScript function defining height of hex.</p></td>
+    </tr>
+    <tr>
+      <th>label</th>
+      <td><p>Column name or constant of label.</p></td>
+    </tr>
+    <tr>
+      <th>resolution</th>
+      <td><p>Numeric value defining the geometric resolution of each 
+cylinder, expressed in how many slice segments to divide the circumference. 
+Higher values yield smoother cylinders.</p></td>
+    </tr>
+    <tr>
+      <th>margin</th>
+      <td><p>The radial margin of each hexagon. 
+Margins above 0 will create gaps between adjacent hexagons and serve only 
+a visual purpose, as the data points within the margin still contribute to 
+the hexagon's data. The margin is specified in terms of fraction of the 
+hexagon's surface diameter. Values below 0 or above 1 are disadvised. This 
+property also supports using an accessor method based on the hexagon's 
+aggregated data, following the syntax: 
+<code><a href='https://www.rdocumentation.org/packages/htmlwidgets/topics/JS'>htmlwidgets::JS('hexMargin(({ points, sumWeight, center: { lat, lng }}) =&gt; ...)')</a></code>. 
+This method should return a numeric constant.</p></td>
+    </tr>
+    <tr>
+      <th>color</th>
+      <td><p>Column name or character vector indicating color of points.</p></td>
+    </tr>
+    <tr>
+      <th>merge</th>
+      <td><p>Whether to merge all the point meshes 
+into a single ThreeJS object, for improved rendering performance. 
+Visually both options are equivalent, setting this option only affects 
+the internal organization of the ThreeJS objects.</p></td>
+    </tr>
+    <tr>
+      <th>transition</th>
+      <td><p>Duration (ms) of the transition 
+to animate point changes involving geometry modifications. A value of 
+<code>0</code> will move the objects immediately to their final position. 
+New objects are animated by scaling them from the ground up. Only works 
+if <code>merge</code> is disabled.</p></td>
+    </tr>
+    <tr>
+      <th>func</th>
+      <td><p>JavaScript function as character vector.</p></td>
     </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># basic</span>
+    <pre class="examples"><div class='input'><span class='co'># use data</span>
 <span class='fu'><a href='create_globe.html'>create_globe</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='globe_img.html'>globe_img_url</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='globe_pov.html'>globe_pov</a></span>(-<span class='fl'>21</span>, <span class='fl'>179</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='globe_bars.html'>globe_bars</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>quakes</span>, <span class='fu'><a href='coords.html'>coords</a></span>(<span class='no'>lat</span>, <span class='no'>long</span>, <span class='kw'>altitude</span> <span class='kw'>=</span> <span class='no'>mag</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'>scale_bars_altitude</span>()</div></pre>
+  <span class='fu'>hex_data</span>(<span class='no'>quakes</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>hex_lat</span>(<span class='st'>"lat"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>hex_lon</span>(<span class='st'>"long"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>hex_weight</span>(<span class='st'>"mag"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

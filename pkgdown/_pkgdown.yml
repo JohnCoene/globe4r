@@ -39,10 +39,15 @@ reference:
       - globe_labels
       - globe_arcs
       - globe_choropleth
+      - globe_hex
   - title: "Arcs"
     desc: "Add and customise arcs."
     contents: 
       - starts_with("arcs")
+  - title: "Hex"
+    desc: "Bin data into hexagons."
+    contents: 
+      - starts_with("hex")
   - title: "Bars"
     desc: "Add and customise bars."
     contents: 
@@ -64,6 +69,10 @@ reference:
   - title: "Options"
     desc: "Customise the globe."
     contents: 
+      - shared_background
+      - globe_pov
+      - constant
+      - coords
       - animation
       - atmosphere
       - container

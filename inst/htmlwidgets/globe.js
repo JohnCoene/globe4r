@@ -858,6 +858,94 @@ if (HTMLWidgets.shinyMode) {
       }
   });
 
+  Shiny.addCustomMessageHandler('hex_label',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.hexLabel(data.hexLabel);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('hex_resolution',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.hexBinResolution(data.hexBinResolution);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('hex_margin',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.hexMargin(data.hexMargin);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('hex_cap_color',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.hexTopColor(data.hexTopColor);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('hex_side_color',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.hexSideColor(data.hexSideColor);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('hex_merge',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.hexBinMerge(data.hexBinMerge);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('hex_merge',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.hexTransitionDuration(data.hexTransitionDuration);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('hex_transition',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.hexTransitionDuration(data.hexTransitionDuration);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('hex_on_click',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.onHexClick(data.onHexClick);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('hex_on_right_click',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.onHexRightClick(data.onHexRightClick);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('hex_on_hover',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.onHexHover(data.onHexHover);
+      }
+  });
+
   Shiny.addCustomMessageHandler('globe_hex',
     function(data) {
       var globe = get_globe(data.id);

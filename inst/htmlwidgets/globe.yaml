@@ -3,3 +3,7 @@ dependencies:
    version: 1.5.11
    src: htmlwidgets/lib/globe
    script: globe.gl.min.js
+ - name: chroma
+   version: 2.0.6
+   src: htmlwidgets/lib/chroma
+   script: chroma.min.js
