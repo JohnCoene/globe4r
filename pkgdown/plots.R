@@ -10,10 +10,7 @@ library(htmltools)
 create_globe(height = "100vh") %>% 
   globe_pov(-21, 179) %>% 
   globe_hex(
-    coords(
-      lat, long, 
-      weight = mag
-    ), 
+    coords(lat, long), 
     data = quakes
   ) %>%  
   htmlwidgets::saveWidget(file = "hex.html")

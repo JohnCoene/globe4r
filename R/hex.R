@@ -131,3 +131,121 @@ globe_hex.globeProxy <- function(globe, ..., data = NULL, inherit_coords = FALSE
   return(globe)
 
 }
+
+
+#' Hex Raw API
+#' 
+#' Functional API to add and customise hex on globe.
+#' 
+#' @inheritParams globe_hex
+#' @param lat,lon Column names or numeric value indicating coordinates.
+#' @param color Column name or character vector indicating color of points.
+#' @param label Column name or constant of label.
+#' @param altitude Column name or character vector indicating altitude of points 
+#' in terms of globe radius units (0 = 0 altitude (flat circle), 1 = globe radius).
+#' @param radius Column name of radius a numeric constant for the cylinder's 
+#' radius, in angular degrees.
+#' @param resolution Numeric value defining the geometric resolution of each 
+#' cylinder, expressed in how many slice segments to divide the circumference. 
+#' Higher values yield smoother cylinders.
+#' @param merge Whether to merge all the point meshes 
+#' into a single ThreeJS object, for improved rendering performance. 
+#' Visually both options are equivalent, setting this option only affects 
+#' the internal organization of the ThreeJS objects.
+#' @param transition Duration (ms) of the transition 
+#' to animate point changes involving geometry modifications. A value of 
+#' \code{0} will move the objects immediately to their final position. 
+#' New objects are animated by scaling them from the ground up. Only works 
+#' if \code{merge} is disabled.
+#' @param func JavaScript function as character vector.
+#' 
+#' @examples
+#' # use data
+#' create_globe() %>% 
+#'   hex_data(quakes) %>% 
+#'   hex_lat("lat") %>% 
+#'   hex_lon("long") %>% 
+#'   hex_weight("mag")
+#' 
+#' @name hex_data
+#' @export
+hex_data <- function(globe, data) UseMethod("hex_data")
+
+#' @export
+#' @method hex_data globe
+hex_data.globe <- function(globe, data){
+  assert_that(not_missing(data))
+  globe$x$hexBinPointsData <- data
+  return(globe)
+}
+
+#' @export
+#' @method hex_data globeProxy
+hex_data.globeProxy <- function(globe, data){
+  assert_that(not_missing(data))
+  msg <- list(id = globe$id)
+  msg$hexBinPointsData <- apply(data, 1, as.list)
+  globe$session$sendCustomMessage("hex_data", msg)
+  return(globe)
+} 
+
+#' @rdname hex_data
+#' @export
+hex_lat <- function(globe, lat = "lat") UseMethod("hex_lat")
+
+#' @export
+#' @method hex_lat globe
+hex_lat.globe <- function(globe, lat = "lat"){
+  assert_that(not_missing(lat))
+  globe$x$hexBinPointLat <- lat
+  return(globe)
+}
+
+#' @export
+#' @method hex_lat globeProxy
+hex_lat.globeProxy <- function(globe, lat = "lat"){
+  msg <- list(id = globe$id)
+  msg$hexBinPointLat <- lat
+  globe$session$sendCustomMessage("hex_lat", msg)
+  return(globe)
+} 
+
+#' @rdname hex_data
+#' @export
+hex_lon <- function(globe, lon = "lng") UseMethod("hex_lon")
+
+#' @export
+#' @method hex_lon globe
+hex_lon.globe <- function(globe, lon = "lng"){
+  globe$x$hexBinPointLng <- lon
+  return(globe)
+}
+
+#' @export
+#' @method hex_lon globeProxy
+hex_lon.globeProxy <- function(globe, lon = "lng"){
+  msg <- list(id = globe$id)
+  msg$hexBinPointLng <- lon
+  globe$session$sendCustomMessage("hex_lon", msg)
+  return(globe)
+} 
+
+#' @rdname hex_data
+#' @export
+hex_weight <- function(globe, weight = 1L) UseMethod("hex_weight")
+
+#' @export
+#' @method hex_weight globe
+hex_weight.globe <- function(globe, weight = 1L){
+  globe$x$hexBinPointWeight <- weight
+  return(globe)
+}
+
+#' @export
+#' @method hex_weight globeProxy
+hex_weight.globeProxy <- function(globe, weight = 1L){
+  msg <- list(id = globe$id)
+  msg$hexBinPointWeight <- weight
+  globe$session$sendCustomMessage("hex_weight", msg)
+  return(globe)
+} 

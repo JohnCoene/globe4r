@@ -826,6 +826,75 @@ if (HTMLWidgets.shinyMode) {
       }
   });
 
+  Shiny.addCustomMessageHandler('hex_data',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.hexBinPointsData(data.hexBinPointsData);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('hex_lat',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.hexBinPointLat(data.hexBinPointLat);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('hex_lon',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.hexBinPointLng(data.hexBinPointLng);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('hex_weight',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.hexBinPointWeight(data.hexBinPointWeight);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('globe_hex',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        if(data.hasOwnProperty("hexBinPointsData"))
+          globe.hexBinPointsData(data.hexBinPointsData);
+        if(data.hasOwnProperty("hexLabel"))
+          globe.hexLabel(data.hexLabel);
+        if(data.hasOwnProperty("hexBinPointLat"))
+          globe.hexBinPointLat(data.hexBinPointLat);
+        if(data.hasOwnProperty("hexBinPointLng"))
+          globe.hexBinPointLng(data.hexBinPointLng);
+        if(data.hasOwnProperty("hexBinPointWeight"))
+          globe.hexBinPointWeight(data.hexBinPointWeight);
+        if(data.hasOwnProperty("hexBinResolution"))
+          globe.hexBinResolution(data.hexBinResolution);
+        if(data.hasOwnProperty("hexMargin"))
+          globe.hexMargin(data.hexMargin);
+        if(data.hasOwnProperty("hexAltitude"))
+          globe.hexAltitude(data.hexAltitude);
+        if(data.hasOwnProperty("hexTopColor"))
+          globe.hexTopColor(data.hexTopColor);
+        if(data.hasOwnProperty("hexSideColor"))
+          globe.hexSideColor(data.hexSideColor);
+        if(data.hasOwnProperty("hexBinMerge"))
+          globe.hexBinMerge(data.hexBinMerge);
+        if(data.hasOwnProperty("hexTransitionDuration"))
+          globe.hexTransitionDuration(data.hexTransitionDuration);
+        if(data.hasOwnProperty("onHexClick"))
+          globe.onHexClick(data.onHexClick);
+        if(data.hasOwnProperty("onHexRightClick"))
+          globe.onHexRightClick(data.onHexRightClick);
+        if(data.hasOwnProperty("onHexHover"))
+          globe.onHexHover(data.onHexHover); 
+      }
+  });
+
   Shiny.addCustomMessageHandler('globe_points',
     function(data) {
       var globe = get_globe(data.id);
