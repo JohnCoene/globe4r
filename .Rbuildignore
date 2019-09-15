@@ -14,3 +14,4 @@ arcs.html
 bars.html
 labels.html
 choropleth.html
+^\.travis\.yml$

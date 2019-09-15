@@ -326,14 +326,14 @@ scale_labels_size.globe <- function(globe, min = .1, max = 1){
 #' @inheritParams globe_img
 #' @param min,max Target minimum and maximum values of pixels.
 #' 
-#' @name scaling_hex_weight
+#' @name scale_hex_weight
 #' @export
-scaling_hex_weight <- function(globe, min = .1, max = 1) UseMethod("scaling_hex_weight")
+scale_hex_weight <- function(globe, min = .1, max = 1) UseMethod("scale_hex_weight")
 
 #' @export
-#' @method scale_arc_stroke globe 
-scaling_hex_weight.globe <- function(globe, min = .1, max = 1){
-  assert_that(length(globe$x$hexBinPointWeight) >= 1, msg = "No `stroke` specified.")
+#' @method scale_hex_weight globe 
+scale_hex_weight.globe <- function(globe, min = .1, max = 1){
+  assert_that(length(globe$x$hexBinPointWeight) >= 1, msg = "No `weight` specified.")
   globe$x$hexBinPointsData$GLOBE4Rweight <- scales::rescale(globe$x$hexBinPointsData[[globe$x$hexBinPointWeight]], to = c(min, max))
   globe$x$arcStroke <- "GLOBE4Rweight"
   return(globe)

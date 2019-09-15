@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 ```
 
 <!-- badges: start -->
+[![Travis build status](https://travis-ci.org/JohnCoene/globe4r.svg?branch=master)](https://travis-ci.org/JohnCoene/globe4r)
 <!-- badges: end -->
 
 # globe4r

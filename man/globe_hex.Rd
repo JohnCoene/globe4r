@@ -25,10 +25,45 @@ from \code{\link{create_globe}}. Only applies to method applied to object of cla
 \description{
 Add hexbin to a globe.
 }
+\section{Coordinates}{
+
+Valid coordinates (depending on layer).
+\itemize{
+  \item{\code{lat}, \code{lon}},
+  \item{\code{altitude}}
+  \item{\code{margin}}
+  \item{\code{weight}}
+  \item{\code{resolution}}
+  \item{\code{merge}}
+  \item{\code{transition}}
+}
+}
+
 \examples{
 # basic
 create_globe() \%>\% 
   globe_pov(-21, 179) \%>\% 
   globe_hex(coords(lat, long, altitude = mag, label = stations), data = quakes)
+
+library(shiny)
+
+ui <- fluidPage(
+  actionButton("add", "Add hex"),
+  globeOutput("globe")
+)
+
+server <- function(input, output){
+  output$globe <- renderGlobe({
+    create_globe() 
+  })
+
+  observeEvent(input$add, {
+    globeProxy("globe") \%>\% 
+      globe_hex(coords(lat, long, weight = mag), data = quakes) \%>\% 
+      globe_pov(-21, 179)
+  })
+}
+
+\dontrun{shinyApp(ui, server)}
 
 }

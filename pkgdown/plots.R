@@ -3,21 +3,19 @@ library(globe4r)
 library(htmltools)
 # shared_background("#060606")
 
+
+
 # viz
-# bars
+# hex
 create_globe(height = "100vh") %>% 
+  globe_pov(-21, 179) %>% 
   globe_hex(
     coords(
-      lat, lon, 
-      weight = value,
-      color = value,
-      cap_color = value
+      lat, long, 
+      weight = mag
     ), 
-    data = population
-  ) %>% 
-  globe_rotate(1L) %>% 
-  scale_hex_cap_color() %>% 
-  scale_hex_altitude() %>% 
+    data = quakes
+  ) %>%  
   htmlwidgets::saveWidget(file = "hex.html")
 
 # polygons
