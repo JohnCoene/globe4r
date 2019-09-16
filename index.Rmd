@@ -107,7 +107,7 @@ div(
   ),
   div(class = "col-md-4",
     tags$a(
-      "Acs",
+      "Arcs",
       class = "btn btn-default",
       href = "arcs.html",
       target = "_blank",
