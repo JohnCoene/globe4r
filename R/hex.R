@@ -26,7 +26,9 @@
 #' # basic
 #' create_globe() %>% 
 #'   globe_pov(-21, 179) %>% 
-#'   globe_hex(coords(lat, long, altitude = mag, label = stations), data = quakes)
+#'   globe_hex(coords(lat, long, weight = 1L), data = quakes) %>% 
+#'   scale_hex_side_color(max = 5) %>% 
+#'   scale_hex_cap_color(max = 5)
 #' 
 #' library(shiny)
 #' 
@@ -171,7 +173,7 @@ globe_hex.globeProxy <- function(globe, ..., data = NULL, inherit_coords = FALSE
 #'   hex_data(quakes) %>% 
 #'   hex_lat("lat") %>% 
 #'   hex_lon("long") %>% 
-#'   hex_weight("mag")
+#'   hex_weight(1L)
 #' 
 #' @name hex_data
 #' @export

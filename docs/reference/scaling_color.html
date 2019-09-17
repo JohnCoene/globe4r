@@ -168,6 +168,12 @@
 <span class='fu'>scale_choropleth_cap_color</span>(<span class='no'>globe</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"#2c7fb8"</span>, <span class='st'>"#7fcdbb"</span>,
   <span class='st'>"#edf8b1"</span>))
 
+<span class='fu'>scale_hex_cap_color</span>(<span class='no'>globe</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"#2c7fb8"</span>, <span class='st'>"#7fcdbb"</span>, <span class='st'>"#edf8b1"</span>),
+  <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>100</span>)
+
+<span class='fu'>scale_hex_side_color</span>(<span class='no'>globe</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"#2c7fb8"</span>, <span class='st'>"#7fcdbb"</span>, <span class='st'>"#edf8b1"</span>),
+  <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>100</span>)
+
 <span class='fu'>scale_choropleth_side_color</span>(<span class='no'>globe</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"#2c7fb8"</span>, <span class='st'>"#7fcdbb"</span>,
   <span class='st'>"#edf8b1"</span>))</pre>
 
@@ -183,6 +189,10 @@ as returned by <code><a href='globe-shiny.html'>globeProxy</a></code>.</p></td>
     <tr>
       <th>palette</th>
       <td><p>A vector of colors.</p></td>
+    </tr>
+    <tr>
+      <th>min, max</th>
+      <td><p>Domain to scale color with <a href='https://gka.github.io/chroma.js/'>Chroma.js</a>.</p></td>
     </tr>
     </table>
 

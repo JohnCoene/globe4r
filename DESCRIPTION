@@ -18,6 +18,7 @@ Imports:
     crayon,
     scales,
     magrittr,
+    jsonlite,
     assertthat,
     htmlwidgets
 RoxygenNote: 6.1.1

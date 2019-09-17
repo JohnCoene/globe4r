@@ -6,6 +6,8 @@
 \alias{scale_arc_color}
 \alias{scale_labels_color}
 \alias{scale_choropleth_cap_color}
+\alias{scale_hex_cap_color}
+\alias{scale_hex_side_color}
 \alias{scale_choropleth_side_color}
 \title{Scale Colour}
 \usage{
@@ -18,6 +20,12 @@ scale_labels_color(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"))
 scale_choropleth_cap_color(globe, palette = c("#2c7fb8", "#7fcdbb",
   "#edf8b1"))
 
+scale_hex_cap_color(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"),
+  min = 0, max = 100)
+
+scale_hex_side_color(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"),
+  min = 0, max = 100)
+
 scale_choropleth_side_color(globe, palette = c("#2c7fb8", "#7fcdbb",
   "#edf8b1"))
 }
@@ -27,6 +35,8 @@ scale_choropleth_side_color(globe, palette = c("#2c7fb8", "#7fcdbb",
 as returned by \code{\link{globeProxy}}.}
 
 \item{palette}{A vector of colors.}
+
+\item{min, max}{Domain to scale color with \href{https://gka.github.io/chroma.js/}{Chroma.js}.}
 }
 \description{
 Pass a numeric value as color and use this function

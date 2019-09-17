@@ -33,6 +33,7 @@ constant <- function(x){
 #' 
 #' @inheritParams globe_img
 #' @param palette A vector of colors.
+#' @param min,max Domain to scale color with \href{https://gka.github.io/chroma.js/}{Chroma.js}.
 #' 
 #' @examples
 #' # basic
@@ -105,6 +106,44 @@ scale_choropleth_cap_color.globe <- function(globe, palette = c("#2c7fb8", "#7fc
   globe$x$polygonCapColor <- "GLOBE4RcapColor"
 
   return(globe)
+}
+
+#' @rdname scaling_color
+#' @export
+scale_hex_cap_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"), min = 0, max = 100) UseMethod("scale_hex_cap_color") 
+
+#' @export
+#' @method scale_hex_cap_color globe
+scale_hex_cap_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"), min = 0, max = 100){
+  palette <- jsonlite::toJSON(palette)
+  domain <- jsonlite::toJSON(c(min, max))
+  color_scale <- htmlwidgets::JS(
+    "function(d){
+      fnc = chroma.scale(", palette, ").domain(", domain, ");
+      return fnc(d.sumWeight).hex();
+    }"
+  )  
+
+  hex_cap_color(globe, color_scale)
+}
+
+#' @rdname scaling_color
+#' @export
+scale_hex_side_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"), min = 0, max = 100) UseMethod("scale_hex_side_color") 
+
+#' @export
+#' @method scale_hex_side_color globe
+scale_hex_side_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"), min = 0, max = 100){
+  palette <- jsonlite::toJSON(palette)
+  domain <- jsonlite::toJSON(c(min, max))
+  color_scale <- htmlwidgets::JS(
+    "function(d){
+      fnc = chroma.scale(", palette, ").domain(", domain, ");
+      return fnc(d.sumWeight).hex();
+    }"
+  )  
+
+  hex_side_color(globe, color_scale)
 }
 
 #' @rdname scaling_color

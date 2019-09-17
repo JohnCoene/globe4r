@@ -96,6 +96,6 @@ create_globe() \%>\%
   hex_data(quakes) \%>\% 
   hex_lat("lat") \%>\% 
   hex_lon("long") \%>\% 
-  hex_weight("mag")
+  hex_weight(1L)
 
 }
