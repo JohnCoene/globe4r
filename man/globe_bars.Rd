@@ -20,7 +20,8 @@ as returned by \code{\link{globeProxy}}.}
 from \code{\link{create_globe}}. Only applies to method applied to object of class
 \code{globe4r} not on objects of class \code{globeProxy}.}
 
-\item{on_click, on_right_click, on_hover}{JavaScript functions as strings.}
+\item{on_click, on_right_click, on_hover}{JavaScript functions as \link[htmlwidgets]{JS} 
+or \code{TRUE} to pick up the event from Shiny server side, see example.}
 }
 \description{
 Add bars to a globe.
@@ -51,7 +52,8 @@ library(shiny)
 
 ui <- fluidPage(
   actionButton("add", "Add points"),
-  globeOutput("globe")
+  globeOutput("globe"),
+  verbatimTextOutput("clicked")
 )
 
 server <- function(input, output){
@@ -61,8 +63,12 @@ server <- function(input, output){
 
   observeEvent(input$add, {
     globeProxy("globe") \%>\% 
-      globe_bars(coords(lat, long), data = quakes) \%>\% 
+      globe_bars(coords(lat, long), data = quakes, on_click = TRUE) \%>\% 
       globe_pov(-21, 179)
+  })
+
+  output$clicked <- renderPrint({
+    input$globe_click_bar
   })
 }
 

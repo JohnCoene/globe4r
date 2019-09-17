@@ -16,7 +16,7 @@ Visit the [website](https://globe4r.john-coene.com) for more details.
 2.  arcs
 3.  polygons
 4.  points
-5.  Hex bin
+5.  hex bin
 
 Visit the website for the [full list of functions](https://globe4r.john-coene.com/reference/)
 

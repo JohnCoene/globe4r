@@ -118,7 +118,10 @@
 
     
     
-<p>In globe4r nearly every function is shiny friendly: the vast majority have a proxy method. Let’s a very create a basic application.</p>
+<div id="proxies" class="section level2">
+<h2 class="hasAnchor">
+<a href="#proxies" class="anchor"></a>Proxies</h2>
+<p>In globe4r nearly every function is shiny friendly: the vast majority have a <em>proxy</em> method. Let’s a very create a basic application.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(shiny)
 
 ui &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/shiny/topics/fluidPage">fluidPage</a></span>(
@@ -184,10 +187,81 @@ server &lt;-<span class="st"> </span><span class="cf">function</span>(input, out
 }
 
 <span class="kw"><a href="https://www.rdocumentation.org/packages/shiny/topics/shinyApp">shinyApp</a></span>(ui, server)</code></pre></div>
+</div>
+<div id="events" class="section level2">
+<h2 class="hasAnchor">
+<a href="#events" class="anchor"></a>Events</h2>
+<p>You can also pick up callback events: how users interacti with you globe visualisation. Every globe layer (hex bin, points, labels, arcs, choropleth), can send data information on element clicked, right clicked, or hovered. These can be accessed in the R server like a normal input which you construct from the <code>id</code> of the globe visualisation you want to watch and the event you want to catch, e.g.: <code>input$myGlobe_click_bar</code>, or <code>input$myOtherGlobe_hover_arc</code>, note that you capture events related to <code>globe_chorpleth</code> with <code>*_polygon</code>, e.g.: <code>input$theGlobeId_right_click_polygon</code>.</p>
+<p>Events:</p>
+<ul>
+<li>Clicked - check whether the element has been clicked (<code>_click_bar</code>, <code>_click_label</code>, <code>_click_polygon</code>, <code>_click_hex</code>, <code>_click_arc</code>).</li>
+<li>Right Clicked - check whether the element has been right clicked (<code>_right_click_bar</code>, <code>_right_click_label</code>, <code>_right_click_polygon</code>, <code>_right_click_hex</code>, <code>_right_click_arc</code>).</li>
+<li>Hovered - check whether the element has been hovered (<code>_hover_bar</code>, <code>_hover_label</code>, <code>_hover_polygon</code>, <code>_hover_hex</code>, <code>_hover_arc</code>).</li>
+</ul>
+<p>Examples, where <code>globeId</code> is the id of the globe.</p>
+<ul>
+<li>
+<code>input$globeId_click_bar</code> will return data on bar clicked by the user.</li>
+<li>
+<code>input$globeId_hover_hex</code> will return data on hex bin hovered.</li>
+<li>
+<code>input$globeId_right_click_polygon</code> will return data on polygon right clicked.</li>
+</ul>
+<p>Let’s demonstrate with a shiny app. Below we have a bog standard shiny application that draws our globe.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(shiny)
+
+ui &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/shiny/topics/fluidPage">fluidPage</a></span>(
+  <span class="kw"><a href="../reference/globe-shiny.html">globeOutput</a></span>(<span class="st">"globe"</span>)
+)
+
+server &lt;-<span class="st"> </span><span class="cf">function</span>(input, output){
+  output<span class="op">$</span>globe &lt;-<span class="st"> </span><span class="kw"><a href="../reference/globe-shiny.html">renderGlobe</a></span>({
+    <span class="kw"><a href="../reference/create_globe.html">create_globe</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">      </span><span class="kw"><a href="../reference/globe_img.html">globe_img_url</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">      </span><span class="kw"><a href="../reference/globe_bars.html">globe_bars</a></span>(<span class="kw"><a href="../reference/coords.html">coords</a></span>(lat, long, <span class="dt">color =</span> mag), <span class="dt">data =</span> quakes, <span class="dt">on_click =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/globe_pov.html">globe_pov</a></span>(<span class="op">-</span><span class="dv">21</span>, <span class="dv">179</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">      </span><span class="kw"><a href="../reference/scaling_color.html">scale_bars_color</a></span>()
+  })
+}
+
+<span class="kw"><a href="https://www.rdocumentation.org/packages/shiny/topics/shinyApp">shinyApp</a></span>(ui, server)</code></pre></div>
+<p>We can now use events to capture which bar the user clicked on.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(shiny)
+
+ui &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/shiny/topics/fluidPage">fluidPage</a></span>(
+  <span class="kw"><a href="../reference/globe-shiny.html">globeOutput</a></span>(<span class="st">"globe"</span>),
+  <span class="kw"><a href="https://www.rdocumentation.org/packages/shiny/topics/verbatimTextOutput">verbatimTextOutput</a></span>(<span class="st">"clicked"</span>)
+)
+
+server &lt;-<span class="st"> </span><span class="cf">function</span>(input, output){
+  output<span class="op">$</span>globe &lt;-<span class="st"> </span><span class="kw"><a href="../reference/globe-shiny.html">renderGlobe</a></span>({
+    <span class="kw"><a href="../reference/create_globe.html">create_globe</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">      </span><span class="kw"><a href="../reference/globe_img.html">globe_img_url</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">      </span><span class="kw"><a href="../reference/globe_bars.html">globe_bars</a></span>(<span class="kw"><a href="../reference/coords.html">coords</a></span>(lat, long, <span class="dt">color =</span> mag), <span class="dt">data =</span> quakes, <span class="dt">on_click =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/globe_pov.html">globe_pov</a></span>(<span class="op">-</span><span class="dv">21</span>, <span class="dv">179</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">      </span><span class="kw"><a href="../reference/scaling_color.html">scale_bars_color</a></span>()
+  })
+
+  output<span class="op">$</span>clicked &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/shiny/topics/renderPrint">renderPrint</a></span>({
+    input<span class="op">$</span>globe_click_bar
+  })
+}
+
+<span class="kw"><a href="https://www.rdocumentation.org/packages/shiny/topics/shinyApp">shinyApp</a></span>(ui, server)</code></pre></div>
+<p>Note that we simply print the information returned by the event but ideally you would do something interesting with it.</p>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
 
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#proxies">Proxies</a></li>
+      <li><a href="#events">Events</a></li>
+      </ul>
+</div>
       </div>
 
 </div>

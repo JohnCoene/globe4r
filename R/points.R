@@ -4,7 +4,8 @@
 #' 
 #' @inheritParams globe_img
 #' @param data A data.frame of points to draw.
-#' @param on_click,on_right_click,on_hover JavaScript functions as strings.
+#' @param on_click,on_right_click,on_hover JavaScript functions as \link[htmlwidgets]{JS} 
+#' or \code{TRUE} to pick up the event from Shiny server side, see example.
 #' @param inherit_coords Whether to inherit the coordinates (\code{\link{coords}})
 #' from \code{\link{create_globe}}. Only applies to method applied to object of class
 #' \code{globe4r} not on objects of class \code{globeProxy}.
@@ -34,7 +35,8 @@
 #' 
 #' ui <- fluidPage(
 #'   actionButton("add", "Add points"),
-#'   globeOutput("globe")
+#'   globeOutput("globe"),
+#'   verbatimTextOutput("clicked")
 #' )
 #' 
 #' server <- function(input, output){
@@ -44,8 +46,12 @@
 #' 
 #'   observeEvent(input$add, {
 #'     globeProxy("globe") %>% 
-#'       globe_bars(coords(lat, long), data = quakes) %>% 
+#'       globe_bars(coords(lat, long), data = quakes, on_click = TRUE) %>% 
 #'       globe_pov(-21, 179)
+#'   })
+#' 
+#'   output$clicked <- renderPrint({
+#'     input$globe_click_bar
 #'   })
 #' }
 #' 
@@ -82,9 +88,9 @@ globe_bars.globe <- function(globe, ..., data = NULL, inherit_coords = TRUE, on_
   globe$x$pointResolution <- coords_to_opts(coords, "resolution")
   globe$x$pointsMerge <- coords_to_opts(coords, "merge")
   globe$x$pointsTransitionDuration <- coords_to_opts(coords, "transition")
-  globe$x$onPointClick <- if(!is.null(on_click)) htmlwidgets::JS(on_click)
-  globe$x$onPointRightClick <- if(!is.null(on_right_click)) htmlwidgets::JS(on_right_click)
-  globe$x$onPointHover <- if(!is.null(on_hover)) htmlwidgets::JS(on_hover)
+  globe$x$onPointClick <- if(!is.null(on_click)) on_click
+  globe$x$onPointRightClick <- if(!is.null(on_right_click)) on_right_click
+  globe$x$onPointHover <- if(!is.null(on_hover)) on_hover
   
   return(globe)
 }
@@ -121,9 +127,9 @@ globe_bars.globeProxy <- function(globe, ..., data = NULL, inherit_coords = FALS
   msg$pointResolution <- coords_to_opts(coords, "resolution")
   msg$pointsMerge <- coords_to_opts(coords, "merge")
   msg$pointsTransitionDuration <- coords_to_opts(coords, "transition")
-  msg$onPointClick <- if(!is.null(on_click)) htmlwidgets::JS(on_click)
-  msg$onPointRightClick <- if(!is.null(on_right_click)) htmlwidgets::JS(on_right_click)
-  msg$onPointHover <- if(!is.null(on_hover)) htmlwidgets::JS(on_hover)
+  msg$onPointClick <- if(!is.null(on_click)) on_click
+  msg$onPointRightClick <- if(!is.null(on_right_click)) on_right_click
+  msg$onPointHover <- if(!is.null(on_hover)) on_hover
   
   globe$session$sendCustomMessage("globe_points", msg)
 

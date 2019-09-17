@@ -20,11 +20,14 @@ as returned by \code{\link{globeProxy}}.}
 from \code{\link{create_globe}}. Only applies to method applied to object of class
 \code{globe4r} not on objects of class \code{globeProxy}.}
 
-\item{on_click}{JavaScript functions as strings.}
+\item{on_click}{JavaScript functions as \link[htmlwidgets]{JS} 
+or \code{TRUE} to pick up the event from Shiny server side, see example.}
 
-\item{on_right_click}{JavaScript functions as strings.}
+\item{on_right_click}{JavaScript functions as \link[htmlwidgets]{JS} 
+or \code{TRUE} to pick up the event from Shiny server side, see example.}
 
-\item{on_hover}{JavaScript functions as strings.}
+\item{on_hover}{JavaScript functions as \link[htmlwidgets]{JS} 
+or \code{TRUE} to pick up the event from Shiny server side, see example.}
 }
 \description{
 Add arcs to a globe.

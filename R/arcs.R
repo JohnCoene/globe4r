@@ -100,9 +100,9 @@ globe_arcs.globe <- function(globe, ..., data = NULL, inherit_coords = TRUE,
   globe$x$arcDashInitialGap <- coords_to_opts(coords, "dash_initial_gap")
   globe$x$arcDashAnimateTime <- coords_to_opts(coords, "dash_animate_time")
   globe$x$arcsTransitionDuration <- coords_to_opts(coords, "transition")
-  globe$x$onArcClick <- if(!is.null(on_click)) htmlwidgets::JS(on_click)
-  globe$x$onArcRightClick <- if(!is.null(on_right_click)) htmlwidgets::JS(on_right_click)
-  globe$x$onArcHover <- if(!is.null(on_hover)) htmlwidgets::JS(on_hover)
+  globe$x$onArcClick <- if(!is.null(on_click)) on_click
+  globe$x$onArcRightClick <- if(!is.null(on_right_click)) on_right_click
+  globe$x$onArcHover <- if(!is.null(on_hover)) on_hover
 
   return(globe)
 }
@@ -142,9 +142,9 @@ globe_arcs.globeProxy <- function(globe, ..., data = NULL, inherit_coords = TRUE
   msg$arcDashInitialGap <- coords_to_opts(coords, "dash_initial_gap")
   msg$arcDashAnimateTime <- coords_to_opts(coords, "dash_animate_time")
   msg$arcsTransitionDuration <- coords_to_opts(coords, "transition")
-  msg$onArcClick <- if(!is.null(on_click)) htmlwidgets::JS(on_click)
-  msg$onArcRightClick <- if(!is.null(on_right_click)) htmlwidgets::JS(on_right_click)
-  msg$onArcHover <- if(!is.null(on_hover)) htmlwidgets::JS(on_hover)
+  msg$onArcClick <- if(!is.null(on_click)) on_click
+  msg$onArcRightClick <- if(!is.null(on_right_click)) on_right_click
+  msg$onArcHover <- if(!is.null(on_hover)) on_hover
 
   globe$session$sendCustomMessage("globe_arcs", msg)
 

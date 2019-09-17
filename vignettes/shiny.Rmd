@@ -16,7 +16,9 @@ knitr::opts_chunk$set(
 library(globe4r)
 ```
 
-In globe4r nearly every function is shiny friendly: the vast majority have a proxy method. Let's a very create a basic application.
+## Proxies
+
+In globe4r nearly every function is shiny friendly: the vast majority have a _proxy_ method. Let's a very create a basic application.
 
 ```r
 library(shiny)
@@ -93,3 +95,70 @@ server <- function(input, output){
 
 shinyApp(ui, server)
 ```
+
+## Events
+
+You can also pick up callback events: how users interacti with you globe visualisation. Every globe layer (hex bin, points, labels, arcs, choropleth), can send data information on element clicked, right clicked, or hovered. These can be accessed in the R server like a normal input which you construct from the `id` of the globe visualisation you want to watch and the event you want to catch, e.g.: `input$myGlobe_click_bar`, or `input$myOtherGlobe_hover_arc`, note that you capture events related to `globe_chorpleth` with `*_polygon`, e.g.: `input$theGlobeId_right_click_polygon`.
+
+Events:
+
+- Clicked - check whether the element has been clicked (`_click_bar`, `_click_label`, `_click_polygon`, `_click_hex`, `_click_arc`).
+- Right Clicked - check whether the element has been right clicked (`_right_click_bar`, `_right_click_label`, `_right_click_polygon`, `_right_click_hex`, `_right_click_arc`).
+- Hovered - check whether the element has been hovered (`_hover_bar`, `_hover_label`, `_hover_polygon`, `_hover_hex`, `_hover_arc`).
+
+Examples, where `globeId` is the id of the globe.
+
+- `input$globeId_click_bar` will return data on bar clicked by the user.
+- `input$globeId_hover_hex` will return data on hex bin hovered.
+- `input$globeId_right_click_polygon` will return data on polygon right clicked.
+
+Let's demonstrate with a shiny app. Below we have a bog standard shiny application that draws our globe.
+
+```r
+library(shiny)
+
+ui <- fluidPage(
+  globeOutput("globe")
+)
+
+server <- function(input, output){
+  output$globe <- renderGlobe({
+    create_globe() %>% 
+      globe_img_url() %>% 
+      globe_bars(coords(lat, long, color = mag), data = quakes, on_click = TRUE) %>%
+      globe_pov(-21, 179) %>% 
+      scale_bars_color()
+  })
+}
+
+shinyApp(ui, server)
+```
+
+We can now use events to capture which bar the user clicked on. 
+
+```r
+library(shiny)
+
+ui <- fluidPage(
+  globeOutput("globe"),
+  verbatimTextOutput("clicked")
+)
+
+server <- function(input, output){
+  output$globe <- renderGlobe({
+    create_globe() %>% 
+      globe_img_url() %>% 
+      globe_bars(coords(lat, long, color = mag), data = quakes, on_click = TRUE) %>%
+      globe_pov(-21, 179) %>% 
+      scale_bars_color()
+  })
+
+  output$clicked <- renderPrint({
+    input$globe_click_bar
+  })
+}
+
+shinyApp(ui, server)
+```
+
+Note that we simply print the information returned by the event but ideally you would do something interesting with it.

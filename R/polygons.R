@@ -3,7 +3,6 @@
 #' Add points to a globe.
 #' 
 #' @inheritParams globe_bars
-#' @param on_click,on_right_click,on_hover JavaScript functions as strings.
 #' @param match The type of \code{country} identifier, 
 #' \code{auto} attempts to infer the type, \code{iso2}
 #' (e.g.: "US"), iso3 (e.g.: "USA"), or the country name.
@@ -75,9 +74,9 @@ globe_choropleth.globe <- function(globe, ..., data = NULL, inherit_coords = TRU
   globe$x$polygonSideColor <- coords_to_opts(coords, "side_color")
   globe$x$polygonAltitude <- coords_to_opts(coords, "altitude")
   globe$x$polygonLabel <- coords_to_opts(coords, "label")
-  globe$x$onPolygonClick <- if(!is.null(on_click)) htmlwidgets::JS(on_click)
-  globe$x$onPolygonRightClick <- if(!is.null(on_click)) htmlwidgets::JS(on_right_click)
-  globe$x$onPolygonHover <- if(!is.null(on_click)) htmlwidgets::JS(on_hover)
+  globe$x$onPolygonClick <- if(!is.null(on_click)) on_click
+  globe$x$onPolygonRightClick <- if(!is.null(on_click)) on_right_click
+  globe$x$onPolygonHover <- if(!is.null(on_click)) on_hover
 
   return(globe)
 }
@@ -138,9 +137,9 @@ globe_choropleth.globeProxy <- function(globe, ..., data = NULL, inherit_coords 
   msg$polygonSideColor <- coords_to_opts(coords, "side_color")
   msg$polygonAltitude <- coords_to_opts(coords, "altitude")
   msg$polygonLabel <- coords_to_opts(coords, "label")
-  msg$onPolygonClick <- if(!is.null(on_click)) htmlwidgets::JS(on_click)
-  msg$onPolygonRightClick <- if(!is.null(on_click)) htmlwidgets::JS(on_right_click)
-  msg$onPolygonHover <- if(!is.null(on_click)) htmlwidgets::JS(on_hover)
+  msg$onPolygonClick <- if(!is.null(on_click)) on_click
+  msg$onPolygonRightClick <- if(!is.null(on_click)) on_right_click
+  msg$onPolygonHover <- if(!is.null(on_click)) on_hover
 
   globe$session$sendCustomMessage("globe_choropleth", msg)
 

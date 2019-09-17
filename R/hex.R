@@ -4,7 +4,8 @@
 #' 
 #' @inheritParams globe_img
 #' @param data A data.frame of points to draw.
-#' @param on_click,on_right_click,on_hover JavaScript functions as strings.
+#' @param on_click,on_right_click,on_hover JavaScript functions as \link[htmlwidgets]{JS} 
+#' or \code{TRUE} to pick up the event from Shiny server side, see example in \code{\link{globe_bars}}.
 #' @param inherit_coords Whether to inherit the coordinates (\code{\link{coords}})
 #' from \code{\link{create_globe}}. Only applies to method applied to object of class
 #' \code{globe4r} not on objects of class \code{globeProxy}.
@@ -124,9 +125,9 @@ globe_hex.globeProxy <- function(globe, ..., data = NULL, inherit_coords = FALSE
   msg$hexSideColor <- coords_to_opts(coords, "side_color")
   msg$hexBinMerge <-  coords_to_opts(coords, "merge")
   msg$hexTransitionDuration <- coords_to_opts(coords, "transition")
-  msg$onHexClick <- if(!is.null(on_click)) htmlwidgets::JS(on_click)
-  msg$onHexRightClick <- if(!is.null(on_right_click)) htmlwidgets::JS(on_right_click)
-  msg$onHexHover <- if(!is.null(on_hover)) htmlwidgets::JS(on_hover)
+  msg$onHexClick <- if(!is.null(on_click)) on_click
+  msg$onHexRightClick <- if(!is.null(on_right_click)) on_right_click
+  msg$onHexHover <- if(!is.null(on_hover)) on_hover
 
   globe$session$sendCustomMessage("globe_hex", msg)
   

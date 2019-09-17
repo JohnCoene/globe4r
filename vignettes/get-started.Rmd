@@ -48,7 +48,7 @@ With a globe drawn we can pipe (`%>%`) various data layers:
 2. arcs
 3. polygons
 4. points
-5. Hex bin
+5. hex bin
 
 The above can be added via two different APIs, a convenient ggplot2-like API and raw API matching the underlayong JavaScript library one-to-one. This document covers the former.
 
