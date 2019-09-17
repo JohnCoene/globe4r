@@ -112,7 +112,7 @@ Examples, where `globeId` is the id of the globe.
 - `input$globeId_hover_hex` will return data on hex bin hovered.
 - `input$globeId_right_click_polygon` will return data on polygon right clicked.
 
-Let's demonstrate with a shiny app. Below we have a bog standard shiny application that draws our globe.
+Note that these are not enabled by default as it can be draining on the client/server as you send data from the client to the server, you enable it in the various `globe_*` functions by setting `on_click`, `on_right_click`, or `on_hover` to `TRUE`. Let's demonstrate with a shiny app. Below we have a bog standard shiny application that draws our globe.
 
 ```r
 library(shiny)
@@ -125,7 +125,7 @@ server <- function(input, output){
   output$globe <- renderGlobe({
     create_globe() %>% 
       globe_img_url() %>% 
-      globe_bars(coords(lat, long, color = mag), data = quakes, on_click = TRUE) %>%
+      globe_bars(coords(lat, long, color = mag), data = quakes) %>%
       globe_pov(-21, 179) %>% 
       scale_bars_color()
   })
@@ -134,7 +134,7 @@ server <- function(input, output){
 shinyApp(ui, server)
 ```
 
-We can now use events to capture which bar the user clicked on. 
+We can now use events to capture which bar the user clicked, notice the `on_click = TRUE` in `globe_bars`. 
 
 ```r
 library(shiny)
@@ -148,7 +148,9 @@ server <- function(input, output){
   output$globe <- renderGlobe({
     create_globe() %>% 
       globe_img_url() %>% 
-      globe_bars(coords(lat, long, color = mag), data = quakes, on_click = TRUE) %>%
+      globe_bars(coords(lat, long, color = mag), 
+        data = quakes, on_click = TRUE # set on_click to TRUE
+      ) %>%
       globe_pov(-21, 179) %>% 
       scale_bars_color()
   })

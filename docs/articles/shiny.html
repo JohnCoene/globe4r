@@ -207,7 +207,7 @@ server &lt;-<span class="st"> </span><span class="cf">function</span>(input, out
 <li>
 <code>input$globeId_right_click_polygon</code> will return data on polygon right clicked.</li>
 </ul>
-<p>Let’s demonstrate with a shiny app. Below we have a bog standard shiny application that draws our globe.</p>
+<p>Note that these are not enabled by default as it can be draining on the client/server as you send data from the client to the server, you enable it in the various <code>globe_*</code> functions by setting <code>on_click</code>, <code>on_right_click</code>, or <code>on_hover</code> to <code>TRUE</code>. Let’s demonstrate with a shiny app. Below we have a bog standard shiny application that draws our globe.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(shiny)
 
 ui &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/shiny/topics/fluidPage">fluidPage</a></span>(
@@ -218,14 +218,14 @@ server &lt;-<span class="st"> </span><span class="cf">function</span>(input, out
   output<span class="op">$</span>globe &lt;-<span class="st"> </span><span class="kw"><a href="../reference/globe-shiny.html">renderGlobe</a></span>({
     <span class="kw"><a href="../reference/create_globe.html">create_globe</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">      </span><span class="kw"><a href="../reference/globe_img.html">globe_img_url</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">      </span><span class="kw"><a href="../reference/globe_bars.html">globe_bars</a></span>(<span class="kw"><a href="../reference/coords.html">coords</a></span>(lat, long, <span class="dt">color =</span> mag), <span class="dt">data =</span> quakes, <span class="dt">on_click =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/globe_bars.html">globe_bars</a></span>(<span class="kw"><a href="../reference/coords.html">coords</a></span>(lat, long, <span class="dt">color =</span> mag), <span class="dt">data =</span> quakes) <span class="op">%&gt;%</span>
 <span class="st">      </span><span class="kw"><a href="../reference/globe_pov.html">globe_pov</a></span>(<span class="op">-</span><span class="dv">21</span>, <span class="dv">179</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">      </span><span class="kw"><a href="../reference/scaling_color.html">scale_bars_color</a></span>()
   })
 }
 
 <span class="kw"><a href="https://www.rdocumentation.org/packages/shiny/topics/shinyApp">shinyApp</a></span>(ui, server)</code></pre></div>
-<p>We can now use events to capture which bar the user clicked on.</p>
+<p>We can now use events to capture which bar the user clicked, notice the <code>on_click = TRUE</code> in <code>globe_bars</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(shiny)
 
 ui &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/shiny/topics/fluidPage">fluidPage</a></span>(
@@ -237,7 +237,9 @@ server &lt;-<span class="st"> </span><span class="cf">function</span>(input, out
   output<span class="op">$</span>globe &lt;-<span class="st"> </span><span class="kw"><a href="../reference/globe-shiny.html">renderGlobe</a></span>({
     <span class="kw"><a href="../reference/create_globe.html">create_globe</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">      </span><span class="kw"><a href="../reference/globe_img.html">globe_img_url</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">      </span><span class="kw"><a href="../reference/globe_bars.html">globe_bars</a></span>(<span class="kw"><a href="../reference/coords.html">coords</a></span>(lat, long, <span class="dt">color =</span> mag), <span class="dt">data =</span> quakes, <span class="dt">on_click =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/globe_bars.html">globe_bars</a></span>(<span class="kw"><a href="../reference/coords.html">coords</a></span>(lat, long, <span class="dt">color =</span> mag), 
+        <span class="dt">data =</span> quakes, <span class="dt">on_click =</span> <span class="ot">TRUE</span> <span class="co"># set on_click to TRUE</span>
+      ) <span class="op">%&gt;%</span>
 <span class="st">      </span><span class="kw"><a href="../reference/globe_pov.html">globe_pov</a></span>(<span class="op">-</span><span class="dv">21</span>, <span class="dv">179</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">      </span><span class="kw"><a href="../reference/scaling_color.html">scale_bars_color</a></span>()
   })
