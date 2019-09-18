@@ -7,7 +7,8 @@ HTMLWidgets.widget({
   factory: function(el, width, height) {
 
     var dom,
-        globe;
+        globe,
+        shared_data;
 
     return {
 
@@ -15,6 +16,7 @@ HTMLWidgets.widget({
 
         dom = document.getElementById(el.id);
         globe = Globe(x.init)(dom);
+        shared_data = x;
 
         // general options
         if(x.hasOwnProperty("globeImageUrl"))
@@ -314,6 +316,38 @@ HTMLWidgets.widget({
         return globe;
       },
 
+      getData: function(dataset){
+
+        var col;
+        
+        switch(dataset){
+          case "polygons":
+            col = "polygonsData";
+            break;
+          case "choropleth":
+            col = "polygonsData";
+            break;
+          case "labels":
+            col = "labelsData";
+            break;
+          case "arcs":
+            col = "arcsData";
+            break;
+          case "hex":
+            col = "hexBinPointsData";
+            break;
+          case "hexbin":
+            col = "hexBinPointsData";
+            break;
+          case "default":
+            col = "pointsData";
+        }
+
+        console.log(col);
+
+        return(shared_data[col])
+      },
+
       resize: function(width, height) {
 
         if(globe){
@@ -339,6 +373,19 @@ function get_globe(id){
   }
 
   return(g);
+}
+
+function get_data(id, variable){
+
+  var htmlWidgetsObj = HTMLWidgets.find("#" + id);
+
+  var dat;
+
+  if (typeof htmlWidgetsObj != 'undefined') {
+    dat = htmlWidgetsObj.getData(variable);
+  }
+
+  return(dat);
 }
 
 if (HTMLWidgets.shinyMode) {

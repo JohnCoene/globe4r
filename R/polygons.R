@@ -68,7 +68,7 @@ globe_choropleth.globe <- function(globe, ..., data = NULL, inherit_coords = TRU
   data <- inner_join(data, country_polygons, by = byarg)
   
   globe$x$polygonsData <- data
-  globe$x$polygonTransitionDuration <- coords_to_opts(coords, "transition")
+  globe$x$polygonsTransitionDuration <- coords_to_opts(coords, "transition")
   globe$x$polygonGeoJsonGeometry <- coords_to_opts(coords, "geometry")
   globe$x$polygonCapColor <- coords_to_opts(coords, "cap_color")
   globe$x$polygonSideColor <- coords_to_opts(coords, "side_color")
@@ -131,7 +131,7 @@ globe_choropleth.globeProxy <- function(globe, ..., data = NULL, inherit_coords 
   })
   
   msg <- list(id = globe$id, polygonsData = features)
-  msg$polygonTransitionDuration <- coords_to_opts(coords, "transition")
+  msg$polygonsTransitionDuration <- coords_to_opts(coords, "transition")
   msg$polygonGeoJsonGeometry <- coords_to_opts(coords, "geometry")
   msg$polygonCapColor <- coords_to_opts(coords, "cap_color")
   msg$polygonSideColor <- coords_to_opts(coords, "side_color")
@@ -258,7 +258,7 @@ polygons_side_color <- function(globe, color = constant("ffffaa")) UseMethod("po
 #' @export
 #' @method polygons_side_color globe
 polygons_side_color.globe <- function(globe, color = constant("ffffaa")){
-  globe$x$polygonCapColor <- color
+  globe$x$polygonSideColor <- color
   return(globe)
 }
 
@@ -266,7 +266,7 @@ polygons_side_color.globe <- function(globe, color = constant("ffffaa")){
 #' @method polygons_side_color globeProxy
 polygons_side_color.globeProxy <- function(globe, color = constant("ffffaa")){
   msg <- list(id = globe$id)
-  msg$polygonCapColor <- color
+  msg$polygonSideColor <- color
   globe$session$sendCustomMessage("polygons_side_color", msg)
   return(globe)
 }
