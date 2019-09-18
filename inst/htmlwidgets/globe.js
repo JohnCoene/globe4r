@@ -65,29 +65,23 @@ HTMLWidgets.widget({
           globe.pointsMerge(x.pointsMerge);
         if(x.hasOwnProperty("pointsTransitionDuration"))
           globe.pointsTransitionDuration(x.pointsTransitionDuration);
-        if(x.hasOwnProperty("onPointClick"))
-          if(!x.onPointClick === true) globe.onPointClick(x.onPointClick); 
-        if(x.hasOwnProperty("onPointRightClick"))
-          if(!x.onPointRightClick === true) globe.onPointRightClick(x.onPointRightClick);
-        if(x.hasOwnProperty("onPointHover"))
-          if(!x.onPointHover === true) globe.onPointHover(x.onPointHover);
+        if(!typeof x.onPointClick === "boolean") globe.onPointClick(x.onPointClick); 
+        if(!typeof x.onPointRightClick === "boolean") globe.onPointRightClick(x.onPointRightClick);
+        if(!typeof x.onPointHover === "boolean") globe.onPointHover(x.onPointHover);
 
         if (HTMLWidgets.shinyMode) {
-          if(!x.hasOwnProperty("onPointClick"))
-            if(x.onPointClick === true)
-              globe.onPointClick(function (e) {
-                Shiny.setInputValue(el.id + '_click_bar' + ":globe4rParseJS", e);
-              })
-          if(!x.hasOwnProperty("onPointRightClick"))
-            if(x.onPointRightClick == true)
-              globe.onPointRightClick(function (e) {
-                Shiny.setInputValue(el.id + '_right_click_bar' + ":globe4rParseJS", e);
-              })
-          if(!x.hasOwnProperty("onPointHover"))
-            if(x.onPointHover == true)
-              globe.onPointHover(function (e) {
-                Shiny.setInputValue(el.id + '_hover_bar' + ":globe4rParseJS", e);
-              })
+          if(x.onPointClick === true)
+            globe.onPointClick(function (e) {
+              Shiny.setInputValue(el.id + '_click_bar' + ":globe4rParseJS", e);
+            })
+          if(x.onPointRightClick == true)
+            globe.onPointRightClick(function (e) {
+              Shiny.setInputValue(el.id + '_right_click_bar' + ":globe4rParseJS", e);
+            })
+          if(x.onPointHover == true)
+            globe.onPointHover(function (e) {
+              Shiny.setInputValue(el.id + '_hover_bar' + ":globe4rParseJS", e);
+            })
         }
 
         // arcs
@@ -132,29 +126,23 @@ HTMLWidgets.widget({
         if(x.hasOwnProperty("arcEndLng"))
           globe.arcEndLng(x.arcEndLng);
 
-        if(x.hasOwnProperty("onArcClick"))
-          if(!x.onArcClick === true) globe.onArcClick(x.onArcClick); 
-        if(x.hasOwnProperty("onArcRightClick"))
-          if(!x.onArcRightClick === true) globe.onArcRightClick(x.onArcRightClick);
-        if(x.hasOwnProperty("onArcHover"))
-          if(!x.onArcHover === true) globe.onArcHover(x.onArcHover);
+        if(!typeof x.onArcClick === "boolean") globe.onArcClick(x.onArcClick); 
+        if(!typeof x.onArcRightClick === "boolean") globe.onArcRightClick(x.onArcRightClick);
+        if(!typeof x.onArcHover === "boolean") globe.onArcHover(x.onArcHover);
 
         if (HTMLWidgets.shinyMode) {
-          if(!x.hasOwnProperty("onArcClick"))
-            if(x.onArcClick === true)
-              globe.onArcClick(function (e) {
-                Shiny.setInputValue(el.id + '_click_arc' + ":globe4rParseJS", e);
-              })
-          if(!x.hasOwnProperty("onArcRightClick"))
-            if(x.onArcRightClick == true)
-              globe.onArcRightClick(function (e) {
-                Shiny.setInputValue(el.id + '_right_click_arc' + ":globe4rParseJS", e);
-              })
-          if(!x.hasOwnProperty("onArcHover"))
-            if(x.onArcHover == true)
-              globe.onArcHover(function (e) {
-                Shiny.setInputValue(el.id + '_hover_arc' + ":globe4rParseJS", e);
-              })
+          if(x.onArcClick === true)
+            globe.onArcClick(function (e) {
+              Shiny.setInputValue(el.id + '_click_arc' + ":globe4rParseJS", e);
+            })
+          if(x.onArcRightClick == true)
+            globe.onArcRightClick(function (e) {
+              Shiny.setInputValue(el.id + '_right_click_arc' + ":globe4rParseJS", e);
+            })
+          if(x.onArcHover == true)
+            globe.onArcHover(function (e) {
+              Shiny.setInputValue(el.id + '_hover_arc' + ":globe4rParseJS", e);
+            })
         }
 
         // polygon
@@ -172,29 +160,24 @@ HTMLWidgets.widget({
           globe.polygonAltitude(x.polygonAltitude); 
         if(x.hasOwnProperty("polygonsTransitionDuration"))
           globe.polygonsTransitionDuration(x.polygonsTransitionDuration); 
-        if(x.hasOwnProperty("onPolygonClick"))
-          if(!x.onPolygonClick === true) globe.onPolygonClick(x.onPolygonClick); 
-        if(x.hasOwnProperty("onPolygonRightClick"))
-          if(!x.onPolygonRightClick === true) globe.onPolygonRightClick(x.onPolygonRightClick);
-        if(x.hasOwnProperty("onPolygonHover"))
-          if(!x.onPolygonHover === true) globe.onPolygonHover(x.onPolygonHover);
+        if(typeof x.onPolygonClick != "boolean") globe.onPolygonClick(x.onPolygonClick); 
+        if(typeof x.onPolygonRightClick != "boolean") globe.onPolygonRightClick(x.onPolygonRightClick);
+        if(typeof x.onPolygonHover != "boolean") globe.onPolygonHover(x.onPolygonHover);
 
+        console.log(x.onPolygonClick == true);
         if (HTMLWidgets.shinyMode) {
-          if(!x.hasOwnProperty("onPolygonClick"))
-            if(x.onPolygonClick === true)
-              globe.onPolygonClick(function (e) {
-                Shiny.setInputValue(el.id + '_click_polygon' + ":globe4rParseJS", e);
-              })
-          if(!x.hasOwnProperty("onPolygonRightClick"))
-            if(x.onPolygonRightClick == true)
-              globe.onPolygonRightClick(function (e) {
-                Shiny.setInputValue(el.id + '_right_click_polygon' + ":globe4rParseJS", e);
-              })
-          if(!x.hasOwnProperty("onPolygonHover"))
-            if(x.onArcHover == true)
-              globe.onPolygonHover(function (e) {
-                Shiny.setInputValue(el.id + '_hover_polygon' + ":globe4rParseJS", e);
-              })
+          if(x.onPolygonClick == true)
+            globe.onPolygonClick(function (e) {
+              Shiny.setInputValue(el.id + '_click_polygon' + ":globe4rParseJS", e);
+            })
+          if(x.onPolygonRightClick == true)
+            globe.onPolygonRightClick(function (e) {
+              Shiny.setInputValue(el.id + '_right_click_polygon' + ":globe4rParseJS", e);
+            })
+          if(x.onArcHover == true)
+            globe.onPolygonHover(function (e) {
+              Shiny.setInputValue(el.id + '_hover_polygon' + ":globe4rParseJS", e);
+            })
         }
 
         // label
@@ -228,29 +211,23 @@ HTMLWidgets.widget({
           globe.labelDotOrientation(x.labelDotOrientation); 
         if(x.hasOwnProperty("labelsTransitionDuration"))
           globe.labelsTransitionDuration(x.labelsTransitionDuration); 
-        if(x.hasOwnProperty("onLabelClick"))
-          if(!x.onLabelClick === true) globe.onLabelClick(x.onLabelClick); 
-        if(x.hasOwnProperty("onLabelRightClick"))
-          if(!x.onLabelRightClick === true) globe.onLabelRightClick(x.onLabelRightClick);
-        if(x.hasOwnProperty("onLabelHover"))
-          if(!x.onLabelHover === true) globe.onLabelHover(x.onLabelHover);
+        if(!typeof x.onLabelClick === "boolean") globe.onLabelClick(x.onLabelClick); 
+        if(!typeof x.onLabelRightClick === "boolean") globe.onLabelRightClick(x.onLabelRightClick);
+        if(!typeof x.onLabelHover === "boolean") globe.onLabelHover(x.onLabelHover);
 
         if (HTMLWidgets.shinyMode) {
-          if(!x.hasOwnProperty("onLabelClick"))
-            if(x.onLabelClick === true)
-              globe.onLabelClick(function (e) {
-                Shiny.setInputValue(el.id + '_click_label' + ":globe4rParseJS", e);
-              })
-          if(!x.hasOwnProperty("onLabelRightClick"))
-            if(x.onLabelRightClick == true)
-              globe.onLabelRightClick(function (e) {
-                Shiny.setInputValue(el.id + '_right_click_label' + ":globe4rParseJS", e);
-              })
-          if(!x.hasOwnProperty("onLabelHover"))
-            if(x.onLabelHover == true)
-              globe.onLabelHover(function (e) {
-                Shiny.setInputValue(el.id + '_hover_label' + ":globe4rParseJS", e);
-              })
+          if(x.onLabelClick === true)
+            globe.onLabelClick(function (e) {
+              Shiny.setInputValue(el.id + '_click_label' + ":globe4rParseJS", e);
+            })
+          if(x.onLabelRightClick == true)
+            globe.onLabelRightClick(function (e) {
+              Shiny.setInputValue(el.id + '_right_click_label' + ":globe4rParseJS", e);
+            })
+          if(x.onLabelHover == true)
+            globe.onLabelHover(function (e) {
+              Shiny.setInputValue(el.id + '_hover_label' + ":globe4rParseJS", e);
+            })
         }
 
         if(x.hasOwnProperty("pointOfView"))
@@ -285,29 +262,23 @@ HTMLWidgets.widget({
           globe.hexBinMerge(x.hexBinMerge);
         if(x.hasOwnProperty("hexTransitionDuration"))
           globe.hexTransitionDuration(x.hexTransitionDuration);
-        if(x.hasOwnProperty("onHexClick"))
-          if(!x.onHexClick === true) globe.onHexClick(x.onHexClick); 
-        if(x.hasOwnProperty("onHexRightClick"))
-          if(!x.onHexRightClick === true) globe.onHexRightClick(x.onHexRightClick);
-        if(x.hasOwnProperty("onHexHover"))
-          if(!x.onHexHover === true) globe.onHexHover(x.onHexHover);
+        if(!typeof x.onHexClick === "boolean") globe.onHexClick(x.onHexClick); 
+        if(!typeof x.onHexRightClick === "boolean") globe.onHexRightClick(x.onHexRightClick);
+        if(!typeof x.onHexHover === "boolean") globe.onHexHover(x.onHexHover);
 
         if (HTMLWidgets.shinyMode) {
-          if(!x.hasOwnProperty("onHexClick"))
-            if(x.onHexClick === true)
-              globe.onHexClick(function (e) {
-                Shiny.setInputValue(el.id + '_click_hex' + ":globe4rParseJS", e);
-              })
-          if(!x.hasOwnProperty("onHexRightClick"))
-            if(x.onHexRightClick == true)
-              globe.onHexRightClick(function (e) {
-                Shiny.setInputValue(el.id + '_right_click_hex' + ":globe4rParseJS", e);
-              })
-          if(!x.hasOwnProperty("onHexHover"))
-            if(x.onHexHover == true)
-              globe.onHexHover(function (e) {
-                Shiny.setInputValue(el.id + '_hover_hex' + ":globe4rParseJS", e);
-              })
+          if(x.onHexClick === true)
+            globe.onHexClick(function (e) {
+              Shiny.setInputValue(el.id + '_click_hex' + ":globe4rParseJS", e);
+            })
+          if(x.onHexRightClick == true)
+            globe.onHexRightClick(function (e) {
+              Shiny.setInputValue(el.id + '_right_click_hex' + ":globe4rParseJS", e);
+            })
+          if(x.onHexHover == true)
+            globe.onHexHover(function (e) {
+              Shiny.setInputValue(el.id + '_hover_hex' + ":globe4rParseJS", e);
+            })
         }
 
       },

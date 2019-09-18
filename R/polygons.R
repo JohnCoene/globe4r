@@ -75,8 +75,8 @@ globe_choropleth.globe <- function(globe, ..., data = NULL, inherit_coords = TRU
   globe$x$polygonAltitude <- coords_to_opts(coords, "altitude")
   globe$x$polygonLabel <- coords_to_opts(coords, "label")
   globe$x$onPolygonClick <- if(!is.null(on_click)) on_click
-  globe$x$onPolygonRightClick <- if(!is.null(on_click)) on_right_click
-  globe$x$onPolygonHover <- if(!is.null(on_click)) on_hover
+  globe$x$onPolygonRightClick <- if(!is.null(on_right_click)) on_right_click
+  globe$x$onPolygonHover <- if(!is.null(on_hover)) on_hover
 
   return(globe)
 }
