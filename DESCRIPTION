@@ -6,13 +6,12 @@ Description: Create interactive globes for 'R markdown' and 'Shiny'.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Suggests: 
-    shiny
 Depends: R (>= 2.10)
 Imports:
     rlang,
     dplyr,
     purrr,
+    shiny,
     crayon,
     scales,
     magrittr,
