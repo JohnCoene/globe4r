@@ -164,12 +164,12 @@ HTMLWidgets.widget({
         if(typeof x.onPolygonRightClick != "boolean") globe.onPolygonRightClick(x.onPolygonRightClick);
         if(typeof x.onPolygonHover != "boolean") globe.onPolygonHover(x.onPolygonHover);
 
-        console.log(x.onPolygonClick == true);
         if (HTMLWidgets.shinyMode) {
-          if(x.onPolygonClick == true)
+          if(x.onPolygonClick == true){
             globe.onPolygonClick(function (e) {
               Shiny.setInputValue(el.id + '_click_polygon' + ":globe4rParseJS", e);
             })
+          }
           if(x.onPolygonRightClick == true)
             globe.onPolygonRightClick(function (e) {
               Shiny.setInputValue(el.id + '_right_click_polygon' + ":globe4rParseJS", e);
