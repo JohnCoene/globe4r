@@ -7,9 +7,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests: 
-    shiny,
-    knitr,
-    rmarkdown
+    shiny
 Depends: R (>= 2.10)
 Imports:
     rlang,
@@ -22,4 +20,3 @@ Imports:
     assertthat,
     htmlwidgets
 RoxygenNote: 6.1.1
-VignetteBuilder: knitr
