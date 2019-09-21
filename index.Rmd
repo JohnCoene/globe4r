@@ -1,6 +1,6 @@
 <!-- badges: start -->
 [![Travis build status](https://travis-ci.org/JohnCoene/globe4r.svg?branch=master)](https://travis-ci.org/JohnCoene/globe4r)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 <!-- badges: end -->
 
 ```{r setup, include = FALSE}
@@ -31,11 +31,18 @@ div(
     p(
       "Interactive globes for R via",
       tags$a(
-        "globe.gl", 
+        "globe.gl.", 
         href = "https://github.com/vasturiano/globe.gl", 
         target = "_blank"
-      ),
-      "Create 3D globes with points, bar, choropleth (polygons), arcs, and labels."
+      )
+    ),
+    p("Create 3D globes:"),
+    tags$ul(
+      tags$li("bars"),
+      tags$li("choropleth (polygons)"),
+      tags$li("arcs"),
+      tags$li("hex bins"),
+      tags$li("labels")
     ),
     p(
       tags$a(
@@ -46,9 +53,10 @@ div(
       ),
       tags$a(
         tags$i(class = "fa fa-desktop"),
-        "Shiny",
+        "Shiny Demo",
         class = "btn btn-default",
-        href = "articles/shiny.html"
+        target = "_blank",
+        href = "https://shiny.john-coene.com/gdp-app"
       )
     )
   )

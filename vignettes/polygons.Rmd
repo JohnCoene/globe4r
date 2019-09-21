@@ -53,8 +53,13 @@ install.packages(pkgs)
 </details>
 
 ```{r}
+# get shapefile
 india_sp <- raster::getData('GADM', country = 'INDIA', level = 1)
+
+# optionally reduce its size (strongly recommended)
 india_small <- rmapshaper::ms_simplify(india_sp, keep = 0.05) 
+
+# convert to JSON
 india_geojson <- geojsonio::geojson_list(india_small)
 ```
 
