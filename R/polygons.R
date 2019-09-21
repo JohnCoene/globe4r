@@ -6,11 +6,27 @@
 #' @param match The type of \code{country} identifier, 
 #' \code{auto} attempts to infer the type, \code{iso2}
 #' (e.g.: "US"), iso3 (e.g.: "USA"), or the country name.
+#' @param polygons Polygons to match data against, if
+#' \code{NULL} is matched against internal dataset of 
+#' world country polygons.
+#' 
+#' @details By default the function will match the 
+#' \code{\link{coords}} \code{country} argument 
+#' against an internal dataset of country names,
+#' and iso codes.
+#' In order to use other polygons, one can pass
+#' GeoJSON as a \code{list} to the \code{polygons}
+#' argument and specify \code{polygon} argument in
+#' \code{\link{coords}}: this will match the latter
+#' against the \code{data}, see
+#' \href{https://globe4r.john-coene.com/articles/polygons.html}{online documentation}
+#' for a full example.
 #' 
 #' @section Coordinates:
 #' Valid coordinates.
 #' \itemize{
-#'   \item{\code{country}},
+#'   \item{\code{country}}
+#'   \item{\code{polygon}}
 #'   \item{\code{altitude}}
 #'   \item{\code{label}}
 #'   \item{\code{side_color}, \code{cap_color}}
@@ -28,13 +44,13 @@
 #' @export
 globe_choropleth <- function(globe, ..., data = NULL, inherit_coords = TRUE, 
   on_click = NULL, on_right_click = NULL, on_hover = NULL, 
-  match = c("auto", "iso2", "iso3", "name")) UseMethod("globe_choropleth")
+  match = c("auto", "iso2", "iso3", "name"), polygons = NULL) UseMethod("globe_choropleth")
 
 #' @method globe_choropleth globe
 #' @export
 globe_choropleth.globe <- function(globe, ..., data = NULL, inherit_coords = TRUE, 
   on_click = NULL, on_right_click = NULL, on_hover = NULL, 
-  match = c("auto", "iso2", "iso3", "name")){
+  match = c("auto", "iso2", "iso3", "name"), polygons = NULL){
 
   match <- match.arg(match)
 
@@ -51,21 +67,35 @@ globe_choropleth.globe <- function(globe, ..., data = NULL, inherit_coords = TRU
   # create points array
   data <- dplyr::select(data, columns)
 
-  # match
-  country_column <- coords_to_opts(coords, "country")
-  if(match == "auto"){
-    N <- nchar(data[[country_column]][1])
-    validate_that(N > 1, msg = "Cannot correctly infer `match`")
-    match <- "name"
-    if(N < 4)
-      match <- paste0("iso", N)
-  }
-  match <- paste0("country_", match)
+  if(is.null(polygons)){
+    # match
+    country_column <- coords_to_opts(coords, "country")
+    if(match == "auto"){
+      N <- nchar(data[[country_column]][1])
+      validate_that(N > 1, msg = "Cannot correctly infer `match`")
+      match <- "name"
+      if(N < 4)
+        match <- paste0("iso", N)
+    }
+    match <- paste0("country_", match)
 
-  # by arg
-  byarg <- match
-  names(byarg) <- country_column
-  data <- inner_join(data, country_polygons, by = byarg)
+    # by arg
+    byarg <- match
+    names(byarg) <- country_column
+    data <- inner_join(data, country_polygons, by = byarg)
+  } else {
+    if(length(polygons$features))
+      polygons <- polygons$features
+
+    match <- coords_to_opts(coords, "polygon") %>% as.character()
+    match_column <- polygons %>% 
+      map("properties") %>% 
+      map(match) %>% 
+      unlist()
+    polygons <- tibble::tibble(features = polygons)
+    polygons[[match]] <- match_column
+    data <- suppressWarnings(inner_join(data, polygons, by = match))
+  }
   
   globe$x$polygonsData <- data
   globe$x$polygonsTransitionDuration <- coords_to_opts(coords, "transition")
@@ -85,7 +115,7 @@ globe_choropleth.globe <- function(globe, ..., data = NULL, inherit_coords = TRU
 #' @export
 globe_choropleth.globeProxy <- function(globe, ..., data = NULL, inherit_coords = FALSE, 
   on_click = NULL, on_right_click = NULL, on_hover = NULL, 
-  match = c("auto", "iso2", "iso3", "name")){
+  match = c("auto", "iso2", "iso3", "name"), polygons = NULL){
 
   match <- match.arg(match)
 
@@ -102,21 +132,35 @@ globe_choropleth.globeProxy <- function(globe, ..., data = NULL, inherit_coords 
   # create points array
   data <- dplyr::select(data, columns)
 
-  # match
-  country_column <- coords_to_opts(coords, "country")
-  if(match == "auto"){
-    N <- nchar(data[[country_column]][1])
-    validate_that(N > 1, msg = "Cannot correctly infer `match`")
-    match <- "name"
-    if(N < 4)
-      match <- paste0("iso", N)
-  }
-  match <- paste0("country_", match)
+ if(is.null(polygons)){
+    # match
+    country_column <- coords_to_opts(coords, "country")
+    if(match == "auto"){
+      N <- nchar(data[[country_column]][1])
+      validate_that(N > 1, msg = "Cannot correctly infer `match`")
+      match <- "name"
+      if(N < 4)
+        match <- paste0("iso", N)
+    }
+    match <- paste0("country_", match)
 
-  # by arg
-  byarg <- match
-  names(byarg) <- country_column
-  data <- inner_join(data, country_polygons, by = byarg)
+    # by arg
+    byarg <- match
+    names(byarg) <- country_column
+    data <- inner_join(data, country_polygons, by = byarg)
+  } else {
+    if(length(polygons$features))
+      polygons <- polygons$features
+
+    match <- coords_to_opts(coords, "polygon") %>% as.character()
+    match_column <- polygons %>% 
+      map("properties") %>% 
+      map(match) %>% 
+      unlist()
+    polygons <- tibble::tibble(features = polygons)
+    polygons[[match]] <- match_column
+    data <- suppressWarnings(inner_join(data, polygons, by = match))
+  }
   
   meta <- data %>% 
     apply(1, as.list) %>% 

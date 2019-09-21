@@ -1,0 +1,93 @@
+---
+title: "Polygons"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{polygons}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+library(globe4r)
+```
+
+By default the `globe_choropleth` function will plot `data` against an internal database of country polygons. Below use a globe4r dataset to plot the percentage of agricultural land available per country.
+
+```{r}
+data(agriland)
+
+create_globe(height = "100vh") %>% 
+  globe_choropleth(
+    coords(
+      country = country_code,
+      altitude = percent,
+      cap_color = percent
+    ), 
+    data = agriland
+  ) %>% 
+  scale_choropleth_cap_color() %>%  
+  scale_choropleth_altitude(0.06, 0.1) 
+```
+
+However one is not limited to use those polygons. The latter are defined by GeoJSON which can easily be obtained in R.
+
+1. First use the `raster` package to fetch the desired map (shapefile).
+2. You are advsied to use `rmapshaper` to simplify the map as it will make it load much faster in the browser.
+3. Finally use `geojsonio` to convert the file to GeoJSON
+
+All of the packages above are available on CRAN.
+
+<details>
+<summary>Install.</summary>
+<p>
+```r
+pkgs <- c("raster", "rmapshaper", "geojsonio")
+install.packages(pkgs)
+```
+</p>
+</details>
+
+```{r}
+india_sp <- raster::getData('GADM', country = 'INDIA', level = 1)
+india_small <- rmapshaper::ms_simplify(india_sp, keep = 0.05) 
+india_geojson <- geojsonio::geojson_list(india_small)
+```
+
+Now we can build mock data to plot against our mock GeoJON. We can fetch the name of each polygon using the `NAME_` + `level` formula, or `NAME_1` in our case, this can be found under `properties`.
+
+```{r}
+regions <- india_geojson$features %>% 
+  purrr::map("properties") %>% 
+  purrr::map("NAME_1") %>% 
+  unlist()
+
+mock_data <- data.frame(
+  NAME_1 = regions,
+  value = runif(length(regions), 1, 100)
+)
+
+mock_data %>% 
+  head() %>% 
+  knitr::kable()
+```
+
+Note that the we also use `NAME_1` in our data, this will be used internally to match data to their respective polygons.
+
+```{r}
+create_globe() %>% 
+  globe_choropleth(
+    data = mock_data,
+    coords(
+      polygon = NAME_1,
+      cap_color = value
+    ),
+    polygons = india_geojson
+  ) %>% 
+  globe_pov(19, 77, 1) %>% 
+  scale_choropleth_cap_color()
+```

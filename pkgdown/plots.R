@@ -31,13 +31,12 @@ create_globe(height = "100vh") %>%
       country = country_code,
       altitude = percent,
       cap_color = percent,
-      side_color = percent
     ), 
     data = agriland
   ) %>% 
   scale_choropleth_cap_color() %>% 
-  scale_choropleth_side_color() %>% 
-  scale_choropleth_altitude() %>% 
+  polygons_side_color(constant("rgba(255,255,255,.1)")) %>% 
+  scale_choropleth_altitude(0.06, 0.2) %>% 
   htmlwidgets::saveWidget(file = "choropleth.html")
 
 # arcs

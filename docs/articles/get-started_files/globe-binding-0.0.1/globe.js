@@ -7,7 +7,8 @@ HTMLWidgets.widget({
   factory: function(el, width, height) {
 
     var dom,
-        globe;
+        globe,
+        shared_data;
 
     return {
 
@@ -15,6 +16,7 @@ HTMLWidgets.widget({
 
         dom = document.getElementById(el.id);
         globe = Globe(x.init)(dom);
+        shared_data = x;
 
         // general options
         if(x.hasOwnProperty("globeImageUrl"))
@@ -63,12 +65,24 @@ HTMLWidgets.widget({
           globe.pointsMerge(x.pointsMerge);
         if(x.hasOwnProperty("pointsTransitionDuration"))
           globe.pointsTransitionDuration(x.pointsTransitionDuration);
-        if(x.hasOwnProperty("onPointClick"))
-          globe.onPointClick(x.onPointClick);  
-        if(x.hasOwnProperty("onPointRightClick"))
-          globe.onPointRightClick(x.onPointRightClick);  
-        if(x.hasOwnProperty("onPointHover"))
-          globe.onPointHover(x.onPointHover);  
+        if(!typeof x.onPointClick === "boolean") globe.onPointClick(x.onPointClick); 
+        if(!typeof x.onPointRightClick === "boolean") globe.onPointRightClick(x.onPointRightClick);
+        if(!typeof x.onPointHover === "boolean") globe.onPointHover(x.onPointHover);
+
+        if (HTMLWidgets.shinyMode) {
+          if(x.onPointClick === true)
+            globe.onPointClick(function (e) {
+              Shiny.setInputValue(el.id + '_click_bar' + ":globe4rParseJS", e);
+            })
+          if(x.onPointRightClick == true)
+            globe.onPointRightClick(function (e) {
+              Shiny.setInputValue(el.id + '_right_click_bar' + ":globe4rParseJS", e);
+            })
+          if(x.onPointHover == true)
+            globe.onPointHover(function (e) {
+              Shiny.setInputValue(el.id + '_hover_bar' + ":globe4rParseJS", e);
+            })
+        }
 
         // arcs
         if(x.hasOwnProperty("arcsData"))
@@ -103,12 +117,6 @@ HTMLWidgets.widget({
           globe.arcDashAnimateTime(x.arcDashAnimateTime);  
         if(x.hasOwnProperty("arcsTransitionDuration"))
           globe.arcsTransitionDuration(x.arcsTransitionDuration);  
-        if(x.hasOwnProperty("onArcClick"))
-          globe.onArcClick(x.onArcClick); 
-        if(x.hasOwnProperty("onArcRightClick"))
-          globe.onArcRightClick(x.onArcRightClick); 
-        if(x.hasOwnProperty("onArcHover"))
-          globe.onArcHover(x.onArcHover); 
         if(x.hasOwnProperty("arcStartLng"))
           globe.arcStartLng(x.arcStartLng);
         if(x.hasOwnProperty("arcStartLat"))
@@ -117,6 +125,25 @@ HTMLWidgets.widget({
           globe.arcEndLat(x.arcEndLat);
         if(x.hasOwnProperty("arcEndLng"))
           globe.arcEndLng(x.arcEndLng);
+
+        if(!typeof x.onArcClick === "boolean") globe.onArcClick(x.onArcClick); 
+        if(!typeof x.onArcRightClick === "boolean") globe.onArcRightClick(x.onArcRightClick);
+        if(!typeof x.onArcHover === "boolean") globe.onArcHover(x.onArcHover);
+
+        if (HTMLWidgets.shinyMode) {
+          if(x.onArcClick === true)
+            globe.onArcClick(function (e) {
+              Shiny.setInputValue(el.id + '_click_arc' + ":globe4rParseJS", e);
+            })
+          if(x.onArcRightClick == true)
+            globe.onArcRightClick(function (e) {
+              Shiny.setInputValue(el.id + '_right_click_arc' + ":globe4rParseJS", e);
+            })
+          if(x.onArcHover == true)
+            globe.onArcHover(function (e) {
+              Shiny.setInputValue(el.id + '_hover_arc' + ":globe4rParseJS", e);
+            })
+        }
 
         // polygon
         if(x.hasOwnProperty("polygonsData"))
@@ -133,12 +160,25 @@ HTMLWidgets.widget({
           globe.polygonAltitude(x.polygonAltitude); 
         if(x.hasOwnProperty("polygonsTransitionDuration"))
           globe.polygonsTransitionDuration(x.polygonsTransitionDuration); 
-        if(x.hasOwnProperty("onPolygonClick"))
-          globe.onPolygonClick(x.onPolygonClick); 
-        if(x.hasOwnProperty("onPolygonRightClick"))
-          globe.onPolygonRightClick(x.onPolygonRightClick); 
-        if(x.hasOwnProperty("onPolygonHover"))
-          globe.onPolygonHover(x.onPolygonHover); 
+        if(typeof x.onPolygonClick != "boolean") globe.onPolygonClick(x.onPolygonClick); 
+        if(typeof x.onPolygonRightClick != "boolean") globe.onPolygonRightClick(x.onPolygonRightClick);
+        if(typeof x.onPolygonHover != "boolean") globe.onPolygonHover(x.onPolygonHover);
+
+        if (HTMLWidgets.shinyMode) {
+          if(x.onPolygonClick == true){
+            globe.onPolygonClick(function (e) {
+              Shiny.setInputValue(el.id + '_click_polygon' + ":globe4rParseJS", e);
+            })
+          }
+          if(x.onPolygonRightClick == true)
+            globe.onPolygonRightClick(function (e) {
+              Shiny.setInputValue(el.id + '_right_click_polygon' + ":globe4rParseJS", e);
+            })
+          if(x.onArcHover == true)
+            globe.onPolygonHover(function (e) {
+              Shiny.setInputValue(el.id + '_hover_polygon' + ":globe4rParseJS", e);
+            })
+        }
 
         // label
         if(x.hasOwnProperty("labelsData"))
@@ -171,12 +211,24 @@ HTMLWidgets.widget({
           globe.labelDotOrientation(x.labelDotOrientation); 
         if(x.hasOwnProperty("labelsTransitionDuration"))
           globe.labelsTransitionDuration(x.labelsTransitionDuration); 
-        if(x.hasOwnProperty("onLabelClick"))
-          globe.onLabelClick(x.onLabelClick); 
-        if(x.hasOwnProperty("onLabelRightClick"))
-          globe.onLabelRightClick(x.onLabelRightClick); 
-        if(x.hasOwnProperty("onLabelHover"))
-          globe.onLabelHover(x.onLabelHover); 
+        if(!typeof x.onLabelClick === "boolean") globe.onLabelClick(x.onLabelClick); 
+        if(!typeof x.onLabelRightClick === "boolean") globe.onLabelRightClick(x.onLabelRightClick);
+        if(!typeof x.onLabelHover === "boolean") globe.onLabelHover(x.onLabelHover);
+
+        if (HTMLWidgets.shinyMode) {
+          if(x.onLabelClick === true)
+            globe.onLabelClick(function (e) {
+              Shiny.setInputValue(el.id + '_click_label' + ":globe4rParseJS", e);
+            })
+          if(x.onLabelRightClick == true)
+            globe.onLabelRightClick(function (e) {
+              Shiny.setInputValue(el.id + '_right_click_label' + ":globe4rParseJS", e);
+            })
+          if(x.onLabelHover == true)
+            globe.onLabelHover(function (e) {
+              Shiny.setInputValue(el.id + '_hover_label' + ":globe4rParseJS", e);
+            })
+        }
 
         if(x.hasOwnProperty("pointOfView"))
           globe.pointOfView(x.pointOfView, x.pointOfViewMs);
@@ -210,17 +262,61 @@ HTMLWidgets.widget({
           globe.hexBinMerge(x.hexBinMerge);
         if(x.hasOwnProperty("hexTransitionDuration"))
           globe.hexTransitionDuration(x.hexTransitionDuration);
-        if(x.hasOwnProperty("onHexClick"))
-          globe.onHexClick(x.onHexClick);
-        if(x.hasOwnProperty("onHexRightClick"))
-          globe.onHexRightClick(x.onHexRightClick);
-        if(x.hasOwnProperty("onHexHover"))
-          globe.onHexHover(x.onHexHover);
+        if(!typeof x.onHexClick === "boolean") globe.onHexClick(x.onHexClick); 
+        if(!typeof x.onHexRightClick === "boolean") globe.onHexRightClick(x.onHexRightClick);
+        if(!typeof x.onHexHover === "boolean") globe.onHexHover(x.onHexHover);
+
+        if (HTMLWidgets.shinyMode) {
+          if(x.onHexClick === true)
+            globe.onHexClick(function (e) {
+              Shiny.setInputValue(el.id + '_click_hex' + ":globe4rParseJS", e);
+            })
+          if(x.onHexRightClick == true)
+            globe.onHexRightClick(function (e) {
+              Shiny.setInputValue(el.id + '_right_click_hex' + ":globe4rParseJS", e);
+            })
+          if(x.onHexHover == true)
+            globe.onHexHover(function (e) {
+              Shiny.setInputValue(el.id + '_hover_hex' + ":globe4rParseJS", e);
+            })
+        }
 
       },
 
       getGlobe: function(){
         return globe;
+      },
+
+      getData: function(dataset){
+
+        var col;
+        
+        switch(dataset){
+          case "polygons":
+            col = "polygonsData";
+            break;
+          case "choropleth":
+            col = "polygonsData";
+            break;
+          case "labels":
+            col = "labelsData";
+            break;
+          case "arcs":
+            col = "arcsData";
+            break;
+          case "hex":
+            col = "hexBinPointsData";
+            break;
+          case "hexbin":
+            col = "hexBinPointsData";
+            break;
+          case "default":
+            col = "pointsData";
+        }
+
+        console.log(col);
+
+        return(shared_data[col])
       },
 
       resize: function(width, height) {
@@ -248,6 +344,19 @@ function get_globe(id){
   }
 
   return(g);
+}
+
+function get_data(id, variable){
+
+  var htmlWidgetsObj = HTMLWidgets.find("#" + id);
+
+  var dat;
+
+  if (typeof htmlWidgetsObj != 'undefined') {
+    dat = htmlWidgetsObj.getData(variable);
+  }
+
+  return(dat);
 }
 
 if (HTMLWidgets.shinyMode) {
@@ -943,6 +1052,14 @@ if (HTMLWidgets.shinyMode) {
       var globe = get_globe(data.id);
       if (typeof globe != 'undefined') {
         globe.onHexHover(data.onHexHover);
+      }
+  });
+
+  Shiny.addCustomMessageHandler('scale_bars_color',
+    function(data) {
+      var globe = get_globe(data.id);
+      if (typeof globe != 'undefined') {
+        globe.pointColor(data.pointColor);
       }
   });
 

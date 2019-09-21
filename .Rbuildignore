@@ -15,3 +15,4 @@ bars.html
 labels.html
 choropleth.html
 ^\.travis\.yml$
+gadm36_IND_1_sp.rds

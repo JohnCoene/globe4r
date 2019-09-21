@@ -34,6 +34,7 @@ constant <- function(x){
 #' @inheritParams globe_img
 #' @param palette A vector of colors.
 #' @param min,max Domain to scale color with \href{https://gka.github.io/chroma.js/}{Chroma.js}.
+#' @param ... \code{var}, the variable used to scale color as well as \code{min} and \code{max} arguments.
 #' 
 #' @examples
 #' # basic
@@ -44,11 +45,11 @@ constant <- function(x){
 #' 
 #' @name scaling_color
 #' @export
-scale_bars_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")) UseMethod("scale_bars_color") 
+scale_bars_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"), ...) UseMethod("scale_bars_color") 
 
 #' @export
 #' @method scale_bars_color globe
-scale_bars_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")){
+scale_bars_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"), ...){
   assert_that(length(globe$x$pointColor) >= 1, msg = "No `color` specified.")
 
   colors <- globe$x$pointsData[[globe$x$pointColor]]
@@ -56,6 +57,16 @@ scale_bars_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#ed
   globe$x$pointsData$GLOBE4pointColor <- scale(colors)
   globe$x$pointColor <- "GLOBE4pointColor"
 
+  return(globe)
+}
+
+#' @export
+#' @method scale_bars_color globeProxy
+scale_bars_color.globeProxy <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"), ..., var, min = 0, max = 1){
+  assert_that(not_missing(var))
+  scl <- color_scale(var, palette, min, max)
+  msg <- list(id = globe$id, pointColor = scl)
+  globe$session$sendCustomMessage("scale_bars_color", msg)
   return(globe)
 }
 
@@ -99,7 +110,7 @@ scale_choropleth_cap_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", 
 #' @export
 #' @method scale_choropleth_cap_color globe
 scale_choropleth_cap_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")){
-  assert_that(length(globe$x$polygonCapColor) >= 1, msg = "No `color` specified.")
+  assert_that(length(globe$x$polygonCapColor) >= 1, msg = "No `cap_color` specified.")
 
   scale <- scales::col_numeric(palette, NULL)
   globe$x$polygonsData$GLOBE4RcapColor <- scale(globe$x$polygonsData[[globe$x$polygonCapColor]])
@@ -119,7 +130,7 @@ scale_hex_cap_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "
   domain <- jsonlite::toJSON(c(min, max))
   color_scale <- htmlwidgets::JS(
     "function(d){
-      fnc = chroma.scale(", palette, ").domain(", domain, ");
+      fnc = chroma.scale(", palette, ").domain(", domain, ").mode('lab');
       return fnc(d.sumWeight).hex();
     }"
   )  
@@ -153,7 +164,7 @@ scale_choropleth_side_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb",
 #' @export
 #' @method scale_choropleth_side_color globe
 scale_choropleth_side_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")){
-  assert_that(length(globe$x$polygonSideColor) >= 1, msg = "No `color` specified.")
+  assert_that(length(globe$x$polygonSideColor) >= 1, msg = "No `side_color` specified.")
 
   scale <- scales::col_numeric(palette, NULL)
   globe$x$polygonsData$GLOBE4RpolygonColor <- scale(globe$x$polygonsData[[globe$x$polygonSideColor]])

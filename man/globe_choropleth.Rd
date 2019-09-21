@@ -6,7 +6,7 @@
 \usage{
 globe_choropleth(globe, ..., data = NULL, inherit_coords = TRUE,
   on_click = NULL, on_right_click = NULL, on_hover = NULL,
-  match = c("auto", "iso2", "iso3", "name"))
+  match = c("auto", "iso2", "iso3", "name"), polygons = NULL)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
@@ -33,15 +33,33 @@ or \code{TRUE} to pick up the event from Shiny server side, see example.}
 \item{match}{The type of \code{country} identifier, 
 \code{auto} attempts to infer the type, \code{iso2}
 (e.g.: "US"), iso3 (e.g.: "USA"), or the country name.}
+
+\item{polygons}{Polygons to match data against, if
+\code{NULL} is matched against internal dataset of 
+world country polygons.}
 }
 \description{
 Add points to a globe.
+}
+\details{
+By default the function will match the 
+\code{\link{coords}} \code{country} argument 
+against an internal dataset of country names,
+and iso codes.
+In order to use other polygons, one can pass
+GeoJSON as a \code{list} to the \code{polygons}
+argument and specify \code{polygon} argument in
+\code{\link{coords}}: this will match the latter
+against the \code{data}, see
+\href{https://globe4r.john-coene.com/articles/polygons.html}{online documentation}
+for a full example.
 }
 \section{Coordinates}{
 
 Valid coordinates.
 \itemize{
-  \item{\code{country}},
+  \item{\code{country}}
+  \item{\code{polygon}}
   \item{\code{altitude}}
   \item{\code{label}}
   \item{\code{side_color}, \code{cap_color}}

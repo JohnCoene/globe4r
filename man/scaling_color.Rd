@@ -11,7 +11,8 @@
 \alias{scale_choropleth_side_color}
 \title{Scale Colour}
 \usage{
-scale_bars_color(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"))
+scale_bars_color(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"),
+  ...)
 
 scale_arc_color(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"))
 
@@ -35,6 +36,8 @@ scale_choropleth_side_color(globe, palette = c("#2c7fb8", "#7fcdbb",
 as returned by \code{\link{globeProxy}}.}
 
 \item{palette}{A vector of colors.}
+
+\item{...}{\code{var}, the variable used to scale color as well as \code{min} and \code{max} arguments.}
 
 \item{min, max}{Domain to scale color with \href{https://gka.github.io/chroma.js/}{Chroma.js}.}
 }

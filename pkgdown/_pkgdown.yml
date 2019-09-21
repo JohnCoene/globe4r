@@ -19,6 +19,9 @@ navbar:
     - icon: fa-rocket fa-lg
       text: Get Started
       href: articles/get-started.html
+    - icon: fa-globe fa-lg
+      text: Polygons
+      href: articles/polygons.html
     - icon: fa-desktop fa-lg
       text: Shiny
       href: articles/shiny.html

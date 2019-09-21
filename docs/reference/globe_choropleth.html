@@ -124,6 +124,13 @@
   </a>
 </li>
 <li>
+  <a href="../articles/polygons.html">
+    <span class="fa fa-globe fa-lg"></span>
+     
+    Polygons
+  </a>
+</li>
+<li>
   <a href="../articles/shiny.html">
     <span class="fa fa-desktop fa-lg"></span>
      
@@ -161,7 +168,7 @@
 
     <pre class="usage"><span class='fu'>globe_choropleth</span>(<span class='no'>globe</span>, <span class='no'>...</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>inherit_coords</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>on_click</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>on_right_click</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>on_hover</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>match</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"auto"</span>, <span class='st'>"iso2"</span>, <span class='st'>"iso3"</span>, <span class='st'>"name"</span>))</pre>
+  <span class='kw'>match</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"auto"</span>, <span class='st'>"iso2"</span>, <span class='st'>"iso3"</span>, <span class='st'>"name"</span>), <span class='kw'>polygons</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -187,8 +194,19 @@ from <code><a href='create_globe.html'>create_globe</a></code>. Only applies to 
 <code>globe4r</code> not on objects of class <code>globeProxy</code>.</p></td>
     </tr>
     <tr>
-      <th>on_click, on_right_click, on_hover</th>
-      <td><p>JavaScript functions as strings.</p></td>
+      <th>on_click</th>
+      <td><p>JavaScript functions as <a href='https://www.rdocumentation.org/packages/htmlwidgets/topics/JS'>JS</a> 
+or <code>TRUE</code> to pick up the event from Shiny server side, see example.</p></td>
+    </tr>
+    <tr>
+      <th>on_right_click</th>
+      <td><p>JavaScript functions as <a href='https://www.rdocumentation.org/packages/htmlwidgets/topics/JS'>JS</a> 
+or <code>TRUE</code> to pick up the event from Shiny server side, see example.</p></td>
+    </tr>
+    <tr>
+      <th>on_hover</th>
+      <td><p>JavaScript functions as <a href='https://www.rdocumentation.org/packages/htmlwidgets/topics/JS'>JS</a> 
+or <code>TRUE</code> to pick up the event from Shiny server side, see example.</p></td>
     </tr>
     <tr>
       <th>match</th>
@@ -196,13 +214,20 @@ from <code><a href='create_globe.html'>create_globe</a></code>. Only applies to 
 <code>auto</code> attempts to infer the type, <code>iso2</code>
 (e.g.: "US"), iso3 (e.g.: "USA"), or the country name.</p></td>
     </tr>
+    <tr>
+      <th>polygons</th>
+      <td><p>Polygons to match data against, if
+<code>NULL</code> is matched against internal dataset of 
+world country polygons.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="coordinates"><a class="anchor" href="#coordinates"></a>Coordinates</h2>
 
     
     <p>Valid coordinates.</p><ul>
-<li><p><code>country</code>,</p></li>
+<li><p><code>country</code></p></li>
+<li><p><code>polygon</code></p></li>
 <li><p><code>altitude</code></p></li>
 <li><p><code>label</code></p></li>
 <li><p><code>side_color</code>, <code>cap_color</code></p></li>

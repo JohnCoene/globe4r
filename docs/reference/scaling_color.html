@@ -124,6 +124,13 @@
   </a>
 </li>
 <li>
+  <a href="../articles/polygons.html">
+    <span class="fa fa-globe fa-lg"></span>
+     
+    Polygons
+  </a>
+</li>
+<li>
   <a href="../articles/shiny.html">
     <span class="fa fa-desktop fa-lg"></span>
      
@@ -159,7 +166,8 @@
     <p>Pass a numeric value as color and use this function</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_bars_color</span>(<span class='no'>globe</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"#2c7fb8"</span>, <span class='st'>"#7fcdbb"</span>, <span class='st'>"#edf8b1"</span>))
+    <pre class="usage"><span class='fu'>scale_bars_color</span>(<span class='no'>globe</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"#2c7fb8"</span>, <span class='st'>"#7fcdbb"</span>, <span class='st'>"#edf8b1"</span>),
+  <span class='no'>...</span>)
 
 <span class='fu'>scale_arc_color</span>(<span class='no'>globe</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"#2c7fb8"</span>, <span class='st'>"#7fcdbb"</span>, <span class='st'>"#edf8b1"</span>))
 
@@ -189,6 +197,10 @@ as returned by <code><a href='globe-shiny.html'>globeProxy</a></code>.</p></td>
     <tr>
       <th>palette</th>
       <td><p>A vector of colors.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p><code>var</code>, the variable used to scale color as well as <code>min</code> and <code>max</code> arguments.</p></td>
     </tr>
     <tr>
       <th>min, max</th>
