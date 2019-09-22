@@ -90,6 +90,10 @@ reference:
     desc: "Demo shiny app."
     contents: 
       - demo_app
+  - title: "Title"
+    desc: "Add text."
+    contents: 
+      - globe_title
 
 authors:
   John Coene:
