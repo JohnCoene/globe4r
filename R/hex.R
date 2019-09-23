@@ -87,9 +87,9 @@ globe_hex.globe <- function(globe, ..., data = NULL, inherit_coords = TRUE, on_c
   globe$x$hexSideColor <- coords_to_opts(coords, "side_color")
   globe$x$hexBinMerge <-  coords_to_opts(coords, "merge")
   globe$x$hexTransitionDuration <- coords_to_opts(coords, "transition")
-  globe$x$onHexClick <- if(!is.null(on_click)) htmlwidgets::JS(on_click)
-  globe$x$onHexRightClick <- if(!is.null(on_right_click)) htmlwidgets::JS(on_right_click)
-  globe$x$onHexHover <- if(!is.null(on_hover)) htmlwidgets::JS(on_hover)
+  globe$x$onHexClick <- if(!is.null(on_click)) on_click
+  globe$x$onHexRightClick <- if(!is.null(on_right_click)) on_right_click
+  globe$x$onHexHover <- if(!is.null(on_hover)) on_hover
   
   return(globe)
 
