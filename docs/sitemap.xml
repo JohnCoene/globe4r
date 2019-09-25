@@ -61,6 +61,9 @@
     <loc>https://globe4r.john-coene.com/reference/globe_rotate.html</loc>
   </url>
   <url>
+    <loc>https://globe4r.john-coene.com/reference/globe_title.html</loc>
+  </url>
+  <url>
     <loc>https://globe4r.john-coene.com/reference/hex_data.html</loc>
   </url>
   <url>
@@ -107,6 +110,9 @@
   </url>
   <url>
     <loc>https://globe4r.john-coene.com/articles/get-started.html</loc>
+  </url>
+  <url>
+    <loc>https://globe4r.john-coene.com/articles/hexagons.html</loc>
   </url>
   <url>
     <loc>https://globe4r.john-coene.com/articles/polygons.html</loc>

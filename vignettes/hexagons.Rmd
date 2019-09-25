@@ -1,0 +1,105 @@
+---
+title: "hexagons"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{hexagons}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+library(globe4r)
+```
+
+This document details ahow to work with Uber's [h3](https://uber.github.io/h3/). In globe4r there are two ways to approach the latter:
+
+1. Let globe4r bin your data into hexagons.
+2. Bin into hexagons yourself.
+
+The latter provides much more control and intuition about the visualisation, the former much less so but is much easier to put together, see example below.
+
+```{r setup}
+quakes %>% 
+  create_globe() %>% 
+  globe_hex(
+    coords(lat, long)
+  ) %>% 
+  globe_pov(-15, 160) # position camera
+```
+
+However, since the data is binned dynamically on the JavaScript side it makes it very annoying to adjust the color and height of the hex bars; we'd need to rescale them but god knows their range, it's all been handled on the JavaScript side. So an alternative is to aggregate the data into hexagons on the R side and then use the hex function to render them.
+
+There a few packages that will let you "bin" your data in to Uber's [h3](https://uber.github.io/h3/) hexagons from R:
+
+- [h3-r](https://github.com/crazycapivara/h3-r)
+- [h3forr](https://github.com/crazycapivara/h3forr)
+- [h3jsr](https://github.com/obrl-soil/h3jsr)
+- [h3inr](https://github.com/JohnCoene/h3inr)
+
+Feel free to use any of the above, the point of this excercise is simply to bin into hexagons and then use the coordinates of the center of said hexagons in globe4r, however since I authored the last of those packages (for this very purpose) I will use it for this example.
+
+<details>
+<summary>Install h3inr</summary>
+<p>
+```r
+install.packages("remotes")
+remotes::install_github("JohnCoene/h3inr")
+```
+</p>
+</details>
+
+We can compute the "h3index", the index of the hexagon where our coordinates are located.
+
+```{r}
+library(h3inr)
+
+h3index <- geo_to_h3(quakes, lat, long, resolution = 4L)
+```
+
+Then we can aggregate our data over the h3index, i.e.: with the `tidyverse`, i.e.: below counting the number of observed earthquakes by hexagon.
+
+```{r}
+h3index <- dplyr::count(h3index, hex)
+```
+
+Then re-compute the center of each hexagon.
+
+```{r}
+h3index <- h3_to_geo(h3index, hex = hex)
+```
+
+Then we can plot the hexagons, note that we set the `weight` to `n` in the `coords` function, when omitted it defaults to `1`.
+
+```{r}
+h3index %>% 
+  create_globe() %>% 
+  globe_hex(
+    coords(hex_center_lat, hex_center_lon, weight = n)
+  ) %>% 
+  globe_pov(-15, 160) # position camera
+```
+
+Thanks to computing those on the R side we know the range of the $n$ aggregated in the hexagon, which enables computing color and height range.
+
+```{r}
+range(h3index$n)
+```
+
+This will help us compute the color with `scale_hex_side_color`, and `scale_hex_cap_color`.
+
+```{r}
+h3index %>% 
+  create_globe() %>% 
+  globe_hex(
+    coords(hex_center_lat, hex_center_lon, weight = n)
+  ) %>% 
+  globe_pov(-15, 160) %>%  # position camera
+  scale_hex_side_color(min = 1, max = 32) %>% 
+  scale_hex_cap_color(min = 1, max = 32) %>% 
+  scale_hex_weight(min = 1, max = 32)
+```

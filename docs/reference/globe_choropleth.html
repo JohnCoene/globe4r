@@ -114,6 +114,7 @@
   <a href="../reference/">
     <span class="fa fa-code fa-lg"></span>
      
+    Reference
   </a>
 </li>
 <li>
@@ -123,19 +124,23 @@
     Get Started
   </a>
 </li>
-<li>
-  <a href="../articles/polygons.html">
-    <span class="fa fa-globe fa-lg"></span>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Guides
      
-    Polygons
+    <span class="caret"></span>
   </a>
-</li>
-<li>
-  <a href="../articles/shiny.html">
-    <span class="fa fa-desktop fa-lg"></span>
-     
-    Shiny
-  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/polygons.html">Polygons</a>
+    </li>
+    <li>
+      <a href="../articles/hexagons.html">Hexagons</a>
+    </li>
+    <li>
+      <a href="../articles/shiny.html">Shiny</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -222,6 +227,19 @@ world country polygons.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>By default the function will match the 
+<code><a href='coords.html'>coords</a></code> <code>country</code> argument 
+against an internal dataset of country names,
+and iso codes.
+In order to use other polygons, one can pass
+GeoJSON as a <code>list</code> to the <code>polygons</code>
+argument and specify <code>polygon</code> argument in
+<code><a href='coords.html'>coords</a></code>: this will match the latter
+against the <code>data</code>, see
+<a href='https://globe4r.john-coene.com/articles/polygons.html'>online documentation</a>
+for a full example.</p>
     <h2 class="hasAnchor" id="coordinates"><a class="anchor" href="#coordinates"></a>Coordinates</h2>
 
     
@@ -246,6 +264,7 @@ world country polygons.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#details">Details</a></li>
       <li><a href="#coordinates">Coordinates</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

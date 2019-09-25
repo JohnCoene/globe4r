@@ -15,16 +15,19 @@ navbar:
     - icon: fa-newspaper-o fa-lg
       href: news/index.html
     - icon: fa-code fa-lg
+      text: Reference
       href: "reference/"
     - icon: fa-rocket fa-lg
       text: Get Started
       href: articles/get-started.html
-    - icon: fa-globe fa-lg
-      text: Polygons
-      href: articles/polygons.html
-    - icon: fa-desktop fa-lg
-      text: Shiny
-      href: articles/shiny.html
+    - text: "Guides"
+      menu:
+      - text: Polygons
+        href: articles/polygons.html
+      - text: Hexagons
+        href: articles/hexagons.html
+      - text: Shiny
+        href: articles/shiny.html
   right:
     - icon: fa-github fa-lg
       href: https://github.com/JohnCoene/globe4r

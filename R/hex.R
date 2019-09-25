@@ -75,11 +75,13 @@ globe_hex.globe <- function(globe, ..., data = NULL, inherit_coords = TRUE, on_c
   # create points array
   globe$x$hexBinPointsData <- dplyr::select(data, columns)
 
+  w <- coords_to_opts(coords, "weight")
+
   # set options
   globe$x$hexLabel <- coords_to_opts(coords, "label")
   globe$x$hexBinPointLat <- coords_to_opts(coords, "lat")
   globe$x$hexBinPointLng <- coords_to_opts(coords, "lon")
-  globe$x$hexBinPointWeight <- coords_to_opts(coords, "weight")
+  globe$x$hexBinPointWeight <- if(is.null(w)) 1L else w
   globe$x$hexBinResolution <- coords_to_opts(coords, "resolution")
   globe$x$hexAltitude <- coords_to_opts(coords, "altitude")
   globe$x$hexMargin <-  coords_to_opts(coords, "margin")
