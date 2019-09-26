@@ -121,13 +121,22 @@ scale_choropleth_cap_color.globe <- function(globe, palette = c("#2c7fb8", "#7fc
 
 #' @rdname scaling_color
 #' @export
-scale_hex_cap_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"), min = 0, max = 100) UseMethod("scale_hex_cap_color") 
+scale_hex_cap_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"), min = NULL, max = NULL) UseMethod("scale_hex_cap_color") 
 
 #' @export
 #' @method scale_hex_cap_color globe
-scale_hex_cap_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"), min = 0, max = 100){
+scale_hex_cap_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"), min = NULL, max = NULL){
   palette <- jsonlite::toJSON(palette)
-  domain <- jsonlite::toJSON(c(min, max))
+  if(is.null(min)){
+    validate_that(
+      is.character(globe$x$hexBinPointWeight),
+      msg = "Cannot scale `cap_color` when `weight` is set to an integer in `coords`: only works if hexagons are pre-computed."
+    )
+    rng <- range(globe$x$hexBinPointsData[[globe$x$hexBinPointWeight]])
+  } else 
+    rng <- c(min, max)
+  
+  domain <- jsonlite::toJSON(rng)
   color_scale <- htmlwidgets::JS(
     "function(d){
       fnc = chroma.scale(", palette, ").domain(", domain, ").mode('lab');
@@ -140,16 +149,25 @@ scale_hex_cap_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "
 
 #' @rdname scaling_color
 #' @export
-scale_hex_side_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"), min = 0, max = 100) UseMethod("scale_hex_side_color") 
+scale_hex_side_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"), min = NULL, max = NULL) UseMethod("scale_hex_side_color") 
 
 #' @export
 #' @method scale_hex_side_color globe
-scale_hex_side_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"), min = 0, max = 100){
+scale_hex_side_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"), min = NULL, max = NULL){
   palette <- jsonlite::toJSON(palette)
-  domain <- jsonlite::toJSON(c(min, max))
+  if(is.null(min)){
+    validate_that(
+      is.character(globe$x$hexBinPointWeight),
+      msg = "Cannot scale `cap_color` when `weight` is set to an integer in `coords`: only works if hexagons are pre-computed."
+    )
+    rng <- range(globe$x$hexBinPointsData[[globe$x$hexBinPointWeight]])
+  } else 
+    rng <- c(min, max)
+  
+  domain <- jsonlite::toJSON(rng)
   color_scale <- htmlwidgets::JS(
     "function(d){
-      fnc = chroma.scale(", palette, ").domain(", domain, ");
+      fnc = chroma.scale(", palette, ").domain(", domain, ").mode('lab');
       return fnc(d.sumWeight).hex();
     }"
   )  

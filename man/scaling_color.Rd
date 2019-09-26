@@ -22,10 +22,10 @@ scale_choropleth_cap_color(globe, palette = c("#2c7fb8", "#7fcdbb",
   "#edf8b1"))
 
 scale_hex_cap_color(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"),
-  min = 0, max = 100)
+  min = NULL, max = NULL)
 
 scale_hex_side_color(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"),
-  min = 0, max = 100)
+  min = NULL, max = NULL)
 
 scale_choropleth_side_color(globe, palette = c("#2c7fb8", "#7fcdbb",
   "#edf8b1"))

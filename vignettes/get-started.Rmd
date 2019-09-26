@@ -94,6 +94,7 @@ There are numerous coordinates (`coords`) available.
 - `dash_animate_time`
 - `country`,
 - `side_color`, `cap_color`
+- `weight`
 
 ## Scales
 

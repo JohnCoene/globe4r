@@ -45,6 +45,15 @@ div(
       tags$li("labels")
     ),
     p(
+      "globe4r ships with",
+      tags$a(
+        "chroma.js",
+        href = "https://vis4.net/chromajs/",
+        target = "_blank"
+      ),
+      "to easily scale colors."
+    ),
+    p(
       tags$a(
         tags$i(class = "fa fa-rocket"),
         "Get Started",

@@ -99,7 +99,6 @@ h3index %>%
     coords(hex_center_lat, hex_center_lon, weight = n)
   ) %>% 
   globe_pov(-15, 160) %>%  # position camera
-  scale_hex_side_color(min = 1, max = 32) %>% 
-  scale_hex_cap_color(min = 1, max = 32) %>% 
-  scale_hex_weight(min = 1, max = 32)
+  scale_hex_side_color() %>% 
+  scale_hex_cap_color() 
 ```
