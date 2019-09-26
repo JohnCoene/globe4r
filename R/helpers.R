@@ -86,7 +86,6 @@ scale_arc_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf
   return(globe)
 }
 
-
 #' @rdname scaling_color
 #' @export
 scale_labels_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1")) UseMethod("scale_labels_color") 
@@ -127,6 +126,7 @@ scale_hex_cap_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b
 #' @method scale_hex_cap_color globe
 scale_hex_cap_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"), min = NULL, max = NULL){
   palette <- jsonlite::toJSON(palette)
+  rng <- NULL
   if(is.null(min)){
     validate_that(
       is.character(globe$x$hexBinPointWeight),
@@ -135,6 +135,8 @@ scale_hex_cap_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "
     rng <- range(globe$x$hexBinPointsData[[globe$x$hexBinPointWeight]])
   } else 
     rng <- c(min, max)
+
+  assert_that(!is.null(rng), msg = "Cannot determine scale, pass `min` and `max`.")
   
   domain <- jsonlite::toJSON(rng)
   color_scale <- htmlwidgets::JS(
@@ -155,6 +157,7 @@ scale_hex_side_color <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8
 #' @method scale_hex_side_color globe
 scale_hex_side_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", "#edf8b1"), min = NULL, max = NULL){
   palette <- jsonlite::toJSON(palette)
+  rng <- NULL
   if(is.null(min)){
     validate_that(
       is.character(globe$x$hexBinPointWeight),
@@ -163,6 +166,8 @@ scale_hex_side_color.globe <- function(globe, palette = c("#2c7fb8", "#7fcdbb", 
     rng <- range(globe$x$hexBinPointsData[[globe$x$hexBinPointWeight]])
   } else 
     rng <- c(min, max)
+
+  assert_that(!is.null(rng), msg = "Cannot determine scale, pass `min` and `max`.")
   
   domain <- jsonlite::toJSON(rng)
   color_scale <- htmlwidgets::JS(
