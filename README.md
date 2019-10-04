@@ -1,12 +1,20 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.org/JohnCoene/globe4r.svg?branch=master)](https://travis-ci.org/JohnCoene/globe4r) [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing) <!-- badges: end -->
 
-globe4r
-=======
+[![Travis build
+status](https://travis-ci.org/JohnCoene/globe4r.svg?branch=master)](https://travis-ci.org/JohnCoene/globe4r)
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/JohnCoene/globe4r?branch=master&svg=true)](https://ci.appveyor.com/project/JohnCoene/globe4r)
+<!-- badges: end -->
 
-Interactive globes for R via [globe.gl](https://github.com/vasturiano/globe.gl).
+# globe4r
+
+Interactive globes for R via
+[globe.gl](https://github.com/vasturiano/globe.gl).
 
 Visit the [website](https://globe4r.john-coene.com) for more details.
 
@@ -18,10 +26,10 @@ Visit the [website](https://globe4r.john-coene.com) for more details.
 4.  points
 5.  hex bin
 
-Visit the website for the [full list of functions](https://globe4r.john-coene.com/reference/)
+Visit the website for the [full list of
+functions](https://globe4r.john-coene.com/reference/)
 
-Installation
-------------
+## Installation
 
 You can install the globe4r from Github:
 
@@ -30,8 +38,7 @@ You can install the globe4r from Github:
 remotes::install_github("JohnCoene/globe4r")
 ```
 
-Example
--------
+## Example
 
 ``` r
 library(globe4r)

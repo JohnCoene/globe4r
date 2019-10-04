@@ -9,7 +9,7 @@
 #' create_globe() %>% 
 #'   globe_img_url(image_url("dark"))
 #' 
-#' @return URL to \url{https://jsdelivr.net} image.
+#' @return URL to \url{https://cdn.jsdelivr.net} image.
 #' 
 #' @export
 image_url <- function(name = c("night", "blue-marble", "dark", "topology")) {

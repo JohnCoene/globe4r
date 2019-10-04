@@ -1,6 +1,7 @@
 <!-- badges: start -->
 [![Travis build status](https://travis-ci.org/JohnCoene/globe4r.svg?branch=master)](https://travis-ci.org/JohnCoene/globe4r)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/JohnCoene/globe4r?branch=master&svg=true)](https://ci.appveyor.com/project/JohnCoene/globe4r)
 <!-- badges: end -->
 
 ```{r setup, include = FALSE}

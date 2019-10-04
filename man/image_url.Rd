@@ -10,7 +10,7 @@ image_url(name = c("night", "blue-marble", "dark", "topology"))
 \item{name}{Name of image to return.}
 }
 \value{
-URL to \url{https://jsdelivr.net} image.
+URL to \url{https://cdn.jsdelivr.net} image.
 }
 \description{
 Convenience function to fetch URLs for \code{\link{globe_img_url}}, 
