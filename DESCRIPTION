@@ -3,7 +3,7 @@ Title: Interactive Globes
 Version: 1.0.0
 Date: 2019-10-04
 Authors@R: person("John", "Coene", email = "jcoenep@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6637-4107"))
-Description: Create interactive globes for 'R markdown' and 'Shiny'.
+Description: Create interactive globes with polygons, bars, labels, arcs, and hexagon layers.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
