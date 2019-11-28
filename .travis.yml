@@ -2,3 +2,9 @@
 
 language: R
 cache: packages
+
+addons:
+  postgresql: "9.6"
+  apt:
+    packages:
+      - libudunits2-dev
