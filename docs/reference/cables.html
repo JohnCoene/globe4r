@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Choropleth — globe_choropleth • globe4r</title>
+<title>Cables — cables • globe4r</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Choropleth — globe_choropleth" />
-<meta property="og:description" content="Add points to a globe." />
+<meta property="og:title" content="Cables — cables" />
+<meta property="og:description" content="Underwater cables." />
 <meta property="og:image" content="https://globe4r.john-coene.com/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -162,119 +162,27 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Choropleth</h1>
+    <h1>Cables</h1>
     
-    <div class="hidden name"><code>globe_choropleth.Rd</code></div>
+    <div class="hidden name"><code>cables.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Add points to a globe.</p>
+    <p>Underwater cables.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>globe_choropleth</span>(
-  <span class='no'>globe</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>inherit_coords</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>on_click</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>on_right_click</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>on_hover</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>match</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"auto"</span>, <span class='st'>"iso2"</span>, <span class='st'>"iso3"</span>, <span class='st'>"name"</span>),
-  <span class='kw'>polygons</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='no'>cables</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>globe</th>
-      <td><p>An object of class <code>globe</code> as returned by
-<code><a href='create_globe.html'>create_globe</a></code>, or an object of class <code>globeProxy</code>
-as returned by <code><a href='globe-shiny.html'>globeProxy</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Coordinates, as specified by <code><a href='coords.html'>coords</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>data</th>
-      <td><p>A data.frame of points to draw.</p></td>
-    </tr>
-    <tr>
-      <th>inherit_coords</th>
-      <td><p>Whether to inherit the coordinates (<code><a href='coords.html'>coords</a></code>)
-from <code><a href='create_globe.html'>create_globe</a></code>. Only applies to method applied to object of class
-<code>globe4r</code> not on objects of class <code>globeProxy</code>.</p></td>
-    </tr>
-    <tr>
-      <th>on_click</th>
-      <td><p>JavaScript functions as <a href='https://www.rdocumentation.org/packages/htmlwidgets/topics/JS'>JS</a> 
-or <code>TRUE</code> to pick up the event from Shiny server side, see example.</p></td>
-    </tr>
-    <tr>
-      <th>on_right_click</th>
-      <td><p>JavaScript functions as <a href='https://www.rdocumentation.org/packages/htmlwidgets/topics/JS'>JS</a> 
-or <code>TRUE</code> to pick up the event from Shiny server side, see example.</p></td>
-    </tr>
-    <tr>
-      <th>on_hover</th>
-      <td><p>JavaScript functions as <a href='https://www.rdocumentation.org/packages/htmlwidgets/topics/JS'>JS</a> 
-or <code>TRUE</code> to pick up the event from Shiny server side, see example.</p></td>
-    </tr>
-    <tr>
-      <th>match</th>
-      <td><p>The type of <code>country</code> identifier, 
-<code>auto</code> attempts to infer the type, <code>iso2</code>
-(e.g.: "US"), iso3 (e.g.: "USA"), or the country name.</p></td>
-    </tr>
-    <tr>
-      <th>polygons</th>
-      <td><p>Polygons to match data against, if
-<code>NULL</code> is matched against internal dataset of 
-world country polygons.</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>By default the function will match the 
-<code><a href='coords.html'>coords</a></code> <code>country</code> argument 
-against an internal dataset of country names,
-and iso codes.
-In order to use other polygons, one can pass
-GeoJSON as a <code>list</code> to the <code>polygons</code>
-argument and specify <code>polygon</code> argument in
-<code><a href='coords.html'>coords</a></code>: this will match the latter
-against the <code>data</code>, see
-<a href='https://globe4r.john-coene.com/articles/polygons.html'>online documentation</a>
-for a full example.</p>
-    <h2 class="hasAnchor" id="coordinates"><a class="anchor" href="#coordinates"></a>Coordinates</h2>
+    <p>An object of class sp containing LINESTRINGS.</p>
 
-    
-    <p>Valid coordinates.</p><ul>
-<li><p><code>country</code></p></li>
-<li><p><code>polygon</code></p></li>
-<li><p><code>altitude</code></p></li>
-<li><p><code>label</code></p></li>
-<li><p><code>side_color</code>, <code>cap_color</code></p></li>
-<li><p><code>transition</code></p></li>
-</ul>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='create_globe.html'>create_globe</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='globe_img.html'>globe_img_url</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>globe_choropleth</span>(
-    <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>agriland</span>,
-    <span class='fu'><a href='coords.html'>coords</a></span>(<span class='kw'>country</span> <span class='kw'>=</span> <span class='no'>country_code</span>, <span class='kw'>cap_color</span> <span class='kw'>=</span> <span class='no'>percent</span>)
-  )</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#coordinates">Coordinates</a></li>
-      <li><a href="#examples">Examples</a></li>
+      <li><a href="#format">Format</a></li>
     </ul>
 
   </div>

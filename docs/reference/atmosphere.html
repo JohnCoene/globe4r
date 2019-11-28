@@ -88,7 +88,7 @@ at every 10 degrees." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">globe4r</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -204,7 +204,8 @@ as returned by <code><a href='globe-shiny.html'>globeProxy</a></code>.</p></td>
   <span class='fu'>show_graticules</span>(<span class='fl'>TRUE</span>)
 
 <span class='co'># use in shiny</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>shiny</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: package ‘shiny’ was built under R version 3.5.2</span></div><div class='input'>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>shiny</span>)
+
 <span class='no'>ui</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/shiny/topics/fluidPage'>fluidPage</a></span>(
   <span class='fu'><a href='https://www.rdocumentation.org/packages/shiny/topics/radioButtons'>radioButtons</a></span>(<span class='st'>"show"</span>, <span class='st'>"Atmosphere"</span>, <span class='kw'>choices</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>)),
   <span class='fu'><a href='globe-shiny.html'>globeOutput</a></span>(<span class='st'>"globe"</span>)

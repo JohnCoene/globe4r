@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">globe4r</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -171,24 +171,32 @@
     <p>Pass a numeric value as color and use this function</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_bars_color</span>(<span class='no'>globe</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"#2c7fb8"</span>, <span class='st'>"#7fcdbb"</span>, <span class='st'>"#edf8b1"</span>),
-  <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>scale_bars_color</span>(<span class='no'>globe</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"#2c7fb8"</span>, <span class='st'>"#7fcdbb"</span>, <span class='st'>"#edf8b1"</span>), <span class='no'>...</span>)
 
 <span class='fu'>scale_arc_color</span>(<span class='no'>globe</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"#2c7fb8"</span>, <span class='st'>"#7fcdbb"</span>, <span class='st'>"#edf8b1"</span>))
 
 <span class='fu'>scale_labels_color</span>(<span class='no'>globe</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"#2c7fb8"</span>, <span class='st'>"#7fcdbb"</span>, <span class='st'>"#edf8b1"</span>))
 
-<span class='fu'>scale_choropleth_cap_color</span>(<span class='no'>globe</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"#2c7fb8"</span>, <span class='st'>"#7fcdbb"</span>,
-  <span class='st'>"#edf8b1"</span>))
+<span class='fu'>scale_choropleth_cap_color</span>(<span class='no'>globe</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"#2c7fb8"</span>, <span class='st'>"#7fcdbb"</span>, <span class='st'>"#edf8b1"</span>))
 
-<span class='fu'>scale_hex_cap_color</span>(<span class='no'>globe</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"#2c7fb8"</span>, <span class='st'>"#7fcdbb"</span>, <span class='st'>"#edf8b1"</span>),
-  <span class='kw'>min</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>scale_hex_cap_color</span>(
+  <span class='no'>globe</span>,
+  <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"#2c7fb8"</span>, <span class='st'>"#7fcdbb"</span>, <span class='st'>"#edf8b1"</span>),
+  <span class='kw'>min</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
-<span class='fu'>scale_hex_side_color</span>(<span class='no'>globe</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"#2c7fb8"</span>, <span class='st'>"#7fcdbb"</span>, <span class='st'>"#edf8b1"</span>),
-  <span class='kw'>min</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>scale_hex_side_color</span>(
+  <span class='no'>globe</span>,
+  <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"#2c7fb8"</span>, <span class='st'>"#7fcdbb"</span>, <span class='st'>"#edf8b1"</span>),
+  <span class='kw'>min</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
-<span class='fu'>scale_choropleth_side_color</span>(<span class='no'>globe</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"#2c7fb8"</span>, <span class='st'>"#7fcdbb"</span>,
-  <span class='st'>"#edf8b1"</span>))</pre>
+<span class='fu'>scale_choropleth_side_color</span>(
+  <span class='no'>globe</span>,
+  <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"#2c7fb8"</span>, <span class='st'>"#7fcdbb"</span>, <span class='st'>"#edf8b1"</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
