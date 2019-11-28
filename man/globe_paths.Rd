@@ -45,6 +45,25 @@ Valid coordinates.
 \itemize{
   \item{\code{label}}
   \item{\code{altitude}}
+  \item{\code{color}}
+  \item{\code{resolution}}
+  \item{\code{stroke}}
+  \item{\code{dash_length}}
+  \item{\code{initial_dash_length}}
+  \item{\code{dash_animate_time}}
+  \item{\code{transition}}
 }
 }
 
+\examples{
+create_globe(cables) \%>\% 
+ globe_paths(
+   coords(
+     color = color, 
+     dash_length = .1, 
+     dash_gap = .008, 
+     dash_animate_time = 12000
+   )
+ )
+
+}

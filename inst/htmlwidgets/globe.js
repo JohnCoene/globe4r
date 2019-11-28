@@ -288,9 +288,49 @@ HTMLWidgets.widget({
             .pathPoints('coords')
             .pathPointLat(p => p[1])
             .pathPointLng(p => p[0])
+        }
 
-          if(x.hasOwnProperty("pathColor"))
-            globe.pathColor(x.pathColor);
+        if(x.hasOwnProperty("pathColor"))
+          globe.pathColor(x.pathColor);
+
+        if(x.hasOwnProperty("pathResolution"))
+          globe.pathResolution(x.pathResolution);
+
+        if(x.hasOwnProperty("pathStroke"))
+          globe.pathStroke(x.pathStroke);
+
+        if(x.hasOwnProperty("pathDashGap"))
+          globe.pathDashGap(x.pathDashGap);
+
+        if(x.hasOwnProperty("pathDashLength"))
+          globe.pathDashLength(x.pathDashLength);
+
+        if(x.hasOwnProperty("pathDashInitialGap"))
+          globe.pathDashInitialGap(x.pathDashInitialGap);
+
+        if(x.hasOwnProperty("pathDashAnimateTime"))
+          globe.pathDashAnimateTime(x.pathDashAnimateTime);
+
+        if(x.hasOwnProperty("pathTransitionDuration"))
+          globe.pathTransitionDuration(x.pathTransitionDuration);
+
+        if(!typeof x.onPathClick === "boolean") globe.onPathClick(x.onPathClick); 
+        if(!typeof x.onPathRightClick === "boolean") globe.onPathRightClick(x.onPathRightClick);
+        if(!typeof x.onPathHover === "boolean") globe.onPathHover(x.onPathHover);
+
+        if (HTMLWidgets.shinyMode) {
+          if(x.onHexClick === true)
+            globe.onPathClick(function (e) {
+              Shiny.setInputValue(el.id + '_click_path' + ":globe4rParseJS", e);
+            })
+          if(x.onPathRightClick == true)
+            globe.onPathRightClick(function (e) {
+              Shiny.setInputValue(el.id + '_right_click_path' + ":globe4rParseJS", e);
+            })
+          if(x.onPathHover == true)
+            globe.onPathHover(function (e) {
+              Shiny.setInputValue(el.id + '_hover_path' + ":globe4rParseJS", e);
+            })
         }
 
       },

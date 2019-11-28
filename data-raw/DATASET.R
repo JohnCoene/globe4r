@@ -55,5 +55,15 @@ population <- jsonlite::fromJSON(url)
 population <- as.data.frame(population)
 names(population) <- c("lon", "lat", "value")
 
-usethis::use_data(usflights, agriland, population, overwrite = TRUE)
+# paths
+url <- "https://raw.githubusercontent.com/telegeography/www.submarinecablemap.com/master/public/api/v2/cable/cable-geo.json"
+tmp <- tempfile(fileext = ".json")
+download.file(url, tmp)
+geo <- geojsonio::geojson_read(tmp, what = "sp")
+unlink(tmp)
+sp <- sf::st_as_sf(geo)
+cables <- sf::st_cast(sp, to = "LINESTRING")
+cables$color <- paste0("#", cables$color)
+
+usethis::use_data(usflights, agriland, population, cables, overwrite = TRUE)
 usethis::use_data(country_polygons, internal = TRUE, overwrite = TRUE)

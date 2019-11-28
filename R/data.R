@@ -35,3 +35,10 @@
 #' }
 #' @source \url{https://ecomfe.github.io/echarts-examples/public/data-gl/asset/data/population.json}
 "population"
+
+#' Cables
+#'
+#' Underwater cables.
+#'
+#' @format An object of class sp containing LINESTRINGS.
+"cables"
