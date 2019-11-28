@@ -82,6 +82,8 @@ create_globe(height = "100vh") %>%
   htmlwidgets::saveWidget(file = "labels.html")
 
 create_globe(cables, height = "100vh") %>% 
+  globe_img_url(image_url("dark")) %>% 
+  bump_img_url() %>% 
   globe_paths(
     coords(
       color = color, 
