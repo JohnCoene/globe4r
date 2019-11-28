@@ -4,9 +4,15 @@
 \alias{globe_title}
 \title{Title}
 \usage{
-globe_title(globe, text, tag = shiny::tags$h1, vertical = c("top",
-  "bottom"), horizontal = c("left", "right"), color = "#fff",
-  margin = "3\%")
+globe_title(
+  globe,
+  text,
+  tag = shiny::tags$h1,
+  vertical = c("top", "bottom"),
+  horizontal = c("left", "right"),
+  color = "#fff",
+  margin = "3\%"
+)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by

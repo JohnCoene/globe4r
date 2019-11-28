@@ -4,9 +4,16 @@
 \alias{create_globe}
 \title{Create a globe}
 \usage{
-create_globe(data = NULL, coords = NULL, antialias = TRUE,
-  alpha = TRUE, animate_in = TRUE, width = "100\%", height = NULL,
-  elementId = NULL)
+create_globe(
+  data = NULL,
+  coords = NULL,
+  antialias = TRUE,
+  alpha = TRUE,
+  animate_in = TRUE,
+  width = "100\%",
+  height = NULL,
+  elementId = NULL
+)
 }
 \arguments{
 \item{data}{A data.frame containing coordinates (\code{\link{coords}}).}

@@ -4,9 +4,17 @@
 \alias{globe_choropleth}
 \title{Choropleth}
 \usage{
-globe_choropleth(globe, ..., data = NULL, inherit_coords = TRUE,
-  on_click = NULL, on_right_click = NULL, on_hover = NULL,
-  match = c("auto", "iso2", "iso3", "name"), polygons = NULL)
+globe_choropleth(
+  globe,
+  ...,
+  data = NULL,
+  inherit_coords = TRUE,
+  on_click = NULL,
+  on_right_click = NULL,
+  on_hover = NULL,
+  match = c("auto", "iso2", "iso3", "name"),
+  polygons = NULL
+)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by

@@ -4,8 +4,15 @@
 \alias{globe_hex}
 \title{Hex}
 \usage{
-globe_hex(globe, ..., data = NULL, inherit_coords = TRUE,
-  on_click = NULL, on_right_click = NULL, on_hover = NULL)
+globe_hex(
+  globe,
+  ...,
+  data = NULL,
+  inherit_coords = TRUE,
+  on_click = NULL,
+  on_right_click = NULL,
+  on_hover = NULL
+)
 }
 \arguments{
 \item{globe}{An object of class \code{globe} as returned by
