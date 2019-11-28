@@ -5,6 +5,9 @@
 \alias{cables}
 \title{Cables}
 \format{An object of class sp containing LINESTRINGS.}
+\source{
+\url{https://raw.githubusercontent.com/telegeography/www.submarinecablemap.com/master/public/api/v2/cable/cable-geo.json}
+}
 \usage{
 cables
 }
