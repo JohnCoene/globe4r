@@ -1,3 +1,5 @@
+wd <- getwd()
+setwd("./pkgdown")
 
 library(globe4r)
 library(htmltools)
@@ -78,3 +80,16 @@ create_globe(height = "100vh") %>%
   scale_labels_color() %>% 
   scale_labels_size(.05, .35) %>% 
   htmlwidgets::saveWidget(file = "labels.html")
+
+create_globe(cables, height = "100vh") %>% 
+  globe_paths(
+    coords(
+      color = color, 
+      dash_length = .1, 
+      dash_gap = .008, 
+      dash_animate_time = 12000
+    )
+  ) %>% 
+  htmlwidgets::saveWidget(file = "paths.html")
+
+setwd(wd)

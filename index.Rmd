@@ -88,8 +88,7 @@ remotes::install_github("JohnCoene/globe4r")
 ```{r, echo = FALSE}
 div(
   class = "row",
-  div(class = "col-md-3"),
-  div(class = "col-md-3",
+  div(class = "col-md-4",
     tags$a(
       "Labels",
       class = "btn btn-default",
@@ -98,7 +97,7 @@ div(
       style = "width:100%;"
     )
   ),
-  div(class = "col-md-3",
+  div(class = "col-md-4",
     tags$a(
       "Polygons",
       class = "btn btn-default",
@@ -107,7 +106,15 @@ div(
       style = "width:100%;"
     )
   ),
-  div(class = "col-md-3")
+  div(class = "col-md-4",
+    tags$a(
+      "Paths",
+      class = "btn btn-default",
+      href = "paths.html",
+      target = "_blank",
+      style = "width:100%;"
+    )
+  )
 )
 
 br()
