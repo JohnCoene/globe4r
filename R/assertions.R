@@ -29,5 +29,21 @@ has_coords <- function(x){
 }
 
 on_failure(has_coords) <- function(call, env) {
-  "No coordinates found, see `coords`."
+  paste0(
+    "No coordinates found, see `", 
+    crayon::red("coords") ,
+    "`."
+  )
+}
+
+is_sf <- function(x) {
+  inherits(x, "sf")
+}
+
+on_failure(is_sf) <- function(call, env) {
+  paste0(
+    "Data must be of class `",
+    crayon::red("sf"),
+    "`."
+  )
 }

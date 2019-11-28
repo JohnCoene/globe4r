@@ -18,3 +18,5 @@ choropleth.html
 gadm36_IND_1_sp.rds
 ^cran-comments\.md$
 ^appveyor\.yml$
+^CRAN-RELEASE$
+railways

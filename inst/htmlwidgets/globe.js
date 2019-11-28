@@ -281,6 +281,18 @@ HTMLWidgets.widget({
             })
         }
 
+
+        if(x.hasOwnProperty("pathsData")){
+          globe
+            .pathsData(x.pathsData)
+            .pathPoints('coords')
+            .pathPointLat(p => p[1])
+            .pathPointLng(p => p[0])
+
+          if(x.hasOwnProperty("pathColor"))
+            globe.pathColor(x.pathColor);
+        }
+
       },
 
       getGlobe: function(){

@@ -81,6 +81,15 @@ build_globe <- function(globe){
   if(length(globe$x$hexBinPointsData))
     globe$x$hexBinPointsData <- apply(globe$x$hexBinPointsData, 1, as.list)
 
+  if(length(globe$x$pathsData))
+    globe$x$pathsData <- purrr::transpose(globe$x$pathsData) %>% 
+      purrr::map(function(p){
+        p$coords <- p$coords %>% 
+          purrr::transpose() %>% 
+          purrr::map(unname)
+        return(p)
+      })
+
   if(!length(globe$x$backgroundColor))
     globe$x$backgroundColor <- getOption("backgroundColor")
 

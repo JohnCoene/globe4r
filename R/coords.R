@@ -154,6 +154,9 @@ mutate_aes <- function(main_aes = NULL, aes = NULL, inherit = TRUE){
 
 # combine mappings into main
 combine_coords <- function(main_coords, coords, inherit_coords = TRUE){
+  if(!length(main_coords) && !length(coords))
+    return(list())
+
   if(inherit_coords){
     for(i in 1:length(coords)){
       c <- names(coords)[[i]]
