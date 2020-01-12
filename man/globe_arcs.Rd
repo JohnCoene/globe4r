@@ -97,5 +97,5 @@ server <- function(input, output){
   })
 }
 
-\dontrun{shinyApp(ui, server)}
+if(interactive()) shinyApp(ui, server)
 }

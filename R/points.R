@@ -55,7 +55,7 @@
 #'   })
 #' }
 #' 
-#' \dontrun{shinyApp(ui, server)}
+#' if(interactive()) shinyApp(ui, server)
 #' @export
 globe_bars <- function(globe, ..., data = NULL, inherit_coords = TRUE, on_click = NULL, on_right_click = NULL, 
   on_hover = NULL) UseMethod("globe_bars")
@@ -191,7 +191,7 @@ globe_bars.globeProxy <- function(globe, ..., data = NULL, inherit_coords = FALS
 #'   })
 #' }
 #' 
-#' \dontrun{shinyApp(ui, server)}
+#' if(interactive()) shinyApp(ui, server)
 #' 
 #' @name bars_data
 #' @export

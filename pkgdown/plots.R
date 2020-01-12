@@ -94,4 +94,20 @@ create_globe(cables, height = "100vh") %>%
   ) %>% 
   htmlwidgets::saveWidget(file = "paths.html")
 
+# rail
+# http://osm2shp.ru/
+rail <- sf::read_sf("~/Downloads/railway_ln")
+
+create_globe(rail, height = "100vh") %>% 
+  globe_img_url() %>% 
+  globe_paths(
+    coords(
+      label = railway,
+      color = color, 
+      dash_length = .1, 
+      dash_gap = .008, 
+      dash_animate_time = 12000
+    )
+  )
+
 setwd(wd)

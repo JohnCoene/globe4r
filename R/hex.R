@@ -50,7 +50,7 @@
 #'   })
 #' }
 #' 
-#' \dontrun{shinyApp(ui, server)}
+#' if(interactive()) shinyApp(ui, server)
 #' 
 #' @export
 globe_hex <- function(globe, ..., data = NULL, inherit_coords = TRUE, on_click = NULL, on_right_click = NULL, 

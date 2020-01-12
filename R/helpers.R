@@ -14,7 +14,7 @@
 #'   bars_lon("long")
 #' 
 #' # passing a constant straight does not work
-#' \dontrun{bars_color(g, "red")}
+#' if(interactive()) bars_color(g, "red")
 #' 
 #' # using `constant` it works
 #' RED <- constant("red")

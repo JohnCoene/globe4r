@@ -20,3 +20,4 @@ gadm36_IND_1_sp.rds
 ^appveyor\.yml$
 ^CRAN-RELEASE$
 railways
+.vscode

@@ -52,7 +52,7 @@
 #'   })
 #' }
 #' 
-#' \dontrun{shinyApp(ui, server)}
+#' if(interactive()) shinyApp(ui, server)
 #' 
 #' @export
 globe_labels <- function(globe, ...) UseMethod("globe_labels")

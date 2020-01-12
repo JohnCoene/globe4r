@@ -34,7 +34,7 @@
 #'   })
 #' }
 #' 
-#' \dontrun{shinyApp(ui, server)}
+#' if(interactive()) shinyApp(ui, server)
 #' 
 #' @name globe_img
 #' @export
@@ -109,7 +109,7 @@ bump_img_url.globeProxy <- function(globe, url = image_url("topology")){
 #'   })
 #' }
 #' 
-#' \dontrun{shinyApp(ui, server)}
+#' if(interactive()) shinyApp(ui, server)
 #' 
 #' @name atmosphere
 #' @export
@@ -189,7 +189,7 @@ show_graticules.globeProxy <- function(globe, show = TRUE){
 #'   })
 #' }
 #' 
-#' \dontrun{shinyApp(ui, server)}
+#' if(interactive()) shinyApp(ui, server)
 #' 
 #' @name container
 #' @export
